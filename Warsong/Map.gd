@@ -48,5 +48,23 @@ func highlight_available_tiles ():
 			westTile.toggle_highlight(true)
 
 
+# places down a building on the map
+func place_building (tile, texture):
+ 
+	tilesWithBuildings.append(tile)
+	tile.place_building(texture)
+ 
+	disable_tile_highlights()
+
+func _ready ():
+ 
+	# when we're initialized, get all of the tiles
+	allTiles = get_tree().get_nodes_in_group("Tiles")
+ 
+	# find the start tile and place the Base building
+	for x in range(allTiles.size()):
+		if allTiles[x].startTile == true:
+			place_building(allTiles[x], BuildingData.base.iconTexture)
+
 
 
