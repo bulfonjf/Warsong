@@ -3,8 +3,10 @@ extends Node
 onready var menu_lateral : Control = get_node("/root/NodoPrincipal/MenuLateral")
 #onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 onready var grilla_movimiento: TileMap = get_node("/root/NodoPrincipal/GrillaMovimiento")
-
+onready var grilla_movimiento2: TileMap = get_node("/root/NodoPrincipal/Navigation2D/GrillaMovimiento2")
 # Declare member variables here. Examples:
+var nav
+var camino
 var actor_actual
 signal finalizado
 var movimiento_activado = false
@@ -16,10 +18,11 @@ func _ready():
 func click_en_jugador(jugador):
 	actor_actual = jugador
 	menu_lateral.mostrar()
+	
 
 func click_en_grilla(celda_clickeada):
 	if movimiento_activado:
-		mover_actor_actual(celda_clickeada)
+		grilla_movimiento2.mover_actor_actual(celda_clickeada)
 
 
 func mostrar_movimiento_disponible():
