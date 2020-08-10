@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Resources/World/TileSets/outdoor.png" type="Texture" id=1]
+[ext_resource path="res://Resources/Players/Sprites/mosquito.png" type="Texture" id=2]
+[ext_resource path="res://Player/jugador.gd" type="Script" id=3]
+[ext_resource path="res://GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
+[ext_resource path="res://MenuLateral/menu_lateral.gd" type="Script" id=5]
+[ext_resource path="res://Orquestador/orquestador.gd" type="Script" id=6]
+[ext_resource path="res://GrillaMovimiento/tile_resaltado.tres" type="TileSet" id=7]
+
+[sub_resource type="TileSet" id=1]
+0/name = "outdoor.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 3, 2, 982, 508 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 0
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 325, Vector2( 0, 1 ), 325, Vector2( 0, 2 ), 325, Vector2( 0, 3 ), 325, Vector2( 1, 0 ), 325, Vector2( 1, 1 ), 325, Vector2( 1, 2 ), 325, Vector2( 1, 3 ), 325, Vector2( 2, 0 ), 325, Vector2( 2, 1 ), 325, Vector2( 2, 2 ), 325, Vector2( 2, 3 ), 68, Vector2( 3, 0 ), 256, Vector2( 3, 1 ), 260, Vector2( 3, 2 ), 4, Vector2( 3, 3 ), 325, Vector2( 4, 0 ), 320, Vector2( 4, 1 ), 325, Vector2( 4, 2 ), 5, Vector2( 4, 3 ), 325, Vector2( 5, 0 ), 64, Vector2( 5, 1 ), 65, Vector2( 5, 2 ), 1, Vector2( 5, 3 ), 325, Vector2( 6, 0 ), 69, Vector2( 6, 1 ), 321, Vector2( 6, 2 ), 257, Vector2( 6, 3 ), 68, Vector2( 7, 0 ), 1, Vector2( 7, 1 ), 64, Vector2( 7, 2 ), 64, Vector2( 7, 3 ), 1 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 128, 128 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 58.1663, 58.639 )
+
+[node name="NodoPrincipal" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="GrillaPrincipal" type="TileMap" parent="."]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 65536, 1, 0, 1, 2, 0, 0, 3, 0, 65536, 4, 0, 65536, 5, 0, 65536, 6, 0, 65539, 65536, 0, 65536, 65537, 0, 0, 65538, 0, 65536, 65539, 0, 65536, 65540, 0, 2, 65541, 0, 65536, 65542, 0, 65539, 131072, 0, 65536, 131073, 0, 65536, 131074, 0, 65536, 131075, 0, 65536, 131076, 0, 65536, 131077, 0, 65536, 131078, 0, 65539, 196608, 0, 4, 196609, 0, 4, 196610, 0, 4, 196611, 0, 4, 196612, 0, 4, 196613, 0, 4, 196614, 0, 65543 )
+
+[node name="jugador" type="KinematicBody2D" parent="GrillaPrincipal"]
+position = Vector2( 64, 64 )
+input_pickable = true
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="GrillaPrincipal/jugador"]
+position = Vector2( 0.943878, 0 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrillaPrincipal/jugador"]
+visible = false
+position = Vector2( -8.49487, 4.71939 )
+shape = SubResource( 2 )
+
+[node name="GrillaMovimiento" type="TileMap" parent="."]
+modulate = Color( 0.945098, 0.952941, 0.0117647, 0.627451 )
+light_mask = -2147482625
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 128, 128 )
+format = 1
+script = ExtResource( 4 )
+
+[node name="MenuLateral" type="Control" parent="."]
+visible = false
+margin_right = 78.0
+margin_bottom = 44.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="MenuLateral"]
+margin_right = 69.0
+margin_bottom = 31.0
+
+[node name="Mover" type="Button" parent="MenuLateral"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Mover"
+[connection signal="input_event" from="GrillaPrincipal/jugador" to="GrillaPrincipal/jugador" method="_on_jugador_input_event"]
+[connection signal="pressed" from="MenuLateral/Mover" to="MenuLateral" method="_on_Mover_pressed"]
