@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mosquito.png-691f77794388e95564a814eaa714125f.stex"
+path="res://.import/Warsong_4.jpg-d4d9607cd56f8f79cdbc54e73f29d802.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Players/Sprites/mosquito.png"
-dest_files=[ "res://.import/mosquito.png-691f77794388e95564a814eaa714125f.stex" ]
+source_file="res://Resources/World/TileSets/Warsong_4.jpg"
+dest_files=[ "res://.import/Warsong_4.jpg-d4d9607cd56f8f79cdbc54e73f29d802.stex" ]
 
 [params]
 

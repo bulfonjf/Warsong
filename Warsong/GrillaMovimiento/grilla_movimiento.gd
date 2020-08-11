@@ -6,10 +6,17 @@ var tiles_resaltados
 func _ready():
 	pass 
 
-#Highlaitea tiles de movimiento dispoible
+#Highlaitea un tile de movimiento dispoible
 #Es llamada por orquestador.mostrar_movimiento_disponible():
 func resaltar_tile(ubicacion: Vector2):
 	self.set_cellv(ubicacion, 0)
+
+
+#Highlaitea una lista de tiles de movimiento disponible:
+func resaltar_tiles(lista_tiles: Array):
+	for tile in lista_tiles:
+		self.resaltar_tile(tile)
+
 
 #Borra los tiles highlaiteados:
 #Espera la señal "finalizado" de orquestador.mover_actor_actual()

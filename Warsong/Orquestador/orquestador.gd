@@ -34,7 +34,7 @@ func mostrar_movimiento_disponible():
 	var celda_inferior = Vector2(0,-1)
 	var celdas_mov = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
 	for celda in celdas_mov:
-		var tile_a_resaltar = grilla_principal.obtener_posicion(actor_actual) + celda #pide la posicin al a grilla y le suma una celda
+		var tile_a_resaltar = grilla_principal.obtener_posicion_grilla(actor_actual) + celda #pide la posicin al a grilla y le suma una celda
 		grilla_movimiento.resaltar_tile(tile_a_resaltar)
 	
 	
