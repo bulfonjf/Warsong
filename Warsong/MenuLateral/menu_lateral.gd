@@ -2,30 +2,26 @@ extends Node
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
+# Ready
 func _ready():
-	pass # Replace with function body.
+	pass 
 
-func mostrar():
+#Funciones que muestran y ocultan el menu
+#Llamada por orquestador.click_en_jugador(jugador)
+func mostrar(posicion):
+	self.rect_position = posicion
 	self.visible = true
+#Llamada por self._on_NodoPrincipal_finalizado():
 func ocultar():
 	self.visible = false
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
+#Funcion que se ejecuta cuando se hace click en el boton "Mover"
 func _on_Mover_pressed():
 	orquestador.mostrar_movimiento_disponible()
 	
-
-
-
+#Funcion que se ejecuta con señal "finalizado"->[orquestador.mover_actor_actual()]
+#oculta el menu despues de que se se ejecuta (¿o no?) el movimiento.
 func _on_NodoPrincipal_finalizado():
 	self.ocultar()
-	pass # Replace with function body.
+	pass 

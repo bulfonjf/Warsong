@@ -1,17 +1,20 @@
 extends TileMap
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var tiles_resaltados
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass 
 
+#Highlaitea tiles de movimiento dispoible
+#Es llamada por orquestador.mostrar_movimiento_disponible():
 func resaltar_tile(ubicacion: Vector2):
 	self.set_cellv(ubicacion, 0)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+#Borra los tiles highlaiteados:
+#Espera la señal "finalizado" de orquestador.mover_actor_actual()
+func _on_NodoPrincipal_finalizado():
+	var tiles_resaltados = get_used_cells_by_id (0)
+	for tile in tiles_resaltados:
+		self.set_cellv(tile,-1)
+	pass 

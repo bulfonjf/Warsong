@@ -1,22 +1,25 @@
 extends TileMap
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
 
-# Called when the node enters the scene tree for the first time.
+#Ready
 func _ready():
-	pass # Replace with function body.
+	pass 
 
+#Se ejecuta cuando la grilla es clickeada
+#le avisa al orquestador de la posicion del clickeo en formato pixels
+#toma una posixion x,y, y devuelve la posicion del centro de la celda que se clickeo. 
 func _input(event):
 	if event is InputEventMouseButton && !event.is_pressed():
-		var posicion = event.position
-		var posicionv = world_to_map((posicion))
-		var posicionx = map_to_world((posicionv))
-		orquestador.click_en_grilla(posicionx)
+		var posicion = event.position  #toma la posicion del clickeo
+		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato celda vector2
+		var posicionxy = map_to_world((posicionv2)) #convierte el vector2 en formato x,y nuevamente
+		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+#Obtener posicion de un nodo hijo en formato Vector2 (te da la celda)
+func obtener_posicion(nodo):
+	var posicion = nodo.position
+	var celda = world_to_map(posicion)
+	return(celda)

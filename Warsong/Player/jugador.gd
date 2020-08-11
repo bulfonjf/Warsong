@@ -2,24 +2,16 @@ extends KinematicBody2D
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 
-# Declare member variables here. Examples:
-var ubicacion_celda = Vector2(0,0)
+# Variables:
+#var movimiento, ¿En algun momento la usaremos? por ahora no
 var movimiento = 3
 
-# Called when the node enters the scene tree for the first time.
+# Ready
 func _ready():
 	pass # Replace with function body.
 
 
-func obtener_celda():
-	return ubicacion_celda
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
+#Funcion que se ejecuta cuando clickean al jugador
 func _on_jugador_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():
 		orquestador.click_en_jugador(self)

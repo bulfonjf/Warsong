@@ -85,6 +85,7 @@ margin_bottom = 31.0
 margin_right = 12.0
 margin_bottom = 20.0
 text = "Mover"
+[connection signal="finalizado" from="." to="GrillaMovimiento" method="_on_NodoPrincipal_finalizado"]
 [connection signal="finalizado" from="." to="MenuLateral" method="_on_NodoPrincipal_finalizado"]
 [connection signal="input_event" from="GrillaPrincipal/jugador" to="GrillaPrincipal/jugador" method="_on_jugador_input_event"]
 [connection signal="hide" from="MenuLateral" to="." method="_on_MenuLateral_hide"]
