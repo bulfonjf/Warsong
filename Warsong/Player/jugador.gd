@@ -4,7 +4,7 @@ onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 
 # Variables:
 #var movimiento, ¿En algun momento la usaremos? por ahora no
-var movimiento = 3
+export var movimiento = 3
 
 # Ready
 func _ready():

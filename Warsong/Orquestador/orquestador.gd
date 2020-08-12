@@ -3,7 +3,7 @@ extends Node
 onready var menu_lateral : Control = get_node("/root/NodoPrincipal/MenuLateral")
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 onready var grilla_movimiento: TileMap = get_node("/root/NodoPrincipal/GrillaMovimiento")
-
+onready var algoritmo_movimiento: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/AlgoritmoMovimiento")
 # VARIABLES
 var actor_actual : Node2D
 
@@ -28,14 +28,8 @@ func click_en_jugador(jugador):
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible():
 	movimiento_activado = true
-	var celda_derecha = Vector2(1,0)
-	var celda_izquierda = Vector2(-1,0)
-	var celda_superior = Vector2(0,1)
-	var celda_inferior = Vector2(0,-1)
-	var celdas_mov = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
-	for celda in celdas_mov:
-		var tile_a_resaltar = grilla_principal.obtener_posicion_grilla(actor_actual) + celda #pide la posicin al a grilla y le suma una celda
-		grilla_movimiento.resaltar_tile(tile_a_resaltar)
+	var celdas_mov = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_actual)
+	grilla_movimiento.resaltar_celdas(celdas_mov)
 	
 	
 #Grilla llama a esta funcion cuando es clickeada:

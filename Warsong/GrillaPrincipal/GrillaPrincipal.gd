@@ -7,6 +7,15 @@ onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 func _ready():
 	pass 
 
+
+func obtener_celdas_adyacentes(celda : Vector2):
+	var celda_derecha = celda + Vector2(1,0)
+	var celda_izquierda = celda + Vector2(-1,0)
+	var celda_superior =  celda + Vector2(0,1)
+	var celda_inferior = celda + Vector2(0,-1)
+	var celdas_adyacentes = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
+	return celdas_adyacentes
+
 #Se ejecuta cuando la grilla es clickeada
 #le avisa al orquestador de la posicion del clickeo en formato pixels
 #toma una posixion x,y, y devuelve la posicion de la esquia sup izquierda de la celda que se clickeo. 
@@ -30,3 +39,12 @@ func obtener_posicion_pixels(celdas):
 	for celda in celdas:
 		posiciones.append(map_to_world(celda))
 	return posiciones
+
+func obtener_info_de_celda(ubicacion_celda: Vector2):
+	var tile_id = self.get_cellv(ubicacion_celda)
+	var tile_name = self.tile_set.tile_get_name(tile_id)
+	if(tile_name == 'pasto'):
+		return 100
+	return 0
+	
+	
