@@ -1,7 +1,7 @@
 extends TileMap
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
-
+onready var territorio_data: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/TerritorioData")
 
 #Ready
 func _ready():
@@ -42,9 +42,7 @@ func obtener_posicion_pixels(celdas):
 
 func obtener_info_de_celda(ubicacion_celda: Vector2):
 	var tile_id = self.get_cellv(ubicacion_celda)
+	if(tile_id == -1):
+		return {'tipo': 'empty'}
 	var tile_name = self.tile_set.tile_get_name(tile_id)
-	if(tile_name == 'pasto'):
-		return 100
-	return 0
-	
-	
+	return territorio_data.territorios[tile_name]

@@ -2,6 +2,7 @@ extends Node2D
 
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -23,7 +24,7 @@ func obtener_celdas_donde_se_puede_mover(jugador):
 	
 func puede_mover(jugador, movimiento_disponible, celda):
 	var info_celda = grilla_principal.obtener_info_de_celda(celda)
-	if(movimiento_disponible > info_celda):
+	if(movimiento_disponible > 1 && info_celda['tipo'] == 'ruta'):
 		return true
 	return false
 	
