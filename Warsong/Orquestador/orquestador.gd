@@ -6,8 +6,9 @@ onready var grilla_movimiento: TileMap = get_node("/root/NodoPrincipal/GrillaMov
 onready var algoritmo_movimiento: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/AlgoritmoMovimiento")
 # VARIABLES
 var actor_actual : Node2D
-
 var movimiento_activado = false
+var celdas_de_movimiento : Array
+
 #SEÑALES
 signal finalizado
 
@@ -28,15 +29,17 @@ func click_en_jugador(jugador):
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible():
 	movimiento_activado = true
-	var celdas_mov = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_actual)
-	grilla_movimiento.resaltar_celdas(celdas_mov)
+	celdas_de_movimiento = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_actual)
+	grilla_movimiento.resaltar_celdas(celdas_de_movimiento)
 	
 	
 #Grilla llama a esta funcion cuando es clickeada:
 #Llama a mover_actor_actual, la funcion de abajo
 func click_en_grilla(celda_clickeada):
-	if movimiento_activado:
+	var celda = grilla_principal.pixeles_a_celda(celda_clickeada)
+	if movimiento_activado and celda in celdas_de_movimiento:
 		mover_actor_actual(celda_clickeada)
+
 
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]

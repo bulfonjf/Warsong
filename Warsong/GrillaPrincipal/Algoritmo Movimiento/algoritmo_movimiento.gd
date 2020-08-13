@@ -16,7 +16,9 @@ func obtener_celdas_donde_se_puede_mover(jugador):
 	
 	for celda in celdas_adyacentes_al_jugador:
 		evaluar_branch(celda_jugador, celda, jugador.data()["movimientos"], jugador, celdas_de_movimiento_permitido) 
+	celdas_de_movimiento_permitido.erase(celda_jugador)
 	return celdas_de_movimiento_permitido.keys()
+	
 	
 func evaluar_branch(celda_origen, celda_destino, movimiento_disponible, jugador, celdas_de_movimiento_permitido):
 	var tipo_de_terreno_celda_destino = grilla_principal.obtener_info_de_celda(celda_destino)["tipo"]

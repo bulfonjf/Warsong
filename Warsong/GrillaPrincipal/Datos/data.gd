@@ -38,6 +38,6 @@ export var jugadores = {
 			"tierra" : 2,
 			"camino" : 1,			 
 		},
-		"movimientos" : 3
+		"movimientos" : 7
 	}
 }

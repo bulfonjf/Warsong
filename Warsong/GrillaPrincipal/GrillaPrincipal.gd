@@ -2,7 +2,7 @@ extends TileMap
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var data: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/Data")
-
+onready var camara2D: Node2D = get_node("/root/NodoPrincipal/Camera2D")
 #Ready
 func _ready():
 	pass 
@@ -21,17 +21,23 @@ func obtener_celdas_adyacentes(celda : Vector2):
 #toma una posixion x,y, y devuelve la posicion de la esquia sup izquierda de la celda que se clickeo. 
 func _input(event):
 	if event is InputEventMouseButton && !event.is_pressed():
-		var posicion = event.position  #toma la posicion del clickeo en pixeles
+		var posicion = event.position + camara2D.position #toma la posicion del clickeo en pixeles
 		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato ubicacion grilla
 		var posicionxy = map_to_world((posicionv2)) #convierte el formato ubicacion grilla en formato x,y nuevamente
 		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
 		
 
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
-func obtener_posicion_grilla(nodo):
+func obtener_posicion_grilla(nodo : Node2D):
 	var posicion = nodo.position
 	var celda = world_to_map(posicion)
 	return celda
+
+#Devuelve posicion en celdas de un formato pixels (devuelve formato grilla)
+func pixeles_a_celda(posicion : Vector2):
+	var celda = world_to_map(posicion)
+	return celda
+
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
 func obtener_posicion_pixels(celdas):
@@ -40,9 +46,16 @@ func obtener_posicion_pixels(celdas):
 		posiciones.append(map_to_world(celda))
 	return posiciones
 
+
+
 func obtener_info_de_celda(ubicacion_celda: Vector2):
 	var tile_id = self.get_cellv(ubicacion_celda)
 	if(tile_id == -1):
 		return data.terrenos["empty"]
 	var tile_name = self.tile_set.tile_get_name(tile_id)
 	return data.terrenos[tile_name]
+
+func obtener_limites():
+		var celda = self.get_used_cells()[-1]
+		var limites = celda*128+ Vector2(128,128) 
+		return limites
