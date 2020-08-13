@@ -10,7 +10,7 @@
 [ext_resource path="res://GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=8]
 [ext_resource path="res://Resources/World/TileSets/Warsong_4.jpg" type="Texture" id=9]
 [ext_resource path="res://GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
-[ext_resource path="res://GrillaPrincipal/Datos/TerritorioData.gd" type="Script" id=11]
+[ext_resource path="res://GrillaPrincipal/Datos/data.gd" type="Script" id=11]
 
 [sub_resource type="TileSet" id=1]
 0/name = "outdoor.png 0"
@@ -36,7 +36,7 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-1/name = "camino"
+1/name = "ruta"
 1/texture = ExtResource( 9 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -124,7 +124,7 @@ shape = SubResource( 2 )
 visible = false
 script = ExtResource( 10 )
 
-[node name="TerritorioData" type="Node2D" parent="GrillaPrincipal"]
+[node name="Data" type="Node2D" parent="GrillaPrincipal"]
 visible = false
 script = ExtResource( 11 )
 

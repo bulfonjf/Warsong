@@ -3,24 +3,44 @@ extends Node2D
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
 
-# Called when the node enters the scene tree for the first time.
+#
 func _ready():
-	pass # Replace with function body.
+	pass 
 
 func obtener_celdas_donde_se_puede_mover(jugador):
-	var movimiento_disponible = jugador.movimiento
-	var celda_actor_posicion = grilla_principal.obtener_posicion_grilla(jugador)
-	var celdas_adyacentes = grilla_principal.obtener_celdas_adyacentes(celda_actor_posicion)
-	var celdas_donde_se_puede_mover = []
-	for celda in celdas_adyacentes:
-		if(puede_mover(jugador, movimiento_disponible, celda)):
-			celdas_donde_se_puede_mover.append(celda)
-	return celdas_donde_se_puede_mover
+	var celdas_de_movimiento_permitido = {}
+	var celda_jugador = grilla_principal.obtener_posicion_grilla(jugador)
+	var celdas_adyacentes_al_jugador = grilla_principal.obtener_celdas_adyacentes(celda_jugador)
+	
+	for celda in celdas_adyacentes_al_jugador:
+		evaluar_branch(celda_jugador, celda, jugador.data()["movimientos"], jugador, celdas_de_movimiento_permitido) 
+	return celdas_de_movimiento_permitido.keys()
+	
+func evaluar_branch(celda_origen, celda_destino, movimiento_disponible, jugador, celdas_de_movimiento_permitido):
+	var tipo_de_terreno_celda_destino = grilla_principal.obtener_info_de_celda(celda_destino)["tipo"]
+	var coste_de_movimiento = jugador.coste_de_movimiento(tipo_de_terreno_celda_destino)
+	var movimiento_disponible_branch = movimiento_disponible 
+	if movimiento_disponible_branch >= coste_de_movimiento:
+		movimiento_disponible_branch -= coste_de_movimiento
+		
+		if celdas_de_movimiento_permitido.has(celda_destino): 
+			if celdas_de_movimiento_permitido[celda_destino] < movimiento_disponible_branch:
+				celdas_de_movimiento_permitido[celda_destino] = movimiento_disponible_branch
+			else:
+				return  #Corta el algoritmo si la celda ya fue evaluada de forma más óptima
+		else:
+			celdas_de_movimiento_permitido[celda_destino] = movimiento_disponible_branch
+		
+		var celdas_adyacentes_celda_destino = grilla_principal.obtener_celdas_adyacentes(celda_destino)
+		celdas_adyacentes_celda_destino.erase(celda_origen)
+		
+		for celda in celdas_adyacentes_celda_destino:
+			evaluar_branch(celda_destino, celda, movimiento_disponible_branch, jugador, celdas_de_movimiento_permitido)
+			
+	
+
 	
 func puede_mover(jugador, movimiento_disponible, celda):
 	var info_celda = grilla_principal.obtener_info_de_celda(celda)
