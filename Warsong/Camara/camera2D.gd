@@ -1,27 +1,32 @@
 extends Camera2D
 
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
-
+onready var grilla_principal_celda_size : Vector2 = grilla_principal.get_cell_size()
+onready var alto_celda = grilla_principal_celda_size.y
+onready var ancho_celda = grilla_principal_celda_size.x
 var limites : Vector2
 
 func _input(event):
-	print(self.position)
 	if Input.is_action_pressed("ui_right"):
-		var derecha = self.position + Vector2(128,0)
-		if derecha.x <= self.limit_right:
+		var derecha = self.position + Vector2(alto_celda, 0)
+		if derecha.x <= self.limit_right + ancho_celda - OS.window_size.x: # el limite derecho es igual a la coordenaa de la ultima celda de la grilla principal + 1 ancho de celda (pq la coordenada es esquina superior izquierda) - el ancho del tamanio de la ventana
 			self.set_position(derecha) 
+			
 	elif Input.is_action_pressed("ui_left"):
-		var izquierda = self.position + Vector2(-128,0)
+		var izquierda = self.position + Vector2(-alto_celda, 0)
 		if izquierda.x >= 0:
 			self.set_position(izquierda) 
+			
 	elif Input.is_action_pressed("ui_down"):
-		var abajo = self.position + Vector2(0,128)
+		var abajo = self.position + Vector2(0, ancho_celda)
 		if abajo.y <= self.limit_bottom:
 			self.set_position(abajo) 
+			
 	elif Input.is_action_pressed("ui_up"):
-		var arriba = self.position + Vector2(0,-128)
+		var arriba = self.position + Vector2(0, -ancho_celda)
 		if arriba.y >= 0:
 			self.set_position(arriba) 
+			
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	limites = grilla_principal.obtener_limites()

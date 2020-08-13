@@ -56,6 +56,8 @@ func obtener_info_de_celda(ubicacion_celda: Vector2):
 	return data.terrenos[tile_name]
 
 func obtener_limites():
+		var celda_size = self.get_cell_size()
 		var celda = self.get_used_cells()[-1]
-		var limites = celda*128+ Vector2(128,128) 
+		var limites = celda * celda_size.x + celda_size # cantidad de celdas * tamanio en pixeles + 1 celda mas porquue las coordenadas son de  la esquina superior izquierda
 		return limites
+		
