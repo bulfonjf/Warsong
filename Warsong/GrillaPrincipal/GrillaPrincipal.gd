@@ -7,7 +7,7 @@ onready var camara2D: Node2D = get_node("/root/NodoPrincipal/Camera2D")
 func _ready():
 	pass 
 
-
+#Obtiene las celdas adyacentes a una celda
 func obtener_celdas_adyacentes(celda : Vector2):
 	var celda_derecha = celda + Vector2(1,0)
 	var celda_izquierda = celda + Vector2(-1,0)
@@ -21,12 +21,12 @@ func obtener_celdas_adyacentes(celda : Vector2):
 #toma una posixion x,y, y devuelve la posicion de la esquia sup izquierda de la celda que se clickeo. 
 func _input(event):
 	if event is InputEventMouseButton && !event.is_pressed():
-		var posicion = event.position + camara2D.position #toma la posicion del clickeo en pixeles
+		var zoom = camara2D.get_zoom()
+		var posicion = event.position * camara2D.zoom + camara2D.position  #toma la posicion del clickeo en pixeles
 		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato ubicacion grilla
 		var posicionxy = map_to_world((posicionv2)) #convierte el formato ubicacion grilla en formato x,y nuevamente
 		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
-		
-
+		print(posicion)
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D):
 	var posicion = nodo.position
@@ -47,7 +47,7 @@ func obtener_posicion_pixels(celdas):
 	return posiciones
 
 
-
+#Devuelve la data de una celda
 func obtener_info_de_celda(ubicacion_celda: Vector2):
 	var tile_id = self.get_cellv(ubicacion_celda)
 	if(tile_id == -1):
@@ -55,9 +55,10 @@ func obtener_info_de_celda(ubicacion_celda: Vector2):
 	var tile_name = self.tile_set.tile_get_name(tile_id)
 	return data.terrenos[tile_name]
 
+#Devuelve el tamaño de la grilla en pixeles
 func obtener_limites():
 		var celda_size = self.get_cell_size()
 		var celda = self.get_used_cells()[-1]
-		var limites = celda * celda_size.x + celda_size # cantidad de celdas * tamanio en pixeles + 1 celda mas porquue las coordenadas son de  la esquina superior izquierda
+		var limites =  celda * celda_size.x + celda_size # cantidad de celdas * tamanio en pixeles + 1 celda mas porquue las coordenadas son de  la esquina superior izquierda
 		return limites
 		

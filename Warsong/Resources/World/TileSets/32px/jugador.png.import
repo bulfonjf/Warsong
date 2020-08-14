@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/actor.png-625e22a470d5decc4b4d0fd271876209.stex"
+path="res://.import/jugador.png-c00e439cd7d1aab2fa11886f9d15521c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Players/Sprites/actor.png"
-dest_files=[ "res://.import/actor.png-625e22a470d5decc4b4d0fd271876209.stex" ]
+source_file="res://Resources/World/TileSets/32px/jugador.png"
+dest_files=[ "res://.import/jugador.png-c00e439cd7d1aab2fa11886f9d15521c.stex" ]
 
 [params]
 

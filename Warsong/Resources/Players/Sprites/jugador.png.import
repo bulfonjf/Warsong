@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/outdoor.png-8aed6fd200390b71cf2b8972cdb503f2.stex"
+path="res://.import/jugador.png-d277940606c1a3a1dd628473e9d07df4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/World/TileSets/outdoor.png"
-dest_files=[ "res://.import/outdoor.png-8aed6fd200390b71cf2b8972cdb503f2.stex" ]
+source_file="res://Resources/Players/Sprites/jugador.png"
+dest_files=[ "res://.import/jugador.png-d277940606c1a3a1dd628473e9d07df4.stex" ]
 
 [params]
 

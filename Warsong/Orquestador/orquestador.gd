@@ -8,6 +8,7 @@ onready var algoritmo_movimiento: Node2D = get_node("/root/NodoPrincipal/GrillaP
 var actor_actual : Node2D
 var movimiento_activado = false
 var celdas_de_movimiento : Array
+onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 #SEÑALES
 signal finalizado
@@ -44,7 +45,7 @@ func click_en_grilla(celda_clickeada):
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_actual(posicion_final):
-	actor_actual.set_position(posicion_final+Vector2(64,64))
+	actor_actual.set_position(posicion_final+ (tamanio_de_celda/2))
 	movimiento_activado = false
 	emit_signal("finalizado")
 

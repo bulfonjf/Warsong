@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Warsong_4.jpg-d4d9607cd56f8f79cdbc54e73f29d802.stex"
+path="res://.import/tilset.png-18e82a82f9d8db6f7148444855242197.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/World/TileSets/Warsong_4.jpg"
-dest_files=[ "res://.import/Warsong_4.jpg-d4d9607cd56f8f79cdbc54e73f29d802.stex" ]
+source_file="res://Resources/World/TileSets/32px/tilset.png"
+dest_files=[ "res://.import/tilset.png-18e82a82f9d8db6f7148444855242197.stex" ]
 
 [params]
 
