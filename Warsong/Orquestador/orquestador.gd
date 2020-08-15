@@ -16,6 +16,12 @@ signal finalizado
 
 # READY.
 func _ready():
+	var jugador = load("res://Player/jugador.tscn").instance()
+	self.agregar_actor(jugador, Vector2(16,16))
+	
+	var jugador2 = load("res://Player/jugador.tscn").instance()
+	self.agregar_actor(jugador2, Vector2(48,48))
+	
 	pass 
 
 #Jugador llama a esta funcion cuando es clickeado
@@ -45,11 +51,17 @@ func click_en_grilla(celda_clickeada):
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_actual(posicion_final):
+	grilla_principal.marcar_celda_como_libre(actor_actual.position)
 	actor_actual.set_position(posicion_final+ (tamanio_de_celda/2))
 	movimiento_activado = false
+	grilla_principal.marcar_celda_como_ocupada(actor_actual.position)
 	emit_signal("finalizado")
 
-
+#Agrega un actor en la grilla_principal
+func agregar_actor(actor: Node2D, posicion: Vector2):
+	actor.set_position(posicion)
+	grilla_principal.add_child(actor)
+	grilla_principal.marcar_celda_como_ocupada(actor.position)
 
 
 

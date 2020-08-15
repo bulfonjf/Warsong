@@ -3,10 +3,26 @@ extends TileMap
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var data: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/Data")
 onready var camara2D: Node2D = get_node("/root/NodoPrincipal/Camera2D")
-#Ready
-func _ready():
-	pass 
 
+
+#Variables:
+var celdas_ocupadas : Array
+
+#Devuelve las celdas_ocupadas
+func obtener_celdas_ocupadas():
+	return celdas_ocupadas
+
+#Marcar celda como desocupada:
+func marcar_celda_como_libre(posicion: Vector2):
+	var celda = self.pixeles_a_celda(posicion)
+	celdas_ocupadas.erase(celda)
+	
+#Marcar celda como ocupada
+func marcar_celda_como_ocupada(posicion: Vector2):
+	var celda = self.pixeles_a_celda(posicion)
+	if not celda in celdas_ocupadas:
+		celdas_ocupadas.append(celda)
+	
 #Obtiene las celdas adyacentes a una celda
 func obtener_celdas_adyacentes(celda : Vector2):
 	var celda_derecha = celda + Vector2(1,0)
@@ -26,7 +42,7 @@ func _input(event):
 		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato ubicacion grilla
 		var posicionxy = map_to_world((posicionv2)) #convierte el formato ubicacion grilla en formato x,y nuevamente
 		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
-		print(posicion)
+		print(celdas_ocupadas)
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D):
 	var posicion = nodo.position

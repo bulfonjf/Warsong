@@ -25,8 +25,10 @@ func evaluar_branch(celda_origen, celda_destino, movimiento_disponible, jugador,
 	var tipo_de_terreno_celda_destino = grilla_principal.obtener_info_de_celda(celda_destino)["tipo"] #obtiene el "tipo" de tile
 	var coste_de_movimiento = jugador.coste_de_movimiento(tipo_de_terreno_celda_destino) #coste de mov del tile segun el "tipo" de jugador
 	var movimiento_disponible_branch = movimiento_disponible #variable de movimiento disponibles interna
+	var celda_libre = not celda_destino in grilla_principal.celdas_ocupadas #Evalua si celda destino esta libre
 	
-	if movimiento_disponible_branch >= coste_de_movimiento:  #primero evalua si le quedan mov disponibles al jug para mover a la celda
+		
+	if movimiento_disponible_branch >= coste_de_movimiento and celda_libre:  #primero evalua si le quedan mov disponibles al jug para mover a la celda, y si la celda está libre
 		movimiento_disponible_branch -= coste_de_movimiento  #resta el coste de mov del tile al mov disponible del jugador( la variable interna)
 		
 		if celdas_de_movimiento_permitido.has(celda_destino):  #se fija si la celda ya ha sido evaluada
