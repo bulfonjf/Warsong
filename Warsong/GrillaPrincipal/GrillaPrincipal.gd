@@ -42,7 +42,7 @@ func _input(event):
 		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato ubicacion grilla
 		var posicionxy = map_to_world((posicionv2)) #convierte el formato ubicacion grilla en formato x,y nuevamente
 		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
-		print(celdas_ocupadas)
+		
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D):
 	var posicion = nodo.position

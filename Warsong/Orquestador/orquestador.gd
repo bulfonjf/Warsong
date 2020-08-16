@@ -9,7 +9,7 @@ var actor_actual : Node2D
 var movimiento_activado = false
 var celdas_de_movimiento : Array
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
-
+onready var contextos_activos = {}
 #SEÑALES
 signal finalizado
 
@@ -24,12 +24,24 @@ func _ready():
 	
 	pass 
 
+func escribir(algo):
+	print(algo)
+
 #Jugador llama a esta funcion cuando es clickeado
 #Setea el actor actual 
 #Muestra el MenuLateral en la posicion del jugador
 func click_en_jugador(jugador):
+	var contexto_mover = self.get_node("/root/NodoPrincipal/Contexto")
+	contexto_mover.data_contexto["actor_actual"] = jugador
+	contexto_mover.finalizar_contexto["finalizar_mover"] = {
+		"funcion" : funcref(self, "escribir"),
+		"argumentos" : "hola mundo"
+	}
+	contextos_activos["mover_jugador"] = contexto_mover
 	actor_actual = jugador
 	menu_lateral.mostrar(actor_actual.position)
+	
+	
 	
 
 #Highlaitea las grillas de movimiento disponibles
@@ -51,10 +63,12 @@ func click_en_grilla(celda_clickeada):
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_actual(posicion_final):
-	grilla_principal.marcar_celda_como_libre(actor_actual.position)
-	actor_actual.set_position(posicion_final+ (tamanio_de_celda/2))
+	var actor_actual_desde_contexto = contextos_activos["mover_jugador"].data_contexto["actor_actual"]
+	grilla_principal.marcar_celda_como_libre(actor_actual_desde_contexto.position)
+	actor_actual_desde_contexto.set_position(posicion_final+ (tamanio_de_celda/2))
 	movimiento_activado = false
-	grilla_principal.marcar_celda_como_ocupada(actor_actual.position)
+	grilla_principal.marcar_celda_como_ocupada(actor_actual_desde_contexto.position)
+	contextos_activos["mover_jugador"].dispose()
 	emit_signal("finalizado")
 
 #Agrega un actor en la grilla_principal
@@ -64,4 +78,9 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	grilla_principal.marcar_celda_como_ocupada(actor.position)
 
 
+
+	
+	
+	
+	
 

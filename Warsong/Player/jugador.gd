@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var data = get_node("/root/NodoPrincipal/GrillaPrincipal/Data").jugadores["fighter"]
-
+onready var id = "Garett_" + str(RandomNumberGenerator.new())
 
 func data():
 	return data
