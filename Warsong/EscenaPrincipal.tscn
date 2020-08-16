@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Orquestador/contexto.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
 [ext_resource path="res://GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
 [ext_resource path="res://MenuLateral/menu_lateral.gd" type="Script" id=5]
@@ -123,10 +122,5 @@ zoom = Vector2( 0.5, 0.5 )
 smoothing_speed = 10.0
 editor_draw_limits = true
 script = ExtResource( 12 )
-
-[node name="Contexto" type="Node2D" parent="."]
-script = ExtResource( 1 )
-[connection signal="finalizado" from="." to="MenuLateral" method="_on_NodoPrincipal_finalizado"]
-[connection signal="finalizado" from="." to="GrillaMovimiento" method="_on_NodoPrincipal_finalizado"]
 [connection signal="hide" from="MenuLateral" to="." method="_on_MenuLateral_hide"]
 [connection signal="pressed" from="MenuLateral/Mover" to="MenuLateral" method="_on_Mover_pressed"]

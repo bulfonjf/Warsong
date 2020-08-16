@@ -19,9 +19,7 @@ func resaltar_celdas(lista_celdas: Array):
 
 
 #Borra los tiles highlaiteados:
-#Espera la señal "finalizado" de orquestador.mover_actor_actual()
-func _on_NodoPrincipal_finalizado():
+func quitar_celdas_resaltadas():
 	var tiles_resaltados = get_used_cells_by_id (0)
 	for tile in tiles_resaltados:
 		self.set_cellv(tile, -1)
-	pass 
