@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="Warsong"
 run/main_scene="res://EscenaPrincipal.tscn"
 
+[autoload]
+
+SeleccionJugador="*res://Contexto/seleccion_jugador.gd"
+
 [display]
 
 window/size/height=640

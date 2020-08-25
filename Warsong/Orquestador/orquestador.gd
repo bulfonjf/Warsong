@@ -16,7 +16,7 @@ onready var contextos_activos = {}
 #SEÑALES
 
 
-# READY.
+# READY
 func _ready():
 	var jugador = load("res://Player/jugador.tscn").instance()
 	self.agregar_actor(jugador, Vector2(16,16))
