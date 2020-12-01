@@ -70,6 +70,7 @@ func obtener_info_de_celda(ubicacion_celda: Vector2):
 		return data.terrenos["empty"]
 	var tile_name = self.tile_set.tile_get_name(tile_id)
 	return data.terrenos[tile_name]
+	
 
 #Devuelve el tamaño de la grilla en pixeles
 func obtener_limites():

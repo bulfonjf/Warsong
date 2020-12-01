@@ -16,6 +16,7 @@ func mostrar(posicion):
 #Oculta el menu:
 func ocultar():
 	self.visible = false
+	
 
 
 #Funcion que se ejecuta cuando se hace click en el boton "Mover"
