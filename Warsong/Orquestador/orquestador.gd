@@ -6,7 +6,7 @@ onready var menu_lateral : Control = get_node("/root/NodoPrincipal/MenuLateral")
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 onready var grilla_movimiento: TileMap = get_node("/root/NodoPrincipal/GrillaMovimiento")
 onready var algoritmo_movimiento: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/AlgoritmoMovimiento")
-
+onready var partida : Script = load("res://Partida/partida.gd")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
@@ -18,11 +18,14 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 # READY
 func _ready():
-	var jugador = load("res://Player/jugador.tscn").instance()
-	self.agregar_actor(jugador, Vector2(16,16))
 	
-	var jugador2 = load("res://Player/jugador.tscn").instance()
-	self.agregar_actor(jugador2, Vector2(48,48))
+	for jugadorPartida in partida.data["jugadores"]:
+		var jugador = load("res://Player/jugador.tscn").instance()
+		for grupo in jugadorPartida["grupos"]:
+			jugador.add_to_group(grupo)
+		var posicionJugadorPartidaEnCeldas = jugadorPartida["posicion_inicial"]
+		var posicionJugador = grilla_principal.obtener_centro_celda(posicionJugadorPartidaEnCeldas)
+		self.agregar_actor(jugador, posicionJugador)
 	
 	pass 
 
@@ -65,7 +68,8 @@ func click_en_grilla(celda_clickeada):
 func mover_actor_activo(posicion_final):
 	var actor_activo = SeleccionJugador.get_actor_activo()
 	grilla_principal.marcar_celda_como_libre(actor_activo.position)
-	actor_activo.set_position(posicion_final+ (tamanio_de_celda/2))
+	var posicion_en_pixeles = grilla_principal.obtener_centro_celda(posicion_final)
+	actor_activo.set_position(posicion_en_pixeles)
 	grilla_principal.marcar_celda_como_ocupada(actor_activo.position)
 	SeleccionJugador.dispose()
 
@@ -74,4 +78,4 @@ func mover_actor_activo(posicion_final):
 func agregar_actor(actor: Node2D, posicion: Vector2):
 	actor.set_position(posicion)
 	grilla_principal.add_child(actor)
-	grilla_principal.marcar_celda_como_ocupada(actor.position)
+	grilla_principal.marcar_celda_como_ocupada(actor.position)	 

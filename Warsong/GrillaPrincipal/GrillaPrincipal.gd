@@ -54,6 +54,10 @@ func pixeles_a_celda(posicion : Vector2):
 	var celda = world_to_map(posicion)
 	return celda
 
+#Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
+func celdas_a_pixeles(posicion : Vector2):
+	var pixeles = map_to_world(posicion)
+	return pixeles
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
 func obtener_posicion_pixels(celdas):
@@ -61,6 +65,14 @@ func obtener_posicion_pixels(celdas):
 	for celda in celdas:
 		posiciones.append(map_to_world(celda))
 	return posiciones
+	
+func obtener_centro_celda_desde_un_pixel(posicionEnPixeles : Vector2):
+	var celda = pixeles_a_celda(posicionEnPixeles)
+	return obtener_centro_celda(celda)
+
+func obtener_centro_celda(celda : Vector2):
+	var esquina_superior_izquierda_pixeles = celdas_a_pixeles(celda)
+	return esquina_superior_izquierda_pixeles + self.get_cell_size() / 2
 
 
 #Devuelve la data de una celda
