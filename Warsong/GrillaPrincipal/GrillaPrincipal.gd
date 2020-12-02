@@ -13,22 +13,22 @@ func obtener_celdas_ocupadas():
 	return celdas_ocupadas
 
 #Marcar celda como desocupada:
-func marcar_celda_como_libre(posicion: Vector2):
+func marcar_celda_como_libre(posicion: Pixel):
 	var celda = self.pixeles_a_celda(posicion)
 	celdas_ocupadas.erase(celda)
 	
 #Marcar celda como ocupada
-func marcar_celda_como_ocupada(posicion: Vector2):
+func marcar_celda_como_ocupada(posicion: Pixel):
 	var celda = self.pixeles_a_celda(posicion)
 	if not celda in celdas_ocupadas:
 		celdas_ocupadas.append(celda)
 	
 #Obtiene las celdas adyacentes a una celda
-func obtener_celdas_adyacentes(celda : Vector2):
-	var celda_derecha = celda + Vector2(1,0)
-	var celda_izquierda = celda + Vector2(-1,0)
-	var celda_superior =  celda + Vector2(0,1)
-	var celda_inferior = celda + Vector2(0,-1)
+func obtener_celdas_adyacentes(celda : Celda) -> Array:
+	var celda_derecha = celda.vector + Vector2.RIGHT
+	var celda_izquierda = celda.vector + Vector2.LEFT
+	var celda_superior =  celda.vector + Vector2.UP
+	var celda_inferior = celda.vector + Vector2.DOWN
 	var celdas_adyacentes = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
 	return celdas_adyacentes
 
@@ -50,8 +50,8 @@ func obtener_posicion_grilla(nodo : Node2D):
 	return celda
 
 #Devuelve posicion en celdas de un formato pixels (devuelve formato grilla)
-func pixeles_a_celda(posicion : Vector2):
-	var celda = world_to_map(posicion)
+func pixeles_a_celda(posicion : Pixel):
+	var celda = world_to_map(posicion.vector)
 	return celda
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)

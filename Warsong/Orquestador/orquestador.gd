@@ -19,6 +19,9 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 # READY
 func _ready():
 	
+	var pixel = load("res://Scripts/pixel.gd").new(1,1)
+	print(pixel.vector)
+	
 	for jugadorPartida in partida.data["jugadores"]:
 		var jugador = load("res://Player/jugador.tscn").instance()
 		for grupo in jugadorPartida["grupos"]:
