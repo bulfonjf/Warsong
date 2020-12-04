@@ -15,7 +15,7 @@ func resaltar_tile(ubicacion: Vector2):
 #Highlaitea una lista de tiles de movimiento disponible:
 func resaltar_celdas(lista_celdas: Array):
 	for celda in lista_celdas:
-		self.resaltar_tile(celda)
+		self.resaltar_tile(celda.vector)
 
 
 #Borra los tiles highlaiteados:

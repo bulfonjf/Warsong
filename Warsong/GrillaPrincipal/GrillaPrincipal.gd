@@ -14,22 +14,29 @@ func obtener_celdas_ocupadas():
 
 #Marcar celda como desocupada:
 func marcar_celda_como_libre(posicion: Pixel):
-	var celda = self.pixeles_a_celda(posicion)
-	celdas_ocupadas.erase(celda)
+	var celda_a_liberar : Celda = self.pixeles_a_celda(posicion)
+	for celda in celdas_ocupadas:
+		if celda.vector == celda_a_liberar.vector:
+			celdas_ocupadas.erase(celda)
+	
 	
 #Marcar celda como ocupada
 func marcar_celda_como_ocupada(posicion: Pixel):
-	var celda = self.pixeles_a_celda(posicion)
-	if not celda in celdas_ocupadas:
+	var celda : Celda = self.pixeles_a_celda(posicion)
+	var vectores_de_celdas_ocupadas : Array
+	for celda_ocupada in celdas_ocupadas:
+		vectores_de_celdas_ocupadas.append(celda_ocupada.vector)
+	if not celda.vector in vectores_de_celdas_ocupadas:
 		celdas_ocupadas.append(celda)
+	
 	
 #Obtiene las celdas adyacentes a una celda
 func obtener_celdas_adyacentes(celda : Celda) -> Array:
-	var celda_derecha = celda.vector + Vector2.RIGHT
-	var celda_izquierda = celda.vector + Vector2.LEFT
-	var celda_superior =  celda.vector + Vector2.UP
-	var celda_inferior = celda.vector + Vector2.DOWN
-	var celdas_adyacentes = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
+	var celda_derecha : Celda = Convertir.celda(celda.vector + Vector2.RIGHT)
+	var celda_izquierda : Celda = Convertir.celda(celda.vector + Vector2.LEFT)
+	var celda_superior : Celda =  Convertir.celda(celda.vector + Vector2.UP)
+	var celda_inferior : Celda = Convertir.celda(celda.vector + Vector2.DOWN)
+	var celdas_adyacentes : Array = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
 	return celdas_adyacentes
 
 #Se ejecuta cuando la grilla es clickeada
@@ -44,40 +51,42 @@ func _input(event):
 		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
 		
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
-func obtener_posicion_grilla(nodo : Node2D):
+func obtener_posicion_grilla(nodo : Node2D)-> Celda:
 	var posicion = nodo.position
-	var celda = world_to_map(posicion)
+	var celda : Celda = Convertir.celda(world_to_map(posicion))
 	return celda
 
 #Devuelve posicion en celdas de un formato pixels (devuelve formato grilla)
-func pixeles_a_celda(posicion : Pixel):
-	var celda = world_to_map(posicion.vector)
+func pixeles_a_celda(posicion : Pixel)-> Celda:
+	var celda : Celda = Convertir.celda(world_to_map(posicion.vector))
 	return celda
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
-func celdas_a_pixeles(posicion : Vector2):
-	var pixeles = map_to_world(posicion)
+func celdas_a_pixeles(posicion : Celda)-> Pixel:
+	var pixeles = map_to_world(posicion.vector)
 	return pixeles
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
-func obtener_posicion_pixels(celdas):
+func obtener_posicion_pixels(celdas: Celda)-> Array:
 	var posiciones : Array
 	for celda in celdas:
-		posiciones.append(map_to_world(celda))
+		posiciones.append(map_to_world(celda.vector))
 	return posiciones
-	
-func obtener_centro_celda_desde_un_pixel(posicionEnPixeles : Vector2):
+
+#Dado una posicion en pixeles, devuelve el centro de la celda en pixeles.
+func obtener_centro_celda_desde_un_pixel(posicionEnPixeles : Pixel) -> Vector2:
 	var celda = pixeles_a_celda(posicionEnPixeles)
 	return obtener_centro_celda(celda)
 
-func obtener_centro_celda(celda : Vector2):
+#Dada una celda, devuelve su centro en pixeles
+func obtener_centro_celda(celda : Celda)-> Vector2:
 	var esquina_superior_izquierda_pixeles = celdas_a_pixeles(celda)
 	return esquina_superior_izquierda_pixeles + self.get_cell_size() / 2
 
 
 #Devuelve la data de una celda
-func obtener_info_de_celda(ubicacion_celda: Vector2):
-	var tile_id = self.get_cellv(ubicacion_celda)
+func obtener_info_de_celda(ubicacion_celda: Celda):
+	var tile_id = self.get_cellv(ubicacion_celda.vector)
 	if(tile_id == -1):
 		return data.terrenos["empty"]
 	var tile_name = self.tile_set.tile_get_name(tile_id)

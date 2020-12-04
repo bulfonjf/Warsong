@@ -32,7 +32,7 @@ run/main_scene="res://EscenaPrincipal.tscn"
 [autoload]
 
 SeleccionJugador="*res://Contexto/seleccion_jugador.gd"
-Tipos="*res://Scripts/convertir.gd"
+Convertir="*res://Scripts/convertir.gd"
 
 [display]
 

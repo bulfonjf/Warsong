@@ -27,6 +27,10 @@ func si_movimiento_activado():
 	return self.activo and accion_mover_jugador in self.acciones
 		
 func si_celda_resaltada(celda):
-	return celda in self.data_contexto[celdas_movimiento]
+	for key in self.data_contexto[celdas_movimiento]:
+		if celda.vector == key.vector:
+			return true
+	
+	
 
 
