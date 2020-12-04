@@ -39,6 +39,22 @@ func obtener_celdas_adyacentes(celda : Celda) -> Array:
 	var celdas_adyacentes : Array = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
 	return celdas_adyacentes
 
+func obtener_celdas_ocupadas_adyacentes(celda: Celda) -> Array:
+	var celdas_adyacentes : Array = self.obtener_celdas_adyacentes(celda)
+	var celdas_adyacentes_a_comparar : Array
+	var celdas_ocupadas : Array = self.obtener_celdas_ocupadas()
+	var celdas_ocupadas_a_comparar : Array
+	var celdas_ocupadas_adyacentes : Array 
+	for celda in celdas_adyacentes:
+		celdas_adyacentes_a_comparar.append(celda.vector)
+	for celda in celdas_ocupadas:
+		celdas_ocupadas_a_comparar.append(celda.vector)
+	for celda in celdas_adyacentes_a_comparar:
+		if celda in celdas_ocupadas_a_comparar:
+			celdas_ocupadas_adyacentes.append(celda)
+	print(celdas_ocupadas_adyacentes)
+	return celdas_ocupadas_adyacentes
+	
 #Se ejecuta cuando la grilla es clickeada
 #le avisa al orquestador de la posicion del clickeo en formato pixels
 #toma una posixion x,y, y devuelve la posicion de la esquia sup izquierda de la celda que se clickeo. 

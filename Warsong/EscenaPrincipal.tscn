@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
 [ext_resource path="res://GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
 [ext_resource path="res://MenuLateral/menu_lateral.gd" type="Script" id=5]
@@ -105,15 +106,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="MenuLateral"]
-margin_right = 32.0
-margin_bottom = 16.0
+[node name="Contenedor_H" type="VBoxContainer" parent="MenuLateral"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
 
-[node name="Mover" type="Button" parent="MenuLateral"]
+[node name="Mover" type="Button" parent="MenuLateral/Contenedor_H"]
 margin_right = 52.0
 margin_bottom = 20.0
-rect_scale = Vector2( 0.5, 0.5 )
 text = "Mover"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Atacar" type="Button" parent="MenuLateral/Contenedor_H"]
+visible = false
+margin_right = 52.0
+margin_bottom = 20.0
+text = "Atacar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -126,4 +136,5 @@ smoothing_speed = 10.0
 editor_draw_limits = true
 script = ExtResource( 12 )
 [connection signal="hide" from="MenuLateral" to="." method="_on_MenuLateral_hide"]
-[connection signal="pressed" from="MenuLateral/Mover" to="MenuLateral" method="_on_Mover_pressed"]
+[connection signal="pressed" from="MenuLateral/Contenedor_H/Mover" to="MenuLateral" method="_on_Mover_pressed"]
+[connection signal="pressed" from="MenuLateral/Contenedor_H/Atacar" to="MenuLateral" method="_on_Mover_pressed"]

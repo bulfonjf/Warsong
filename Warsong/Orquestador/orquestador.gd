@@ -45,7 +45,8 @@ func click_en_jugador(jugador):
 	SeleccionJugador.activar_contexto()
 	SeleccionJugador.set_actor_activo(jugador)
 	SeleccionJugador.add_dispose_menu(self.menu_lateral)
-	menu_lateral.mostrar(jugador.position)
+	var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(jugador))
+	menu_lateral.mostrar(jugador.position, adyacentes)
 
 
 #Highlaitea las grillas de movimiento disponibles
@@ -65,8 +66,8 @@ func click_en_grilla(celda_clickeada):
 	var celda = grilla_principal.pixeles_a_celda(Convertir.pixel(celda_clickeada))
 	if SeleccionJugador.si_movimiento_activado() and SeleccionJugador.si_celda_resaltada(celda): 
 		mover_actor_activo(celda_clickeada)
-	print(grilla_principal.celdas_ocupadas)
-
+	
+	
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_activo(posicion_final : Vector2):
