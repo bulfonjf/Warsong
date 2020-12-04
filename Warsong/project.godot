@@ -8,26 +8,37 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Celda",
+"language": "GDScript",
+"path": "res://Scripts/celda.gd"
+}, {
+"base": "Reference",
+"class": "Pixel",
+"language": "GDScript",
+"path": "res://Scripts/pixel.gd"
+} ]
 _global_script_class_icons={
-
+"Celda": "",
+"Pixel": ""
 }
 
 [application]
 
 config/name="Warsong"
-run/main_scene="res://MainScene.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://EscenaPrincipal.tscn"
 
 [autoload]
 
-BuildingData="*res://BuildingData.gd"
+SeleccionJugador="*res://Contexto/seleccion_jugador.gd"
+Convertir="*res://Scripts/convertir.gd"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
-window/size/resizable=false
+window/size/height=640
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [rendering]
 
