@@ -22,3 +22,6 @@ func ocultar():
 #Funcion que se ejecuta cuando se hace click en el boton "Mover"
 func _on_Mover_pressed():
 	orquestador.mostrar_movimiento_disponible()
+
+func _on_Atacar_pressed():
+	orquestador.atacar()

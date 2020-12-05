@@ -31,6 +31,9 @@ export var jugadores = {
 			"tierra" : 2,
 			"camino" : 1,			 
 		},
-		"movimientos" : 7
+		"movimientos" : 7,
+		"ataque" : 10,
+		"defensa" : 5,
+		"vida" : 50
 	}
 }

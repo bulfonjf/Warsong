@@ -41,12 +41,25 @@ func _ready():
 #Setea el contexto de seleccion de jugador
 #Muestra el MenuLateral en la posicion del jugador
 func click_en_jugador(jugador):
-	SeleccionJugador.dispose()	
-	SeleccionJugador.activar_contexto()
-	SeleccionJugador.set_actor_activo(jugador)
-	SeleccionJugador.add_dispose_menu(self.menu_lateral)
-	var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(jugador))
-	menu_lateral.mostrar(jugador.position, adyacentes)
+	if Ataque.activo:
+		var danio = Ataque.calcular_danio(SeleccionJugador.data_contexto.get("actor_activo"), jugador)
+		if danio > 0 :
+			var vida = jugador.vida - danio
+			jugador.vida = vida
+		print(SeleccionJugador.data_contexto.get("actor_activo"), jugador)
+		print(jugador.vida, jugador)
+		Ataque.add_dispose_menu(self.menu_lateral)
+		
+		Ataque.desactivar_contexto()
+		
+		Ataque.dispose()
+	else:
+		SeleccionJugador.dispose()	
+		SeleccionJugador.activar_contexto()
+		SeleccionJugador.set_actor_activo(jugador)
+		SeleccionJugador.add_dispose_menu(self.menu_lateral)
+		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(jugador))
+		menu_lateral.mostrar(jugador.position, adyacentes)
 
 
 #Highlaitea las grillas de movimiento disponibles
@@ -84,3 +97,8 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	actor.set_position(posicion)
 	grilla_principal.add_child(actor)
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor.position))	 
+
+func atacar():
+	Ataque.activar_contexto()
+	
+	

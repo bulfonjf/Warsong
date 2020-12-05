@@ -33,6 +33,7 @@ run/main_scene="res://EscenaPrincipal.tscn"
 
 SeleccionJugador="*res://Contexto/seleccion_jugador.gd"
 Convertir="*res://Scripts/convertir.gd"
+Ataque="*res://Contexto/ataque.gd"
 
 [display]
 

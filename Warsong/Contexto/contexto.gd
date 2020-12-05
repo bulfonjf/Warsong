@@ -1,6 +1,6 @@
 extends Node
 
-var activo = true
+var activo = false
 var data_contexto = {}
 var finalizar_contexto = {}
 var acciones = []
