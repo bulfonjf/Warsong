@@ -5,13 +5,14 @@ onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrin
 
 func _ready():
 	pass 
+	
 func celda_libre(celda_a_evaluar : Celda): #Evalua si celda destino esta libre
-	var vectores_de_celdas : Array
-	for celda in grilla_principal.celdas_ocupadas:
-		vectores_de_celdas.append(celda.vector)
-	if celda_a_evaluar.vector in vectores_de_celdas:
-			return false
-	return true
+	if celda_a_evaluar._in(grilla_principal.celdas_ocupadas):
+		return false
+	else:
+		return true
+
+	
 #Devuelve las celdas donde el jugador se puede mover
 func obtener_celdas_donde_se_puede_mover(jugador):
 	var celdas_donde_se_puede_mover : Array

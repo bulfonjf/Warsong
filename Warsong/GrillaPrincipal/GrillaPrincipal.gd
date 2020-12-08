@@ -16,18 +16,17 @@ func obtener_celdas_ocupadas():
 func marcar_celda_como_libre(posicion: Pixel):
 	var celda_a_liberar : Celda = self.pixeles_a_celda(posicion)
 	for celda in celdas_ocupadas:
-		if celda.vector == celda_a_liberar.vector:
+		if celda._eq(celda_a_liberar):
 			celdas_ocupadas.erase(celda)
+		
 	
 	
 #Marcar celda como ocupada
 func marcar_celda_como_ocupada(posicion: Pixel):
 	var celda : Celda = self.pixeles_a_celda(posicion)
-	var vectores_de_celdas_ocupadas : Array
-	for celda_ocupada in celdas_ocupadas:
-		vectores_de_celdas_ocupadas.append(celda_ocupada.vector)
-	if not celda.vector in vectores_de_celdas_ocupadas:
+	if not celda._in(celdas_ocupadas):
 		celdas_ocupadas.append(celda)
+	
 	
 	
 #Obtiene las celdas adyacentes a una celda
@@ -41,18 +40,11 @@ func obtener_celdas_adyacentes(celda : Celda) -> Array:
 
 func obtener_celdas_ocupadas_adyacentes(celda: Celda) -> Array:
 	var celdas_adyacentes : Array = self.obtener_celdas_adyacentes(celda)
-	var celdas_adyacentes_a_comparar : Array
 	var celdas_ocupadas : Array = self.obtener_celdas_ocupadas()
-	var celdas_ocupadas_a_comparar : Array
 	var celdas_ocupadas_adyacentes : Array 
 	for celda in celdas_adyacentes:
-		celdas_adyacentes_a_comparar.append(celda.vector)
-	for celda in celdas_ocupadas:
-		celdas_ocupadas_a_comparar.append(celda.vector)
-	for celda in celdas_adyacentes_a_comparar:
-		if celda in celdas_ocupadas_a_comparar:
+		if celda._in(celdas_ocupadas):
 			celdas_ocupadas_adyacentes.append(celda)
-	print(celdas_ocupadas_adyacentes)
 	return celdas_ocupadas_adyacentes
 	
 #Se ejecuta cuando la grilla es clickeada

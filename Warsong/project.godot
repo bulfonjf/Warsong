@@ -10,16 +10,22 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "AdaptadorVector",
+"language": "GDScript",
+"path": "res://Scripts/adaptador_vector.gd"
+}, {
+"base": "",
 "class": "Celda",
 "language": "GDScript",
 "path": "res://Scripts/celda.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "Pixel",
 "language": "GDScript",
 "path": "res://Scripts/pixel.gd"
 } ]
 _global_script_class_icons={
+"AdaptadorVector": "",
 "Celda": "",
 "Pixel": ""
 }

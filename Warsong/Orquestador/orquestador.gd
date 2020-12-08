@@ -19,8 +19,6 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 # READY
 func _ready():
 	
-	
-	
 	for jugadorPartida in partida.data["jugadores"]:
 		var jugador = load("res://Player/jugador.tscn").instance()
 		
@@ -46,8 +44,6 @@ func click_en_jugador(jugador):
 		if danio > 0 :
 			var vida = jugador.vida - danio
 			jugador.vida = vida
-		print(SeleccionJugador.data_contexto.get("actor_activo"), jugador)
-		print(jugador.vida, jugador)
 		Ataque.add_dispose_menu(self.menu_lateral)
 		
 		Ataque.desactivar_contexto()

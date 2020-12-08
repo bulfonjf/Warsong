@@ -28,7 +28,7 @@ func si_movimiento_activado():
 		
 func si_celda_resaltada(celda):
 	for key in self.data_contexto[celdas_movimiento]:
-		if celda.vector == key.vector:
+		if celda._eq(key):
 			return true
 	
 	

@@ -10,7 +10,6 @@ func _ready():
 
 func boton_atacar (adyacentes):
 	var tamanio_adyacentes = adyacentes.size()
-	print(tamanio_adyacentes)
 	if tamanio_adyacentes > 0:
 		atacar.visible = true
 	else:
