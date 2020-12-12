@@ -3,7 +3,7 @@
 [ext_resource path="res://Player/jugador.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Players/Sprites/jugador.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 
 [node name="jugador" type="KinematicBody2D"]
 position = Vector2( 16, 16 )
@@ -17,5 +17,5 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.49487, -0.28061 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 [connection signal="input_event" from="." to="." method="_on_jugador_input_event"]

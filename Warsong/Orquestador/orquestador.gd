@@ -2,50 +2,43 @@ extends Node
 
 
 # COMPONENTES
-onready var menu_lateral : Control = get_node("/root/NodoPrincipal/MenuLateral")
-onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
-onready var grilla_movimiento: TileMap = get_node("/root/NodoPrincipal/GrillaMovimiento")
-onready var algoritmo_movimiento: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/AlgoritmoMovimiento")
+onready var menu_lateral : Control = $MenuLateral
+onready var grilla_principal: TileMap = $GrillaPrincipal
+onready var grilla_movimiento: TileMap = $GrillaMovimiento
+onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
+
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
-#onready var contextos_activos = {}
-
 
 #SEÑALES
-
 
 # READY
 func _ready():
 	
 	for jugadorPartida in partida.data["jugadores"]:
 		var jugador = load("res://Player/jugador.tscn").instance()
-		
 		var posicion : Vector2 = jugadorPartida["posicion_inicial"]
 		var posicionJugadorPartidaEnCeldas : Celda = Convertir.celda(posicion)
 		var posicionJugador : Vector2 = grilla_principal.obtener_centro_celda(posicionJugadorPartidaEnCeldas)
 		self.agregar_actor(jugador, posicionJugador)
 		for grupo in jugadorPartida["grupos"]:
 			jugador.add_to_group(grupo)
-	
+		
 	pass 
-
-#func eliminar_contexto(nombre_contexto):
-#	contextos_activos[nombre_contexto].dispose()
-#	contextos_activos.erase(nombre_contexto)
 
 #Jugador llama a esta funcion cuando es clickeado
 #Setea el contexto de seleccion de jugador
 #Muestra el MenuLateral en la posicion del jugador
 func click_en_jugador(jugador):
-	if Ataque.activo:
+	if Ataque.activo and SeleccionJugador.data_contexto.get("actor_activo") != jugador :
 		var danio = Ataque.calcular_danio(SeleccionJugador.data_contexto.get("actor_activo"), jugador)
 		if danio > 0 :
 			var vida = jugador.vida - danio
-			jugador.vida = vida
+			jugador.actualizar_vida(vida)
 		Ataque.add_dispose_menu(self.menu_lateral)
-		
+		print(jugador.vida)
 		Ataque.desactivar_contexto()
 		
 		Ataque.dispose()
