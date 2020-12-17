@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Pixel",
 "language": "GDScript",
 "path": "res://Scripts/pixel.gd"
+}, {
+"base": "Node",
+"class": "Unidad",
+"language": "GDScript",
+"path": "res://Partida/Unidades/unidad_clase.gd"
 } ]
 _global_script_class_icons={
 "AdaptadorVector": "",
 "Celda": "",
-"Pixel": ""
+"Pixel": "",
+"Unidad": ""
 }
 
 [application]
@@ -37,9 +43,11 @@ run/main_scene="res://EscenaPrincipal.tscn"
 
 [autoload]
 
-SeleccionJugador="*res://Contexto/seleccion_jugador.gd"
 Convertir="*res://Scripts/convertir.gd"
-Ataque="*res://Contexto/ataque.gd"
+Ataque="*res://Partida/Contexto/ataque.gd"
+SeleccionTropa="*res://Partida/Contexto/seleccion_tropa.gd"
+Contexto="*res://Partida/Contexto/contexto.gd"
+Data="*res://Scripts/data.gd"
 
 [display]
 

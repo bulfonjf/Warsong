@@ -1,15 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://MenuLateral/contenedor_h.gd" type="Script" id=1]
+[ext_resource path="res://UI/MenuLateral/contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
-[ext_resource path="res://GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
-[ext_resource path="res://MenuLateral/menu_lateral.gd" type="Script" id=5]
+[ext_resource path="res://Grillas/GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
+[ext_resource path="res://UI/MenuLateral/menu_lateral.gd" type="Script" id=5]
 [ext_resource path="res://Orquestador/orquestador.gd" type="Script" id=6]
-[ext_resource path="res://GrillaMovimiento/tile_resaltado.tres" type="TileSet" id=7]
-[ext_resource path="res://GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=8]
-[ext_resource path="res://GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
-[ext_resource path="res://GrillaPrincipal/Datos/data.gd" type="Script" id=11]
-[ext_resource path="res://Camara/camera2D.gd" type="Script" id=12]
+[ext_resource path="res://Grillas/GrillaMovimiento/tile_resaltado.tres" type="TileSet" id=7]
+[ext_resource path="res://Grillas/GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=8]
+[ext_resource path="res://Grillas/GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
+[ext_resource path="res://UI/Camara/camera2D.gd" type="Script" id=12]
 
 [sub_resource type="TileSet" id=1]
 0/name = "ruta"
@@ -83,10 +82,6 @@ script = ExtResource( 8 )
 [node name="AlgoritmoMovimiento" type="Node2D" parent="GrillaPrincipal"]
 visible = false
 script = ExtResource( 10 )
-
-[node name="Data" type="Node2D" parent="GrillaPrincipal"]
-visible = false
-script = ExtResource( 11 )
 
 [node name="GrillaMovimiento" type="TileMap" parent="."]
 modulate = Color( 0.945098, 0.952941, 0.0117647, 0.627451 )

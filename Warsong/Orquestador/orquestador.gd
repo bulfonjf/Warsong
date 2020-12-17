@@ -17,48 +17,46 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 # READY
 func _ready():
 	
-	for jugadorPartida in partida.data["jugadores"]:
-		var jugador = load("res://Player/jugador.tscn").instance()
-		var posicion : Vector2 = jugadorPartida["posicion_inicial"]
-		var posicionJugadorPartidaEnCeldas : Celda = Convertir.celda(posicion)
-		var posicionJugador : Vector2 = grilla_principal.obtener_centro_celda(posicionJugadorPartidaEnCeldas)
-		self.agregar_actor(jugador, posicionJugador)
-		for grupo in jugadorPartida["grupos"]:
-			jugador.add_to_group(grupo)
-		
+	for equipo in partida.equipos:
+		for tropa in equipo.tropas:
+			#print(tropa.clase, equipo.nombre)
+			var nueva_tropa = load("res://Partida/Unidades/Unidad.tscn").instance()
+			nueva_tropa.init(tropa.clase, equipo.nombre)
+			var posicion : Vector2 = tropa.posicion
+			var posicionTropaEnCeldas : Celda = Convertir.celda(posicion)
+			var posicionTropa : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
+			self.agregar_actor(nueva_tropa, posicionTropa)
+			nueva_tropa.add_to_group(equipo.nombre)
+	
 	pass 
 
 #Jugador llama a esta funcion cuando es clickeado
-#Setea el contexto de seleccion de jugador
-#Muestra el MenuLateral en la posicion del jugador
-func click_en_jugador(jugador):
-	if Ataque.activo and SeleccionJugador.data_contexto.get("actor_activo") != jugador :
-		var danio = Ataque.calcular_danio(SeleccionJugador.data_contexto.get("actor_activo"), jugador)
-		if danio > 0 :
-			var vida = jugador.vida - danio
-			jugador.actualizar_vida(vida)
+#Setea el contexto de seleccion de tropa
+#Muestra el MenuLateral en la posicion del tropa
+func click_en_tropa(tropa):
+	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa :
+		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
+		tropa.actualizar_vida(danio)
 		Ataque.add_dispose_menu(self.menu_lateral)
-		print(jugador.vida)
 		Ataque.desactivar_contexto()
-		
 		Ataque.dispose()
 	else:
-		SeleccionJugador.dispose()	
-		SeleccionJugador.activar_contexto()
-		SeleccionJugador.set_actor_activo(jugador)
-		SeleccionJugador.add_dispose_menu(self.menu_lateral)
-		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(jugador))
-		menu_lateral.mostrar(jugador.position, adyacentes)
+		SeleccionTropa.dispose()	
+		SeleccionTropa.activar_contexto()
+		SeleccionTropa.set_actor_activo(tropa)
+		SeleccionTropa.add_dispose_menu(self.menu_lateral)
+		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(tropa))
+		menu_lateral.mostrar(tropa.position, adyacentes)
 
 
 #Highlaitea las grillas de movimiento disponibles
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible():
-	SeleccionJugador.add_dispose_grilla_movimiento(grilla_movimiento)
-	SeleccionJugador.activar_movimiento()
-	var actor_activo = SeleccionJugador.get_actor_activo()
+	SeleccionTropa.add_dispose_grilla_movimiento(grilla_movimiento)
+	SeleccionTropa.activar_movimiento()
+	var actor_activo = SeleccionTropa.get_actor_activo()
 	var celdas_de_movimiento = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_activo)
-	SeleccionJugador.set_celdas_de_movimiento(celdas_de_movimiento)
+	SeleccionTropa.set_celdas_de_movimiento(celdas_de_movimiento)
 	grilla_movimiento.resaltar_celdas(celdas_de_movimiento)
 	
 	
@@ -66,19 +64,19 @@ func mostrar_movimiento_disponible():
 #Llama a mover_actor_actual, la funcion de abajo
 func click_en_grilla(celda_clickeada):
 	var celda = grilla_principal.pixeles_a_celda(Convertir.pixel(celda_clickeada))
-	if SeleccionJugador.si_movimiento_activado() and SeleccionJugador.si_celda_resaltada(celda): 
+	if SeleccionTropa.si_movimiento_activado() and SeleccionTropa.si_celda_resaltada(celda): 
 		mover_actor_activo(celda_clickeada)
 	
 	
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_activo(posicion_final : Vector2):
-	var actor_activo = SeleccionJugador.get_actor_activo()
+	var actor_activo = SeleccionTropa.get_actor_activo()
 	grilla_principal.marcar_celda_como_libre(Convertir.pixel(actor_activo.position))
 	var posicion_en_pixeles : Vector2 = grilla_principal.obtener_centro_celda_desde_un_pixel(Convertir.pixel(posicion_final))
 	actor_activo.set_position(posicion_en_pixeles)
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor_activo.position))
-	SeleccionJugador.dispose()
+	SeleccionTropa.dispose()
 
 
 #Agrega un actor en la grilla_principal
@@ -86,7 +84,7 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	actor.set_position(posicion)
 	grilla_principal.add_child(actor)
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor.position))	 
-
+	
 func atacar():
 	Ataque.activar_contexto()
 	

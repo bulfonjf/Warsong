@@ -13,7 +13,6 @@ __meta__ = {
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
 rect_min_size = Vector2( 32, 8 )
-step = 1.0
 value = 60.0
 texture_over = ExtResource( 1 )
 texture_progress = ExtResource( 2 )

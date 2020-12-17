@@ -1,12 +1,13 @@
 extends TileMap
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
-onready var data: Node2D = get_node("/root/NodoPrincipal/GrillaPrincipal/Data")
+onready var data: Node = load("res://Scripts/data.gd").new()
 onready var camara2D: Node2D = get_node("/root/NodoPrincipal/Camera2D")
 
 
 #Variables:
 var celdas_ocupadas : Array
+
 
 #Devuelve las celdas_ocupadas
 func obtener_celdas_ocupadas():
