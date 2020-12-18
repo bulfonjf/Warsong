@@ -5,15 +5,15 @@ var texture : TextureProgress
 func _ready():
 	pass 
 
-func iniciar(jugador : Node2D):
+func iniciar(unidad):
 	texture = $TextureProgress
-	texture.max_value = jugador.unidad.clase.vida
+	texture.max_value = unidad.vida
 	self.rect_position = Vector2(-16,8)
-	self.actualizar_vida(jugador)
+	self.actualizar_vida(unidad)
 	
 
-func actualizar_vida(jugador : Node2D):
-	texture.value = jugador.unidad.clase.vida
+func actualizar_vida(unidad):
+	texture.value = unidad.vida
 	if texture.value < (texture.max_value*0.33):
 		texture.tint_progress = "f41d1d"
 	elif texture.value < (texture.max_value*0.66) and texture.value > (texture.max_value*0.33):

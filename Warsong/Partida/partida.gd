@@ -9,7 +9,7 @@ const equipos= [
 			{
 				"posicion" : posiciones[0],
 				"clase" : "fighter",
-				"equipamiento" : ["pechera de cuero", "espada"], // ojo, usar los mismos nombres que items
+				"equipamiento" : ["pechera de cuero", "espada"], #// ojo, usar los mismos nombres que items
 			}
 		]
 	},
@@ -19,7 +19,7 @@ const equipos= [
 			{
 				"posicion" : posiciones[1],
 				"clase" : "fighter",
-				"equipamiento" : ["pechera de cuero", "espada"], // ojo, usar los mismos nombres que items
+				"equipamiento" : ["pechera de cuero", "espada"], #// ojo, usar los mismos nombres que items
 			}
 		]
 	}

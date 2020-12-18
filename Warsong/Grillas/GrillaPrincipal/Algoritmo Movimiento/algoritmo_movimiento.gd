@@ -22,7 +22,7 @@ func obtener_celdas_donde_se_puede_mover(actor):
 		
 	
 	for celda in celdas_adyacentes_al_actor: #LLama a evaluzar_brach  por cada celda adyacente
-		evaluar_branch(celda_actor, celda, actor.unidad.clase.movimientos, actor, celdas_de_movimiento_permitido) 
+		evaluar_branch(celda_actor, celda, actor.unidad.get_movimientos(actor), actor, celdas_de_movimiento_permitido) 
 	
 	for celda in celdas_de_movimiento_permitido:
 		if celda_actor.vector == celda:

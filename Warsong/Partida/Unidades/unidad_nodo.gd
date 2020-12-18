@@ -2,39 +2,49 @@ extends KinematicBody2D
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var id = "Garett_" + str(RandomNumberGenerator.new())
-var unidad = load("res://Partida/Unidades/unidad_clase.gd")
+var unidad_nodo = load("res://Partida/Unidades/unidad_clase.gd")
 onready var control_vida : Control = load("res://UI/Control_Vida.tscn").instance()
-#onready var data = preload("res://Partida/Unidades/unidad.gd")
+var unidad
 
-func init(clase, equipo):
-	 unidad = unidad.new(clase, equipo)
+#func init(clase, equipo):
+#	 unidad = unidad.new(clase, equipo)
 
+func init(tropa, equipo):
+	unidad = unidad_nodo.new(tropa, equipo)
+	
+	
 func _ready():
 	self.add_child(control_vida)
-	control_vida.iniciar(self)
+	var clase_tipo = self.unidad.clase.keys()[0]
+	control_vida.iniciar(unidad.clase[clase_tipo])
+	
 	pass 
 func actualizar_vida(danio : int):
-	self.unidad.actualizar_vida(danio)
-	self.control_vida.actualizar_vida(self)
+	var clase_tipo = self.unidad.clase.keys()[0]
+	self.unidad.actualizar_vida(self, danio)
+	self.control_vida.actualizar_vida(unidad.clase[clase_tipo])
 
 #Devuelve el coste de movimiento del jugador en un terreno 
 func coste_de_movimiento(tile_name):
+	var clase_tipo = self.unidad.clase.keys()[0]
 	var coste = 1000   #Por defecto el jugador no puede moverse al terreno.
-	if self.unidad.clase.coste_movimiento.has(tile_name):
-		coste = self.unidad.clase.coste_movimiento[tile_name]
+	if self.unidad.clase[clase_tipo].coste_movimiento.has(tile_name):
+		coste = self.unidad.clase[clase_tipo].coste_movimiento[tile_name]
 	return coste
 
-#Funcion que se ejecuta cuando clickean al jugador
 
-		
 func mover(posicion : Pixel):
 	self.position = posicion.vector
 	self.control_vida.actualizar_posicion()
-	
 
-	
+func get_ataque():
+	var clase_tipo = self.unidad.clase.keys()[0]
+	return self.unidad.clase[clase_tipo].ataque
 
-
+func get_defensa():
+	var clase_tipo = self.unidad.clase.keys()[0]
+	return self.unidad.clase[clase_tipo].defensa
+#Funcion que se ejecuta cuando clickean al jugador
 func _on_Tropa_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():
 		orquestador.click_en_tropa(self)

@@ -21,7 +21,7 @@ func _ready():
 		for tropa in equipo.tropas:
 			#print(tropa.clase, equipo.nombre)
 			var nueva_tropa = load("res://Partida/Unidades/Unidad.tscn").instance()
-			nueva_tropa.init(tropa)
+			nueva_tropa.init(tropa, equipo)
 			var posicion : Vector2 = tropa.posicion
 			var posicionTropaEnCeldas : Celda = Convertir.celda(posicion)
 			var posicionTropa : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)

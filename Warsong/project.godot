@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Unidad",
 "language": "GDScript",
 "path": "res://Partida/Unidades/unidad_clase.gd"
+}, {
+"base": "Node",
+"class": "ext_lista",
+"language": "GDScript",
+"path": "res://Scripts/Extensiones/listas.gd"
 } ]
 _global_script_class_icons={
 "AdaptadorVector": "",
 "Celda": "",
 "Pixel": "",
-"Unidad": ""
+"Unidad": "",
+"ext_lista": ""
 }
 
 [application]

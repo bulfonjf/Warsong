@@ -1,12 +1,9 @@
 extends "contexto_singleton.gd"
 
 
-var actor_activo = "actor_activo"
-var celdas_movimiento = "celdas_movimiento"
-var actor_destino = "actor destino"
 
 func calcular_danio(actor_activo : Node2D, actor_destino : Node2D):
-	var danio = actor_activo.unidad.clase.ataque - actor_destino.unidad.clase.defensa
+	var danio = actor_activo.get_ataque() - actor_destino.get_defensa()
 	return danio
 
 func add_dispose_menu(menu):

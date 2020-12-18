@@ -25,39 +25,42 @@ export var terrenos = {
 	}
 }
 
-export var slots : ["pecho", "mano_izquierda", "mano_derecha"]
-export var clase_item : ["armadura_ligera", "armadura_pesada", "arma_dos_manos"]
-export var items : [
-	{
-		"nombre" : "pechera de cuero",
+export var slots : Array = ["pecho", "mano_izquierda", "mano_derecha"]
+export var clase_item : Array  = ["armadura_ligera", "armadura_pesada", "arma_dos_manos"]
+export var items : Dictionary = {
+		"pechera de cuero" : {
 		"clases" : [clase_item[1]],
-		"slots": slots[0], // hardcodealo
+		"slots": [slots[0]], #// hardcodealo
 		"modificadores": {
 			"defensa_base" : 5,
 			"movimiento" : -1,
-	},
-	{
-		"nombre" : "espada",
+			}
+		}
+	,
+	
+		"espada" : {
 		"clases" : [clase_item[2]],
-		"slots": [slots[1], slots[2]] // hardcodealo
+		"slots" : [slots[1], slots[2]], #// hardcodealo
 		"modificadores": {
 			"defensa_base" : 0,
-			"ataque_base": 6
+			"ataque_base": 6,
 			"movimiento" : 0,
-	}
-]
+			}
+		}
+	
+}
 
-export var clases_unidades = {
+export var clases_unidades : Dictionary = {
 	"fighter" : {
 		"coste_movimiento" : {
 			"tierra" : 2,
-			"camino" : 1,			 
-		},
+			"camino" : 1,
+			},
 		"movimientos" : 7,
 		"ataque" : 11,
 		"defensa" : 1,
 		"vida" : 50,
-		"puede_equipar" : clase_item, // ahora puede equipar todo, restringir despues
+		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots
 	}
 }
