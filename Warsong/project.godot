@@ -48,6 +48,7 @@ Ataque="*res://Partida/Contexto/ataque.gd"
 SeleccionTropa="*res://Partida/Contexto/seleccion_tropa.gd"
 Contexto="*res://Partida/Contexto/contexto.gd"
 Data="*res://Scripts/data.gd"
+Listas="*res://Scripts/Extensiones/listas.gd"
 
 [display]
 

@@ -8,7 +8,8 @@ const equipos= [
 		"tropas": [
 			{
 				"posicion" : posiciones[0],
-				"clase" : "fighter"
+				"clase" : "fighter",
+				"equipamiento" : ["pechera de cuero", "espada"], // ojo, usar los mismos nombres que items
 			}
 		]
 	},
@@ -17,25 +18,9 @@ const equipos= [
 		"tropas": [
 			{
 				"posicion" : posiciones[1],
-				"clase" : "fighter"
+				"clase" : "fighter",
+				"equipamiento" : ["pechera de cuero", "espada"], // ojo, usar los mismos nombres que items
 			}
 		]
 	}
  ]
-
-
-
-const data = {
-	"jugadores" : [
-		{
-			"tipo_jugador" : "fighter",
-			"posicion_inicial" : posiciones[0],
-			"grupos" : ["equipo1"]
-		},
-		{
-			"tipo_jugador" : "fighter",
-			"posicion_inicial" : posiciones[1],
-			"grupos" : ["equipo2"]
-		}
-	]
-}
