@@ -7,10 +7,10 @@ var equipamiento = []
 var slots = []
 var items = {}
 
-func _init(tropa, equipo):
+func _init(tropa, equipo_data):
 	self.set_clase(tropa.clase)
 	self.set_equipamiento(tropa.equipamiento)
-	self.set_equipo(equipo)
+	self.set_equipo(equipo_data)
 	
 func set_clase(clase_data):
 	self.clase[clase_data] = Data.clases_unidades[clase_data]
