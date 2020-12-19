@@ -1,5 +1,13 @@
 extends "res://addons/gut/test.gd"
 
+var sut = null
+
+func after_each():
+	autoqfree(sut)
+	sut = null
+	assert_no_new_orphans()
+
+
 func test_crear_unidad():
 	var partida_data ={
 				"clase" : "fighter",
@@ -7,9 +15,11 @@ func test_crear_unidad():
 			}
 
 	var equipo = {}
-	var unidad = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
-	assert_is(unidad, Unidad, "variable unidad no es de tipo Unidad")
+	sut = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
 	
+	assert_is(sut, Unidad, "verifica que el new de Unidad cree una instancia de la clase Unidad")
+	
+
 func test_puede_equipar():
 	var partida_data ={
 				"clase" : "fighter",
@@ -17,9 +27,25 @@ func test_puede_equipar():
 			}
 
 	var equipo = {}
-	var unidad = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
+	sut = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
 
-	assert_eq(unidad.equipamiento, partida_data.equipamiento)
+	assert_eq_deep(sut.equipamiento, partida_data.equipamiento)
 
-func test_prueba():
-	assert_true(true)
+func text_clase_puede_equipar():
+	var partida_data ={
+				"clase" : "fighter",
+				"equipamiento" : [], 
+			}
+
+	var equipo = {}
+	var item = {
+		"clases" : ["armadura_ligera"],
+		"slots": ["pecho"],
+		"modificadores": {
+			"defensa_base" : 5,
+			"movimiento" : -1,
+		}
+	}
+	sut = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
+	var result = sut.clase_pude_equipar_item(item)
+	assert_true(result)
