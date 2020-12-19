@@ -4,6 +4,7 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
+
 export var terrenos = {
 	'pasto': {
 		'tipo': 'tierra'
@@ -25,13 +26,13 @@ export var terrenos = {
 	}
 }
 
-export var slots : Array = ["pecho", "mano_izquierda", "mano_derecha"]
+export var slots : Array = ["pecho", "mano_izquierda", "mano_derecha", "caballo"]
 export var clase_item : Array  = ["armadura_ligera", "armadura_pesada", "arma_dos_manos"]
 export var items : Dictionary = {
 	"pechera de cuero" : {
 		"nombre": "pechera de cuero",
 		"clases" : [clase_item[1]],
-		"slots": [slots[0]], #// hardcodealo
+		"slots": ["pecho"], #// hardcodealo
 		"modificadores": {
 			"defensa_base" : 5,
 			"movimiento" : -1,
@@ -46,6 +47,15 @@ export var items : Dictionary = {
 			"ataque_base": 6,
 			"movimiento" : 0,
 		}
+	},
+	"armadura de caballo" : {
+		"nombre": "armadura de caballo",
+		"clases" : [clase_item[1]],
+		"slots": ["caballo"], #// hardcodealo
+		"modificadores": {
+			"defensa_base" : 5,
+			"movimiento" : -1,
+		}
 	}
 }
 
@@ -53,13 +63,26 @@ export var clases_unidades : Dictionary = {
 	"fighter" : {
 		"nombre": "figther",
 		"coste_movimiento" : {
-			"tierra" : 2,
-			"camino" : 1,
+			"tierra" : 3,
+			"camino" : 2,
 			},
 		"movimientos" : 7,
 		"ataque" : 11,
 		"defensa" : 1,
 		"vida" : 50,
+		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
+		"slots" : slots.slice(0,2)
+	},
+	"caballero" : {
+		"nombre": "caballero",
+		"coste_movimiento" : {
+			"tierra" : 2,
+			"camino" : 1,
+			},
+		"movimientos" : 8,
+		"ataque" : 15,
+		"defensa" : 1,
+		"vida" : 60,
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots
 	}

@@ -22,7 +22,7 @@ func obtener_celdas_donde_se_puede_mover(actor):
 		
 	
 	for celda in celdas_adyacentes_al_actor: #LLama a evaluzar_brach  por cada celda adyacente
-		evaluar_branch(celda_actor, celda, actor.unidad.get_movimientos(actor), actor, celdas_de_movimiento_permitido) 
+		evaluar_branch(celda_actor, celda, actor.get_unidad().get_movimientos(), actor, celdas_de_movimiento_permitido) 
 	
 	for celda in celdas_de_movimiento_permitido:
 		if celda_actor.vector == celda:
@@ -38,7 +38,7 @@ func obtener_celdas_donde_se_puede_mover(actor):
 #comienza con las cellas adyacentes al actor, y se va llamando recursivamente
 func evaluar_branch(celda_origen: Celda, celda_destino: Celda, movimiento_disponible, actor, celdas_de_movimiento_permitido):
 	var tipo_de_terreno_celda_destino = grilla_principal.obtener_info_de_celda(celda_destino)["tipo"] #obtiene el "tipo" de tile
-	var coste_de_movimiento = actor.coste_de_movimiento(tipo_de_terreno_celda_destino) #coste de mov del tile segun el "tipo" de actor
+	var coste_de_movimiento = actor.get_unidad().get_coste_de_movimiento(tipo_de_terreno_celda_destino) #coste de mov del tile segun el "tipo" de actor
 	var movimiento_disponible_branch = movimiento_disponible #variable de movimiento disponibles interna
 
 	

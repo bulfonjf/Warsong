@@ -51,3 +51,15 @@ func test_puede_equipar():
 
 	assert_eq_deep(sut.equipamiento, partida_data.equipamiento)
 
+func test_set_equipamiento():
+	var partida_data ={
+				"clase" : "fighter",
+				"equipamiento" : ["pechera de cuero", "espada"], #// ojo, usar los mismos nombres que items
+			}
+
+	var equipo = {}
+	sut = load("res://Partida/Unidades/unidad_clase.gd").new(partida_data, equipo)
+	
+	var resultado_esperado = {"pecho" : {"ocupado" : true }, "mano_izquierda" : {"ocupado" : true }, "mano_derecha" : {"ocupado" : true }}
+	
+	assert_eq_deep(sut.slots, resultado_esperado)

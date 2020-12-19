@@ -6,8 +6,9 @@ var unidad_nodo = load("res://Partida/Unidades/unidad_clase.gd")
 onready var control_vida : Control = load("res://UI/Control_Vida.tscn").instance()
 var unidad : Unidad
 
+ 
 func get_unidad() -> Unidad:
-	return unidaget_get_d
+	return unidad
 
 func init(tropa, equipo):
 	unidad = unidad_nodo.new(tropa, equipo)
@@ -21,13 +22,6 @@ func actualizar_vida(danio : int):
 	self.unidad.actualizar_vida(danio)
 	self.control_vida.actualizar_vida(unidad)
 
-#Devuelve el coste de movimiento del jugador en un terreno 
-func coste_de_movimiento(tile_name):
-	var clase_tipo = self.unidad.clase.keys()[0]
-	var coste = 1000   #Por defecto el jugador no puede moverse al terreno.
-	if self.unidad.clase[clase_tipo].coste_movimiento.has(tile_name):
-		coste = self.unidad.clase[clase_tipo].coste_movimiento[tile_name]
-	return coste
 
 func mover(posicion : Pixel):
 	self.position = posicion.vector

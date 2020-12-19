@@ -9,7 +9,7 @@ const equipos= [
 			{
 				"posicion" : posiciones[0],
 				"clase" : "fighter",
-				"equipamiento" : ["pechera de cuero", "espada"], #// ojo, usar los mismos nombres que items
+				"equipamiento" : ["pechera de cuero", "espada", "armadura de caballo"], #// ojo, usar los mismos nombres que items
 			}
 		]
 	},
@@ -18,8 +18,8 @@ const equipos= [
 		"tropas": [
 			{
 				"posicion" : posiciones[1],
-				"clase" : "fighter",
-				"equipamiento" : ["pechera de cuero", "espada"], #// ojo, usar los mismos nombres que items
+				"clase" : "caballero",
+				"equipamiento" : ["pechera de cuero", "espada","armadura de caballo"], #// ojo, usar los mismos nombres que items
 			}
 		]
 	}
