@@ -56,3 +56,9 @@ func set_vida():
 	
 func actualizar_vida(danio : int):
 	self.vida = self.vida - danio
+
+func get_ataque():
+	return self.clase.ataque
+
+func get_defensa():
+	return self.clase.defensa

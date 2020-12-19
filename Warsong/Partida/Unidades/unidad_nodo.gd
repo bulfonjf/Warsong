@@ -4,14 +4,13 @@ onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var id = "Garett_" + str(RandomNumberGenerator.new())
 var unidad_nodo = load("res://Partida/Unidades/unidad_clase.gd")
 onready var control_vida : Control = load("res://UI/Control_Vida.tscn").instance()
-var unidad
+var unidad : Unidad
 
-#func init(clase, equipo):
-#	 unidad = unidad.new(clase, equipo)
+func get_unidad() -> Unidad:
+	return unidaget_get_d
 
 func init(tropa, equipo):
 	unidad = unidad_nodo.new(tropa, equipo)
-	
 	
 func _ready():
 	self.add_child(control_vida)
@@ -30,20 +29,11 @@ func coste_de_movimiento(tile_name):
 		coste = self.unidad.clase[clase_tipo].coste_movimiento[tile_name]
 	return coste
 
-
 func mover(posicion : Pixel):
 	self.position = posicion.vector
 	self.control_vida.actualizar_posicion()
-
-func get_ataque():
-	var clase_tipo = self.unidad.clase.keys()[0]
-	return self.unidad.clase[clase_tipo].ataque
-
-func get_defensa():
-	var clase_tipo = self.unidad.clase.keys()[0]
-	return self.unidad.clase[clase_tipo].defensa
 	
-#Funcion que se ejecuta cuando clickean al jugador
+# Funcion que se ejecuta cuando clickean al jugador
 func _on_Tropa_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():
 		orquestador.click_en_tropa(self)

@@ -1,13 +1,11 @@
 extends Node
 
-
 # COMPONENTES
 onready var menu_lateral : Control = $MenuLateral
 onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
-
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
@@ -16,7 +14,6 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 # READY
 func _ready():
-	
 	for equipo in partida.equipos:
 		for tropa in equipo.tropas:
 			#print(tropa.clase, equipo.nombre)
@@ -27,6 +24,7 @@ func _ready():
 			var posicionTropa : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
 			self.agregar_actor(nueva_tropa, posicionTropa)
 			nueva_tropa.add_to_group(equipo.nombre)
+			posicionTropaEnCeldas = null
 	
 	pass 
 
@@ -38,7 +36,6 @@ func click_en_tropa(tropa):
 		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
 		tropa.actualizar_vida(danio)
 		Ataque.add_dispose_menu(self.menu_lateral)
-		Ataque.desactivar_contexto()
 		Ataque.dispose()
 	else:
 		SeleccionTropa.dispose()	
@@ -87,5 +84,3 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	
 func atacar():
 	Ataque.activar_contexto()
-	
-	

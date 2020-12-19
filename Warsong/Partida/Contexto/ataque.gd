@@ -1,9 +1,7 @@
 extends "contexto_singleton.gd"
 
-
-
 func calcular_danio(actor_activo : Node2D, actor_destino : Node2D):
-	var danio = actor_activo.get_ataque() - actor_destino.get_defensa()
+	var danio = actor_activo.get_unidad().get_ataque() - actor_destino.get_unidad().get_defensa()
 	return danio
 
 func add_dispose_menu(menu):
