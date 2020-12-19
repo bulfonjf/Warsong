@@ -15,14 +15,12 @@ func init(tropa, equipo):
 	
 func _ready():
 	self.add_child(control_vida)
-	var clase_tipo = self.unidad.clase.keys()[0]
-	control_vida.iniciar(unidad.clase[clase_tipo])
+	control_vida.iniciar(self.unidad)
 	
 	pass 
 func actualizar_vida(danio : int):
-	var clase_tipo = self.unidad.clase.keys()[0]
-	self.unidad.actualizar_vida(self, danio)
-	self.control_vida.actualizar_vida(unidad.clase[clase_tipo])
+	self.unidad.actualizar_vida(danio)
+	self.control_vida.actualizar_vida(unidad)
 
 #Devuelve el coste de movimiento del jugador en un terreno 
 func coste_de_movimiento(tile_name):
@@ -44,6 +42,7 @@ func get_ataque():
 func get_defensa():
 	var clase_tipo = self.unidad.clase.keys()[0]
 	return self.unidad.clase[clase_tipo].defensa
+	
 #Funcion que se ejecuta cuando clickean al jugador
 func _on_Tropa_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():

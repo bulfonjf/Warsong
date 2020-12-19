@@ -29,6 +29,7 @@ export var slots : Array = ["pecho", "mano_izquierda", "mano_derecha"]
 export var clase_item : Array  = ["armadura_ligera", "armadura_pesada", "arma_dos_manos"]
 export var items : Dictionary = {
 	"pechera de cuero" : {
+		"nombre": "pechera de cuero",
 		"clases" : [clase_item[1]],
 		"slots": [slots[0]], #// hardcodealo
 		"modificadores": {
@@ -37,6 +38,7 @@ export var items : Dictionary = {
 		}
 	},
 	"espada" : {
+		"nombre": "espada",
 		"clases" : [clase_item[2]],
 		"slots" : [slots[1], slots[2]], #// hardcodealo
 		"modificadores": {
