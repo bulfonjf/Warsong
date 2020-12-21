@@ -4,7 +4,38 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
+export var recursos = ["oro","puntos_de_tecnologia","madera","piedra"]
+export var edificios = {
+	"base": {
+		"recursos_por_turnos": {
+			"puntos_de_tecnologia": 2
+		}
+	},
+	"asserradero": {
+		"recursos_por_turnos": {
+			"madera": 4
+		}
+	},
+	"cantera": {
+		"recursos_por_turnos": {
+			"piedra": 1
+		}
+	}, 
+	"mina de oro": {
+		"recursos_por_turnos": {
+			"": 2
+		}
+	}, 
+	"establos": {
 
+	}, 
+	"arqueria": {
+
+	}, 
+	"cuartel": {
+
+	}
+}
 export var terrenos = {
 	'pasto': {
 		'tipo': 'tierra'
