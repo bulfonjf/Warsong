@@ -1,6 +1,7 @@
 extends Node
 
 # COMPONENTES
+onready var menu_mapa : Control = $CanvasLayer/UI/MargenUI/Panel/MenuLateralMapa
 onready var menu_lateral : Control = $MenuLateral
 onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
@@ -42,8 +43,10 @@ func click_en_tropa(tropa):
 		SeleccionTropa.activar_contexto()
 		SeleccionTropa.set_actor_activo(tropa)
 		SeleccionTropa.add_dispose_menu(self.menu_lateral)
+		SeleccionTropa.add_dispose_menu_mapa(self.menu_mapa)
 		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(tropa))
 		menu_lateral.mostrar(tropa.position, adyacentes)
+		menu_mapa.mostrar_info_unidad()
 
 
 #Highlaitea las grillas de movimiento disponibles

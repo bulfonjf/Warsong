@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/MenuLateral/contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
+[ext_resource path="res://UI/MenuLateralMapa/MenuLateralMapa.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Grillas/GrillaMovimiento/grilla_movimiento.gd" type="Script" id=4]
 [ext_resource path="res://UI/MenuLateral/menu_lateral.gd" type="Script" id=5]
 [ext_resource path="res://Orquestador/orquestador.gd" type="Script" id=6]
@@ -133,6 +134,12 @@ zoom = Vector2( 0.5, 0.5 )
 smoothing_speed = 10.0
 editor_draw_limits = true
 script = ExtResource( 12 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource( 3 )]
+mouse_filter = 2
 [connection signal="hide" from="MenuLateral" to="." method="_on_MenuLateral_hide"]
 [connection signal="pressed" from="MenuLateral/Contenedor_H/Mover" to="MenuLateral" method="_on_Mover_pressed"]
 [connection signal="pressed" from="MenuLateral/Contenedor_H/Atacar" to="MenuLateral" method="_on_Atacar_pressed"]
