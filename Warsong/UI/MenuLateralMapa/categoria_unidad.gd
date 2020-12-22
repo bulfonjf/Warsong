@@ -1,5 +1,6 @@
 extends "res://UI/Componentes/categoria.gd"
 
+#Menu lateral mapa llama a esta funcion, le pasa el actor activo.
 func init_unidad(unidad : Unidad):
 	var titulo = unidad.clase.nombre
 	var dic = {

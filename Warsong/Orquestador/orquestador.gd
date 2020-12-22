@@ -1,7 +1,7 @@
 extends Node
 
 # COMPONENTES
-onready var menu_mapa : Control = $CanvasLayer/UI/MargenUI/Panel/MenuLateralMapa
+onready var menu_lateral_mapa : Control = $CanvasLayer/UI/MargenUI/Panel/MenuLateralMapa
 onready var menu_lateral : Control = $MenuLateral
 onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
@@ -17,7 +17,6 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 func _ready():
 	for equipo in partida.equipos:
 		for tropa in equipo.tropas:
-			#print(tropa.clase, equipo.nombre)
 			var nueva_tropa = load("res://Partida/Unidades/Unidad.tscn").instance()
 			nueva_tropa.init(tropa, equipo)
 			var posicion : Vector2 = tropa.posicion
@@ -34,19 +33,19 @@ func _ready():
 #Muestra el MenuLateral en la posicion del tropa
 func click_en_tropa(tropa):
 	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa :
+		SeleccionTropa.data_contexto.get("actor_activo").animar()
 		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
 		tropa.actualizar_vida(danio)
-		Ataque.add_dispose_menu(self.menu_lateral)
 		Ataque.dispose()
 	else:
 		SeleccionTropa.dispose()	
 		SeleccionTropa.activar_contexto()
 		SeleccionTropa.set_actor_activo(tropa)
 		SeleccionTropa.add_dispose_menu(self.menu_lateral)
-		SeleccionTropa.add_dispose_menu_mapa(self.menu_mapa)
+		SeleccionTropa.add_dispose_menu_mapa(self.menu_lateral_mapa)
 		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(tropa))
 		menu_lateral.mostrar(tropa.position, adyacentes)
-		menu_mapa.mostrar_info_unidad()
+		menu_lateral_mapa.mostrar_info_unidad()
 
 
 #Highlaitea las grillas de movimiento disponibles
@@ -64,9 +63,15 @@ func mostrar_movimiento_disponible():
 #Llama a mover_actor_actual, la funcion de abajo
 func click_en_grilla(celda_clickeada):
 	var celda = grilla_principal.pixeles_a_celda(Convertir.pixel(celda_clickeada))
-	if SeleccionTropa.si_movimiento_activado() and SeleccionTropa.si_celda_resaltada(celda): 
-		mover_actor_activo(celda_clickeada)
-	
+	if SeleccionTropa.si_movimiento_activado():
+		if SeleccionTropa.si_celda_resaltada(celda): 
+			mover_actor_activo(celda_clickeada)
+		else:
+			SeleccionTropa.dispose()
+	elif Ataque.activo:
+		if not celda._in(grilla_principal.celdas_ocupadas):
+			Ataque.dispose()
+
 	
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
@@ -87,3 +92,5 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	
 func atacar():
 	Ataque.activar_contexto()
+	Ataque.add_dispose_menu(self.menu_lateral)
+

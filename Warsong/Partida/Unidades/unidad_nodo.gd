@@ -32,3 +32,6 @@ func _on_Tropa_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():
 		orquestador.click_en_tropa(self)
 	pass
+
+func animar():
+	$AnimationPlayer.play("caminar")

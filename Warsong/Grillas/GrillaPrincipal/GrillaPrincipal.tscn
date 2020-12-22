@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Grillas/GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=1]
 [ext_resource path="res://Grillas/GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=2]
-[ext_resource path="res://GrillaPrincipal/Datos/data.gd" type="Script" id=3]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=4]
-
 
 [sub_resource type="TileSet" id=1]
 0/name = "ruta"
@@ -78,36 +76,3 @@ script = ExtResource( 2 )
 
 [node name="Data" type="Node2D" parent="."]
 visible = false
-script = ExtResource( 3 )
-terrenos = {
-"bosque": {
-"tipo": "bosque"
-},
-"empty": {
-"tipo": "empty"
-},
-"mar": {
-"tipo": "agua"
-},
-"oceano": {
-"tipo": "aguas_profundas"
-},
-"pasto": {
-"tipo": "tierra"
-},
-"ruta": {
-"tipo": "camino"
-}
-}
-jugadores = {
-"fighter": {
-"ataque": 10,
-"coste_movimiento": {
-"camino": 1,
-"tierra": 2
-},
-"defensa": 5,
-"movimientos": 7,
-"vida": 50
-}
-}
