@@ -7,7 +7,7 @@ onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
-onready var equipo = load("res://Partida/equipo.gd")
+onready var faccion = load("res://Partida/Facciones/faccion_nodo.gd")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
@@ -17,26 +17,25 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 # READY
 func _ready():
-	for equipo_data in partida.equipos:
-		var equipo_nodo = equipo.new(equipo_data)
-		self.add_child(equipo_nodo)
-		for tropa in equipo_data.tropas:
+	for faccion_data in partida.facciones:
+		var faccion_nodo = faccion.new(faccion_data)
+		self.add_child(faccion_nodo)
+		for tropa in faccion_data.tropas:
 			var posicion : Vector2 = tropa.posicion
 			var posicionTropaEnCeldas : Celda = Convertir.celda(posicion)
-			var posicionTropa : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
-			equipo_nodo.agregar_tropa(tropa, posicionTropa)
+			var posicionTropa_Vector : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
+			var posicionTropa_Pixel : Pixel = Convertir.pixel(posicionTropa_Vector)
+			faccion_nodo.agregar_tropa(tropa, posicionTropa_Pixel)
+			grilla_principal.marcar_celda_como_ocupada(posicionTropa_Pixel)
+
 	
-	var tropas_nodos = get_tree().get_nodes_in_group("Tropas")
-	for actor in tropas_nodos:
-		grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor.position))
-	
-	pass 
+pass 
 
 #Jugador llama a esta funcion cuando es clickeado
 #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
 func click_en_tropa(tropa, posicion_click):
-	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa :
+	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa : #WARNING No chequea que sea un target valido 
 		SeleccionTropa.data_contexto.get("actor_activo").animar()
 		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
 		tropa.actualizar_vida(danio)
@@ -54,7 +53,7 @@ func click_en_tropa(tropa, posicion_click):
 
 #Highlaitea las grillas de movimiento disponibles
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
-func mostrar_movimiento_disponible():
+func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el correcto. Si el jugador está atacando, no puede mover. 
 	SeleccionTropa.add_dispose_grilla_movimiento(grilla_movimiento)
 	SeleccionTropa.activar_movimiento()
 	var actor_activo = SeleccionTropa.get_actor_activo()
@@ -73,7 +72,7 @@ func click_en_grilla(celda_clickeada):
 		else:
 			SeleccionTropa.dispose()
 	elif Ataque.activo:
-		if not celda._in(grilla_principal.celdas_ocupadas):
+		if not celda._in(grilla_principal.celdas_ocupadas): #WARNING tendria que verificar celdas de ataque posibles, no solo ocupadas
 			Ataque.dispose()
 
 	
