@@ -30,7 +30,7 @@ func mover(posicion : Pixel):
 # Funcion que se ejecuta cuando clickean al jugador
 func _on_Tropa_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton && !event.is_pressed():
-		orquestador.click_en_tropa(self)
+		orquestador.click_en_tropa(self, event.position)
 	pass
 
 func animar():

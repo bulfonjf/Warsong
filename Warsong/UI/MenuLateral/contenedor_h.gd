@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-onready var atacar : Button = get_node("/root/NodoPrincipal/MenuLateral/Contenedor_H/Atacar")
+onready var atacar : Button = $Atacar
 
 
 func _ready():

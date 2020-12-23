@@ -2,36 +2,40 @@ extends Node
 
 # COMPONENTES
 onready var menu_lateral_mapa : Control = $CanvasLayer/UI/MargenUI/Panel/MenuLateralMapa
-onready var menu_lateral : Control = $MenuLateral
+onready var menu_lateral : Control = $CanvasLayer/MenuLateral
 onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
+onready var equipo = load("res://Partida/equipo.gd")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
+
 
 #SEÑALES
 
 # READY
 func _ready():
-	for equipo in partida.equipos:
-		for tropa in equipo.tropas:
-			var nueva_tropa = load("res://Partida/Unidades/Unidad.tscn").instance()
-			nueva_tropa.init(tropa, equipo)
+	for equipo_data in partida.equipos:
+		var equipo_nodo = equipo.new(equipo_data)
+		self.add_child(equipo_nodo)
+		for tropa in equipo_data.tropas:
 			var posicion : Vector2 = tropa.posicion
 			var posicionTropaEnCeldas : Celda = Convertir.celda(posicion)
 			var posicionTropa : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
-			self.agregar_actor(nueva_tropa, posicionTropa)
-			nueva_tropa.add_to_group(equipo.nombre)
-			posicionTropaEnCeldas = null
+			equipo_nodo.agregar_tropa(tropa, posicionTropa)
+	
+	var tropas_nodos = get_tree().get_nodes_in_group("Tropas")
+	for actor in tropas_nodos:
+		grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor.position))
 	
 	pass 
 
 #Jugador llama a esta funcion cuando es clickeado
 #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
-func click_en_tropa(tropa):
+func click_en_tropa(tropa, posicion_click):
 	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa :
 		SeleccionTropa.data_contexto.get("actor_activo").animar()
 		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
@@ -44,7 +48,7 @@ func click_en_tropa(tropa):
 		SeleccionTropa.add_dispose_menu(self.menu_lateral)
 		SeleccionTropa.add_dispose_menu_mapa(self.menu_lateral_mapa)
 		var adyacentes : Array = grilla_principal.obtener_celdas_ocupadas_adyacentes(grilla_principal.obtener_posicion_grilla(tropa))
-		menu_lateral.mostrar(tropa.position, adyacentes)
+		menu_lateral.mostrar(posicion_click, adyacentes)
 		menu_lateral_mapa.mostrar_info_unidad()
 
 

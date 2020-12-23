@@ -1,7 +1,7 @@
 extends Node
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
-onready var contenedor_horizontal : VBoxContainer = get_node("/root/NodoPrincipal/MenuLateral/Contenedor_H")
+onready var contenedor_horizontal : VBoxContainer = $Contenedor_H
 # Ready
 func _ready():
 	pass 

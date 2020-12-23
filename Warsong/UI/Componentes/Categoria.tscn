@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://Resources/Temas/Tema_menu.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Componentes/categoria.gd" type="Script" id=2]
 
 [node name="Categoria" type="VBoxContainer"]
@@ -14,7 +15,8 @@ __meta__ = {
 
 [node name="Titulo" type="Label" parent="."]
 margin_right = 118.0
-margin_bottom = 14.0
+margin_bottom = 13.0
 size_flags_horizontal = 3
+theme = ExtResource( 1 )
 text = "PRUEBA"
 align = 1

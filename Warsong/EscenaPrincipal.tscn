@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://UI/MenuLateral/contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Orquestador/orquestador.gd" type="Script" id=6]
 [ext_resource path="res://Grillas/GrillaMovimiento/tile_resaltado.tres" type="TileSet" id=7]
 [ext_resource path="res://Grillas/GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=8]
+[ext_resource path="res://Resources/Font/joystix_12.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Grillas/GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
 [ext_resource path="res://UI/Camara/camera2D.gd" type="Script" id=12]
 
@@ -93,40 +94,6 @@ cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
 script = ExtResource( 4 )
 
-[node name="MenuLateral" type="Control" parent="."]
-visible = false
-margin_right = 32.0
-margin_bottom = 16.0
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Contenedor_H" type="VBoxContainer" parent="MenuLateral"]
-margin_right = 52.0
-margin_bottom = 20.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Mover" type="Button" parent="MenuLateral/Contenedor_H"]
-margin_right = 52.0
-margin_bottom = 20.0
-text = "Mover"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Atacar" type="Button" parent="MenuLateral/Contenedor_H"]
-margin_top = 24.0
-margin_right = 52.0
-margin_bottom = 44.0
-text = "Atacar"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
@@ -140,6 +107,42 @@ layer = 2
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource( 3 )]
 mouse_filter = 2
-[connection signal="hide" from="MenuLateral" to="." method="_on_MenuLateral_hide"]
-[connection signal="pressed" from="MenuLateral/Contenedor_H/Mover" to="MenuLateral" method="_on_Mover_pressed"]
-[connection signal="pressed" from="MenuLateral/Contenedor_H/Atacar" to="MenuLateral" method="_on_Atacar_pressed"]
+
+[node name="MenuLateral" type="Control" parent="CanvasLayer"]
+visible = false
+margin_right = 32.0
+margin_bottom = 16.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Contenedor_H" type="VBoxContainer" parent="CanvasLayer/MenuLateral"]
+margin_right = 52.0
+margin_bottom = 20.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mover" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
+margin_right = 52.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 9 )
+text = "Mover"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Atacar" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
+margin_top = 24.0
+margin_right = 52.0
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 9 )
+text = "Atacar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="hide" from="CanvasLayer/MenuLateral" to="." method="_on_MenuLateral_hide"]
+[connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Mover" to="CanvasLayer/MenuLateral" method="_on_Mover_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Atacar" to="CanvasLayer/MenuLateral" method="_on_Atacar_pressed"]
