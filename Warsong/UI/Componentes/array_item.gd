@@ -1,4 +1,4 @@
 extends Label
 
-func _init(value : String):
+func init(value : String):
 	self.text = value
