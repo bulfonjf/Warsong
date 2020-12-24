@@ -7,6 +7,12 @@ func mostrar_info_unidad():
 	self.add_child(categoria_unidad)
 	categoria_unidad.init_unidad(actor_activo.get_unidad())
 
+func mostrar_info_ronda():
+	var info_ronda_ui = load("res://UI/MenuLateralMapa/CategoriaRonda.tscn").instance()
+	self.add_child(info_ronda_ui)
+	info_ronda_ui.init()	
+
+
 #dispose del menu
 func quitar_info():
 	for child in self.get_children():

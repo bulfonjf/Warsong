@@ -17,7 +17,12 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 # READY
 func _ready():
-	Ronda.init(partida.facciones, partida.facciones[0])
+	var facciones_nombres = []
+	for _faccion in partida.facciones: # reemplazar con list comprehension o algo asi
+		facciones_nombres.append(_faccion.nombre)
+
+	Ronda.init(facciones_nombres, partida.facciones[0].nombre)
+	menu_lateral_mapa.mostrar_info_ronda()
 	for faccion_data in partida.facciones:
 		var faccion_nodo = faccion.new(faccion_data)
 		self.add_child(faccion_nodo)

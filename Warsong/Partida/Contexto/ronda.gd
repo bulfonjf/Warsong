@@ -12,10 +12,10 @@ func init(facciones_param : Array, faccion_activa_param : String):
 func iniciar_turno(faccion_param : String):
     if faccion_param in self.facciones:
         self.faccion_activa = faccion_param
-        self.incrementar_ronda_si_corresponde()
 
 func terminar_turno():
     var proxima_faccion = self.obtener_proxima_faccion()
+    self.incrementar_ronda_si_corresponde()
     self.iniciar_turno(proxima_faccion)
 
 func obtener_proxima_faccion():
@@ -33,7 +33,8 @@ func obtener_proxima_faccion():
 
 func incrementar_ronda_si_corresponde():
         var faccion_index = self.facciones.find(self.obtener_faccion_activa())
-        if faccion_index == 0:
+        var si_es_ultima_faccion = faccion_index == self.facciones.size() -1
+        if si_es_ultima_faccion:
             self.total_rondas += 1
 
 # Indica si la faccion pasada por parametro es la faccion activa
@@ -42,6 +43,12 @@ func is_activa(faccion_param : String) -> bool:
 
 func obtener_faccion_activa() -> String:
     return self.faccion_activa
+
+func obtener_total_rondas():
+    return self.total_rondas
+
+func obtener_facciones():
+    return self.facciones
 
 func ya_jugo(faccion_param : String) -> bool:
     var index_faccion_param = self.facciones.find(faccion_param)

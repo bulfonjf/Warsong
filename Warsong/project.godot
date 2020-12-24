@@ -30,11 +30,6 @@ _global_script_classes=[ {
 "path": "res://Scripts/pixel.gd"
 }, {
 "base": "Node",
-"class": "Ronda",
-"language": "GDScript",
-"path": "res://Partida/Contexto/ronda.gd"
-}, {
-"base": "Node",
 "class": "Unidad",
 "language": "GDScript",
 "path": "res://Partida/Unidades/unidad_clase.gd"
@@ -49,7 +44,6 @@ _global_script_class_icons={
 "Celda": "",
 "Faccion": "",
 "Pixel": "",
-"Ronda": "",
 "Unidad": "",
 "ext_lista": ""
 }
