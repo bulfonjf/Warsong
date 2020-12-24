@@ -13,7 +13,7 @@ var limites : Vector2
 
 #mueve la camara con los imputs de las teclas
 #chequea que no pasen los limites
-func _input(event):
+func _input(_event):
 	if Input.is_action_pressed("ui_right"):
 		var derecha = self.position + Vector2(ancho_celda, 0)
 		if derecha.x <= self.limit_right - (viewport_size.x * self.zoom.x): # el limite derecho es igual a la coordenaa de la ultima celda de la grilla principal + 1 ancho de celda (pq la coordenada es esquina superior izquierda) - el ancho del tamanio de la ventana
@@ -37,8 +37,8 @@ func _input(event):
 #setea los limites de la camara
 func _ready():
 	limites = grilla_principal.obtener_limites()
-	self.limit_bottom = limites.y
-	self.limit_right = limites.x
+	self.limit_bottom = int(limites.y)
+	self.limit_right = int(limites.x)
 	self.limit_top = 0
 	self.limit_left = 0
 	
