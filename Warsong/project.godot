@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/pixel.gd"
 }, {
 "base": "Node",
+"class": "Ronda",
+"language": "GDScript",
+"path": "res://Partida/Contexto/ronda.gd"
+}, {
+"base": "Node",
 "class": "Unidad",
 "language": "GDScript",
 "path": "res://Partida/Unidades/unidad_clase.gd"
@@ -44,6 +49,7 @@ _global_script_class_icons={
 "Celda": "",
 "Faccion": "",
 "Pixel": "",
+"Ronda": "",
 "Unidad": "",
 "ext_lista": ""
 }
@@ -61,6 +67,7 @@ SeleccionTropa="*res://Partida/Contexto/seleccion_tropa.gd"
 Contexto="*res://Partida/Contexto/contexto.gd"
 Data="*res://Scripts/data.gd"
 Listas="*res://Scripts/Extensiones/listas.gd"
+Ronda="*res://Partida/Contexto/ronda.gd"
 
 [display]
 

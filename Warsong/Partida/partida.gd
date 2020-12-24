@@ -2,7 +2,7 @@ extends Script
 
 const posiciones = [Vector2(0,0), Vector2(1,0)]
 
-const facciones= [
+const facciones = [
 	{
 		"nombre" : "equipo_1",
 		"tropas": [

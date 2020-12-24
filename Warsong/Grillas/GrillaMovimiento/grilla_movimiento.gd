@@ -20,6 +20,6 @@ func resaltar_celdas(lista_celdas: Array):
 
 #Borra los tiles highlaiteados:
 func quitar_celdas_resaltadas():
-	var tiles_resaltados = get_used_cells_by_id (0)
+	var tiles_resaltados = get_used_cells_by_id (0) #TODO revisar si se tiene que pisar tiles_resaltados o se crea una variable nueva
 	for tile in tiles_resaltados:
 		self.set_cellv(tile, -1)

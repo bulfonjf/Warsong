@@ -9,3 +9,6 @@ func _init(partida_data):
     
 func agregar_tropa(tropa):
     tropas.append(tropa)
+
+func _eq(la_otra_faccion : Faccion) -> bool:
+    return self.nombre == la_otra_faccion.nombre

@@ -17,6 +17,7 @@ onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 
 # READY
 func _ready():
+	Ronda.init(partida.facciones, partida.facciones[0])
 	for faccion_data in partida.facciones:
 		var faccion_nodo = faccion.new(faccion_data)
 		self.add_child(faccion_nodo)
@@ -27,9 +28,6 @@ func _ready():
 			var posicionTropa_Pixel : Pixel = Convertir.pixel(posicionTropa_Vector)
 			faccion_nodo.agregar_tropa(tropa, posicionTropa_Pixel)
 			grilla_principal.marcar_celda_como_ocupada(posicionTropa_Pixel)
-
-	
-pass 
 
 #Jugador llama a esta funcion cuando es clickeado
 #Setea el contexto de seleccion de tropa
