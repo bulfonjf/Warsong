@@ -8,21 +8,28 @@ onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
 onready var faccion = load("res://Partida/Facciones/faccion_nodo.gd")
+onready var edificio = load("res://Partida/Edificios/edificio_nodo.gd")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
-
 
 #SEÑALES
 
 # READY
 func _ready():
+	preparar_ronda()
+	preparar_facciones()
+	preparar_edificios()
+
+func preparar_ronda():
 	var facciones_nombres = []
 	for _faccion in partida.facciones: # reemplazar con list comprehension o algo asi
 		facciones_nombres.append(_faccion.nombre)
 
 	Ronda.init(facciones_nombres, partida.facciones[0].nombre)
 	menu_lateral_mapa.mostrar_info_ronda()
+
+func preparar_facciones():
 	for faccion_data in partida.facciones:
 		var faccion_nodo = faccion.new(faccion_data)
 		self.add_child(faccion_nodo)
@@ -34,7 +41,13 @@ func _ready():
 			faccion_nodo.agregar_tropa(tropa, posicionTropa_Pixel)
 			grilla_principal.marcar_celda_como_ocupada(posicionTropa_Pixel)
 
-#Jugador llama a esta funcion cuando es clickeado
+func preparar_edificios():
+	for edificio_data in partida.edificios:
+		var nuevo_edificio = edificio.instance()
+		self.add_child(nuevo_edificio)
+		nuevo_edificio.init(edificio_data)
+
+#La Unidad llama a esta funcion cuando es clickeado
 #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
 func click_en_tropa(tropa, posicion_click):
@@ -53,7 +66,6 @@ func click_en_tropa(tropa, posicion_click):
 		menu_lateral.mostrar(posicion_click, adyacentes)
 		menu_lateral_mapa.mostrar_info_unidad()
 
-
 #Highlaitea las grillas de movimiento disponibles
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el correcto. Si el jugador está atacando, no puede mover. 
@@ -63,7 +75,6 @@ func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el co
 	var celdas_de_movimiento = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_activo)
 	SeleccionTropa.set_celdas_de_movimiento(celdas_de_movimiento)
 	grilla_movimiento.resaltar_celdas(celdas_de_movimiento)
-	
 	
 #Grilla llama a esta funcion cuando es clickeada:
 #Llama a mover_actor_actual, la funcion de abajo
@@ -78,7 +89,6 @@ func click_en_grilla(celda_clickeada):
 		if not celda._in(grilla_principal.celdas_ocupadas): #WARNING tendria que verificar celdas de ataque posibles, no solo ocupadas
 			Ataque.dispose()
 
-	
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
 func mover_actor_activo(posicion_final : Vector2):
@@ -89,7 +99,6 @@ func mover_actor_activo(posicion_final : Vector2):
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor_activo.position))
 	SeleccionTropa.dispose()
 
-
 #Agrega un actor en la grilla_principal
 func agregar_actor(actor: Node2D, posicion: Vector2):
 	actor.set_position(posicion)
@@ -99,4 +108,3 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 func atacar():
 	Ataque.activar_contexto()
 	Ataque.add_dispose_menu(self.menu_lateral)
-

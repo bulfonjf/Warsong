@@ -11,7 +11,7 @@ export var edificios = {
 			"puntos_de_tecnologia": 2
 		}
 	},
-	"asserradero": {
+	"aserradero": {
 		"recursos_por_turnos": {
 			"madera": 4
 		}
