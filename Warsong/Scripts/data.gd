@@ -7,21 +7,25 @@ func _ready():
 export var recursos = ["oro","puntos_de_tecnologia","madera","piedra"]
 export var edificios = {
 	"base": {
+		"nombre": "base",
 		"recursos_por_turno": {
 			"puntos_de_tecnologia": 2
 		}
 	},
 	"aserradero": {
+		"nombre": "aserradero",
 		"recursos_por_turno": {
 			"madera": 4
 		}
 	},
 	"cantera": {
+		"nombre": "cantera",
 		"recursos_por_turno": {
 			"piedra": 1
 		}
 	}, 
-	"mina de oro": {
+	"mina_de_oro": {
+		"nombre": "mina_de_oro",
 		"recursos_por_turno": {
 			"": 2
 		}

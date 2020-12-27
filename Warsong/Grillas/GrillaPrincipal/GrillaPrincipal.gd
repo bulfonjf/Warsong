@@ -82,6 +82,12 @@ func obtener_posicion_pixels(celdas: Celda)-> Array:
 		posiciones.append(map_to_world(celda.vector))
 	return posiciones
 
+func convertir_a_celda_y_obtener_centro(posicion : Vector2):
+	var celda = Convertir.celda(posicion)
+	var centro = self.obtener_centro_celda(celda)
+	var pixel_centro = Convertir.pixel(centro)
+	return pixel_centro
+
 #Dado una posicion en pixeles, devuelve el centro de la celda en pixeles.
 func obtener_centro_celda_desde_un_pixel(posicionEnPixeles : Pixel) -> Vector2:
 	var celda = pixeles_a_celda(posicionEnPixeles)

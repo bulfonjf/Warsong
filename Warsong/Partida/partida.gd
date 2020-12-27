@@ -20,7 +20,7 @@ const edificios = [
 		"faccion": ""
 	},
 	{
-		"nombre": "mina de oro",
+		"nombre": "mina_de_oro",
 		"posicion": posiciones_edificios[3],
 		"faccion": ""
 	}
@@ -28,7 +28,7 @@ const edificios = [
 
 const facciones = [
 	{
-		"nombre" : "equipo_1",
+		"nombre" : "orcos",
 		"tropas": [
 			{
 				"posicion" : posiciones_unidades[0],
@@ -38,7 +38,7 @@ const facciones = [
 		]
 	},
 	{
-		"nombre" : "equipo_2",
+		"nombre" : "elfos",
 		"tropas": [
 			{
 				"posicion" : posiciones_unidades[1],

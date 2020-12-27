@@ -2,14 +2,12 @@ extends Reference
 
 class_name Edificio
 
-var nombre = ""
 var faccion = ""
-var modificadores = {}
+var data = {}
 
-func _init(edificio): 
-	self.nombre = edificio.nombre
-	self.faccion = edificio.faccion
-	#self.modificadores = edificio.recursos_por_turno
+func _init(edificio_partida): 
+	self.data = Data.edificios[edificio_partida.nombre]
+	self.faccion = edificio_partida.faccion
 
 func set_faccion(faccion_nombre):
 	self.faccion = faccion_nombre

@@ -45,10 +45,11 @@ func preparar_edificios():
 	for edificio_data in partida.edificios:
 		var nuevo_edificio = edificio.instance()
 		self.add_child(nuevo_edificio)
-		nuevo_edificio.init(edificio_data)
-
-#La Unidad llama a esta funcion cuando es clickeado
-#Setea el contexto de seleccion de tropa
+		var pixel_centro_celda = grilla_principal.convertir_a_celda_y_obtener_centro(edificio_data.posicion)
+		nuevo_edificio.init(edificio_data, pixel_centro_celda)
+		grilla_principal.marcar_celda_como_ocupada(pixel_centro_celda)
+		
+#La Unidad llama a esta funcion cuando es clickeado #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
 func click_en_tropa(tropa, posicion_click):
 	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa : #WARNING No chequea que sea un target valido 
