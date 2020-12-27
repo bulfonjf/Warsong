@@ -8,7 +8,7 @@ onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
 onready var faccion = load("res://Partida/Facciones/faccion_nodo.gd")
-onready var edificio = load("res://Partida/Edificios/edificio_nodo.gd")
+onready var edificio = load("res://Partida/Edificios/Edificio.tscn")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()

@@ -13,17 +13,17 @@ const edificios = [
 		"nombre": "aserradero",
 		"posicion": posiciones_edificios[1],
 		"faccion": ""
-	}.
+	},
 	{
 		"nombre": "cantera",
 		"posicion": posiciones_edificios[2],
 		"faccion": ""
-	}.
+	},
 	{
 		"nombre": "mina de oro",
 		"posicion": posiciones_edificios[3],
 		"faccion": ""
-	}.
+	}
 ]
 
 const facciones = [

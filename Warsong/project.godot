@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/celda.gd"
 }, {
 "base": "Reference",
+"class": "Edificio",
+"language": "GDScript",
+"path": "res://Partida/Edificios/edificio_clase.gd"
+}, {
+"base": "Reference",
 "class": "Faccion",
 "language": "GDScript",
 "path": "res://Partida/Facciones/faccion_clase.gd"
@@ -42,6 +47,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AdaptadorVector": "",
 "Celda": "",
+"Edificio": "",
 "Faccion": "",
 "Pixel": "",
 "Unidad": "",
