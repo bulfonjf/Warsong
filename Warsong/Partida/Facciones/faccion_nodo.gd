@@ -7,12 +7,12 @@ var faccion : Faccion
 func _init(partida_data):
 	self.faccion = faccion_clase.new(partida_data)
 
-func agregar_tropa(tropa, posicion : Pixel):
+func agregar_unidad(tropa, posicion : Pixel):
 	var nueva_tropa = load("res://Partida/Unidades/Unidad.tscn").instance()
 	nueva_tropa.init(tropa, self.faccion.nombre)
 	nueva_tropa.position = posicion.vector
 	self.add_child(nueva_tropa)
-	self.faccion.agregar_tropa(nueva_tropa)
+	self.faccion.agregar_unidad(nueva_tropa)
 	nueva_tropa.add_to_group("Tropas")
 	nueva_tropa.add_to_group(self.faccion.nombre)
 	

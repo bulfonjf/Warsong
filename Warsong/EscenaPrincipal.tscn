@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://UI/MenuLateral/contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Grillas/GrillaPrincipal/GrillaPrincipal.gd" type="Script" id=8]
 [ext_resource path="res://Resources/Font/joystix_12.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Grillas/GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
+[ext_resource path="res://UI/MenuBase/MenuBase.tscn" type="PackedScene" id=11]
 [ext_resource path="res://UI/Camara/camera2D.gd" type="Script" id=12]
 
 [sub_resource type="TileSet" id=1]
@@ -143,6 +144,8 @@ text = "Atacar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MenuBasePanel" parent="CanvasLayer" instance=ExtResource( 11 )]
 [connection signal="hide" from="CanvasLayer/MenuLateral" to="." method="_on_MenuLateral_hide"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Mover" to="CanvasLayer/MenuLateral" method="_on_Mover_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Atacar" to="CanvasLayer/MenuLateral" method="_on_Atacar_pressed"]

@@ -33,13 +33,16 @@ func preparar_facciones():
 	for faccion_data in partida.facciones:
 		var faccion_nodo = faccion.new(faccion_data)
 		self.add_child(faccion_nodo)
-		for tropa in faccion_data.tropas:
-			var posicion : Vector2 = tropa.posicion
-			var posicionTropaEnCeldas : Celda = Convertir.celda(posicion)
-			var posicionTropa_Vector : Vector2 = grilla_principal.obtener_centro_celda(posicionTropaEnCeldas)
-			var posicionTropa_Pixel : Pixel = Convertir.pixel(posicionTropa_Vector)
-			faccion_nodo.agregar_tropa(tropa, posicionTropa_Pixel)
-			grilla_principal.marcar_celda_como_ocupada(posicionTropa_Pixel)
+		for unidad in faccion_data.tropas:
+			agregar_unidad(unidad, faccion_nodo)
+
+func agregar_unidad(unidad, faccion_nodo):
+	var posicion : Vector2 = unidad.posicion
+	var posicionUnidadEnCeldas : Celda = Convertir.celda(posicion)
+	var posicionUnidad_Vector : Vector2 = grilla_principal.obtener_centro_celda(posicionUnidadEnCeldas)
+	var posicionUnidad_Pixel : Pixel = Convertir.pixel(posicionUnidad_Vector)
+	faccion_nodo.agregar_unidad(unidad, posicionUnidad_Pixel)
+	grilla_principal.marcar_celda_como_ocupada(posicionUnidad_Pixel)
 
 func preparar_edificios():
 	for edificio_data in partida.edificios:

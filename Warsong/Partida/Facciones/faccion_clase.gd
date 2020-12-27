@@ -7,7 +7,7 @@ var tropas : Array
 func _init(partida_data):
     self.nombre = partida_data.nombre
     
-func agregar_tropa(tropa):
+func agregar_unidad(tropa):
     tropas.append(tropa)
 
 func _eq(la_otra_faccion : Faccion) -> bool:
