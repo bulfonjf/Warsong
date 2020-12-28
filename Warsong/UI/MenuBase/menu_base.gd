@@ -22,6 +22,9 @@ func _on_RangoTB_pressed():
 func _on_CrearUnidadBtn_pressed():
 	orquestador.crear_unidad_en_base()
 
+func _on_CerrarBtn_pressed():
+	self.visible = false
+
 func obtener_clase_unidad():
 	return self.clase_unidad
 

@@ -156,7 +156,14 @@ margin_top = 232.0
 margin_right = 405.0
 margin_bottom = 252.0
 text = "Crear Unidad"
+
+[node name="Cerrar" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 256.0
+margin_right = 405.0
+margin_bottom = 276.0
+text = "Cerrar"
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_FigtherTB_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/TextureButton" to="." method="_on_CaballeroTB_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton" to="." method="_on_RangoTB_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" to="." method="_on_CrearUnidadBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/Cerrar" to="." method="_on_CerrarBtn_pressed"]
