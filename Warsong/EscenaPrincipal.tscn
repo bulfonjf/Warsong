@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://UI/MenuLateral/contenedor_h.gd" type="Script" id=1]
 [ext_resource path="res://Resources/World/TileSets/32px/tilset.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Grillas/GrillaPrincipal/Algoritmo Movimiento/algoritmo_movimiento.gd" type="Script" id=10]
 [ext_resource path="res://UI/MenuBase/MenuBase.tscn" type="PackedScene" id=11]
 [ext_resource path="res://UI/Camara/camera2D.gd" type="Script" id=12]
+[ext_resource path="res://UI/CeldaSeleccion/Celda_Seleccion.tscn" type="PackedScene" id=13]
+[ext_resource path="res://UI/CeldaSeleccion/celda_seleccion.gd" type="Script" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "ruta"
@@ -111,8 +113,6 @@ mouse_filter = 2
 
 [node name="MenuLateral" type="Control" parent="CanvasLayer"]
 visible = false
-margin_right = 32.0
-margin_bottom = 16.0
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -127,8 +127,8 @@ __meta__ = {
 }
 
 [node name="Mover" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
-margin_right = 52.0
-margin_bottom = 20.0
+margin_right = 63.0
+margin_bottom = 19.0
 custom_fonts/font = ExtResource( 9 )
 text = "Mover"
 __meta__ = {
@@ -136,9 +136,9 @@ __meta__ = {
 }
 
 [node name="Atacar" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
-margin_top = 24.0
-margin_right = 52.0
-margin_bottom = 44.0
+margin_top = 23.0
+margin_right = 63.0
+margin_bottom = 42.0
 custom_fonts/font = ExtResource( 9 )
 text = "Atacar"
 __meta__ = {
@@ -146,6 +146,11 @@ __meta__ = {
 }
 
 [node name="MenuBase" parent="CanvasLayer" instance=ExtResource( 11 )]
-[connection signal="hide" from="CanvasLayer/MenuLateral" to="." method="_on_MenuLateral_hide"]
+visible = false
+
+[node name="CeldaSeleccion" parent="." instance=ExtResource( 13 )]
+z_index = 1
+z_as_relative = false
+script = ExtResource( 14 )
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Mover" to="CanvasLayer/MenuLateral" method="_on_Mover_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Atacar" to="CanvasLayer/MenuLateral" method="_on_Atacar_pressed"]

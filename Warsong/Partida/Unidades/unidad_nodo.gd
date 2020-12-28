@@ -13,6 +13,8 @@ func get_unidad() -> Unidad:
 func init(tropa, equipo):
 	unidad = unidad_clase.new(tropa, equipo)
 	
+	
+	
 func _ready():
 	self.add_child(control_vida)
 	control_vida.iniciar(self.unidad)
@@ -27,11 +29,8 @@ func mover(posicion : Pixel):
 	self.position = posicion.vector
 	self.control_vida.actualizar_posicion()
 	
-# Funcion que se ejecuta cuando clickean al jugador
-func _on_Tropa_input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton && !event.is_pressed():
-		orquestador.click_en_tropa(self, event.position)
-	pass
+func obtener_info():
+	return unidad
 
 func animar():
 	$AnimationPlayer.play("caminar")

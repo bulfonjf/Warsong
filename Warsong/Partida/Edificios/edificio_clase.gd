@@ -11,3 +11,9 @@ func _init(edificio_partida):
 
 func set_faccion(faccion_nombre):
 	self.faccion = faccion_nombre
+
+func obtener_data():
+	return data
+
+func obtener_faccion():
+	return faccion

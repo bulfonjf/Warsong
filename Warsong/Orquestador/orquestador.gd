@@ -11,10 +11,12 @@ onready var partida : Script = load("res://Partida/partida.gd")
 onready var faccion = load("res://Partida/Facciones/faccion_nodo.gd")
 onready var edificio = load("res://Partida/Edificios/Edificio.tscn")
 onready var edificio_base = load("res://Partida/Edificios/Base.tscn")
-
+onready var celda_seleccion : Node2D = $CeldaSeleccion
+onready var camara2D: Node2D = $Camera2D
+onready var panel_superior: Control = $CanvasLayer/UI/Panel_superior/Panel/HBoxPanelSuperior
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
-
+onready var celdas_con_nodos = {}
 #SEÑALES
 
 # READY
@@ -22,7 +24,7 @@ func _ready():
 	preparar_ronda()
 	preparar_facciones()
 	preparar_edificios()
-
+	
 func preparar_ronda():
 	var facciones_nombres = []
 	for _faccion in partida.facciones: # reemplazar con list comprehension o algo asi
@@ -30,6 +32,7 @@ func preparar_ronda():
 
 	Ronda.init(facciones_nombres, partida.facciones[0].nombre)
 	menu_lateral_mapa.mostrar_info_ronda()
+	panel_superior.actualizar_panel(Ronda.obtener_faccion_activa())
 
 func preparar_facciones():
 	for faccion_data in partida.facciones:
@@ -46,18 +49,28 @@ func agregar_unidad(unidad, faccion_nodo):
 	var posicionUnidad_Pixel : Pixel = Convertir.pixel(posicionUnidad_Vector)
 	faccion_nodo.agregar_unidad(unidad, posicionUnidad_Pixel)
 	grilla_principal.marcar_celda_como_ocupada(posicionUnidad_Pixel)
+	
 
 func preparar_edificios():
-	for edificio_data in partida.edificios:
-		var nuevo_edificio
-		if edificio_data.nombre == "base":
-			nuevo_edificio = edificio_base.instance()
-		else:
-			nuevo_edificio = edificio.instance()
-		self.add_child(nuevo_edificio)
-		var pixel_centro_celda = grilla_principal.convertir_a_celda_y_obtener_centro(edificio_data.posicion)
-		nuevo_edificio.init(edificio_data, pixel_centro_celda)
-		grilla_principal.marcar_celda_como_ocupada(pixel_centro_celda)
+	for faccion_data in partida.facciones:
+		for edificio_data in partida.edificios:
+			
+			if edificio_data.nombre == "base":
+				var base = edificio_base.instance()
+				self.add_child(base)
+				var pixel_centro_celda = grilla_principal.convertir_a_celda_y_obtener_centro(edificio_data.posicion)
+				var faccion = faccion_data.nombre
+				base.init(edificio_data, pixel_centro_celda, faccion)
+				self.guardar_celda_nodo(base)
+				
+			else:
+				var nuevo_edificio = edificio.instance()
+				self.add_child(nuevo_edificio)
+				var pixel_centro_celda = grilla_principal.convertir_a_celda_y_obtener_centro(edificio_data.posicion)
+				var faccion = faccion_data.nombre
+				nuevo_edificio.init(edificio_data, pixel_centro_celda, faccion)
+				grilla_principal.marcar_celda_como_ocupada(pixel_centro_celda)
+				self.guardar_celda_nodo(nuevo_edificio)
 		
 #La Unidad llama a esta funcion cuando es clickeado #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
@@ -111,6 +124,7 @@ func mover_actor_activo(posicion_final : Vector2):
 	var posicion_en_pixeles : Vector2 = grilla_principal.obtener_centro_celda_desde_un_pixel(Convertir.pixel(posicion_final))
 	actor_activo.set_position(posicion_en_pixeles)
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor_activo.position))
+	self.guardar_celda_nodo(actor_activo)
 	SeleccionTropa.dispose()
 
 #Agrega un actor en la grilla_principal
@@ -135,4 +149,53 @@ func crear_unidad_en_base():
 	}
 	var faccion_nodo = self.get_node(Ronda.obtener_faccion_activa())
 	self.agregar_unidad(unidad, faccion_nodo)
+
+func _unhandled_input(event): #ToDo, demasiada conversiones de formato(pixel,celda) coordinar con la funcion de abajo y con celda_seleccion
+	if event is InputEventMouseButton && !event.is_pressed():
+		var posicion = event.position * camara2D.zoom + camara2D.position  #toma la posicion del clickeo en pixeles
+		var click_en_pixel =Convertir.pixel(posicion)
+		var centro_de_celda = grilla_principal.obtener_centro_celda_desde_un_pixel(click_en_pixel)
+		celda_seleccion.mover(centro_de_celda)
+		self.click_en_pantalla(centro_de_celda, event.position)
+		get_tree().set_input_as_handled()
+
+
+
+func guardar_celda_nodo(nodo: Node2D):
+	var posicion_pixel =Convertir.pixel(nodo.position)
+	var posicion_celda = grilla_principal.pixeles_a_celda(posicion_pixel)
+	celdas_con_nodos[nodo.get_instance_id()] = posicion_celda.vector
+	
+	
+func obtener_nodo_en_celda(celda_vector2: Vector2) -> Node2D:
+	var celda = Convertir.celda(celda_vector2)
+	for nodo_id in celdas_con_nodos.keys():
+		if celdas_con_nodos[nodo_id] == celda.vector:
+			return nodo_id
+	return null
+
+func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo, demasiada conversiones de formato(pixel,celda), coordinar con la funcion de arriba
+	var click_en_pixel =Convertir.pixel(centro_celda_clickeada)
+	var click_formato_celda = grilla_principal.pixeles_a_celda(click_en_pixel)
+	var nodo_en_celda = self.obtener_nodo_en_celda(click_formato_celda.vector)
+	if nodo_en_celda:
+		var nodo = instance_from_id(nodo_en_celda)
+		var info_nodo = nodo.obtener_info()
+		
+		if info_nodo is Edificio and info_nodo.obtener_data().nombre == "base":
+			if info_nodo.obtener_faccion() == Ronda.obtener_faccion_activa():
+				self.mostrar_menu_base()
+		elif info_nodo is Unidad:
+			if info_nodo.obtener_faccion() == Ronda.obtener_faccion_activa():
+				self.click_en_tropa(nodo, evento_posicion)
+			else:
+				var actor_activo = SeleccionTropa.data_contexto.get("actor_activo")
+				if Ataque.activo and actor_activo != nodo : 
+					actor_activo.animar()
+					var danio = Ataque.calcular_danio(actor_activo, nodo)
+					nodo.actualizar_vida(danio)
+					Ataque.dispose()
+	else:
+		self.click_en_grilla(centro_celda_clickeada)
+
 

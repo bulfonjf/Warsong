@@ -1,6 +1,6 @@
 extends Node
 var faccion_clase = load("res://Partida/Facciones/faccion_clase.gd")
-
+onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 var faccion : Faccion
 
 
@@ -15,6 +15,7 @@ func agregar_unidad(unidad, posicion : Pixel):
 	self.faccion.agregar_unidad(nueva_unidad)
 	nueva_unidad.add_to_group("Unidades")
 	nueva_unidad.add_to_group(self.faccion.nombre)
+	orquestador.guardar_celda_nodo(nueva_unidad)
 	
 func get_faccion():
 	return faccion

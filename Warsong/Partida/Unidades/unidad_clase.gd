@@ -18,7 +18,10 @@ func set_clase(clase_data):
 	self.clase = Data.clases_unidades[clase_data]
 	for slot in clase.slots:
 		self.slots[slot] = {"ocupado": false}
-	
+
+func get_clase():
+	return self.clase		
+
 func set_equipo(equipo_data):
 	self.equipo = equipo_data
 
@@ -82,3 +85,6 @@ func get_ataque():
 
 func get_defensa():
 	return self.clase.defensa
+
+func obtener_faccion():
+	return equipo

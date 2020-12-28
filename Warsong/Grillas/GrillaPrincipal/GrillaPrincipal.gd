@@ -2,7 +2,6 @@ extends TileMap
 
 onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
 onready var data: Node = load("res://Scripts/data.gd").new()
-onready var camara2D: Node2D = get_node("/root/NodoPrincipal/Camera2D")
 
 
 #Variables:
@@ -48,16 +47,6 @@ func obtener_celdas_ocupadas_adyacentes(celda: Celda) -> Array:
 			celdas_ocupadas_adyacentes.append(celda)
 	return celdas_ocupadas_adyacentes
 	
-#Se ejecuta cuando la grilla es clickeada
-#le avisa al orquestador de la posicion del clickeo en formato pixels
-#toma una posixion x,y, y devuelve la posicion de la esquia sup izquierda de la celda que se clickeo. 
-func _input(event):
-	if event is InputEventMouseButton && !event.is_pressed():
-		var zoom = camara2D.get_zoom()
-		var posicion = event.position * camara2D.zoom + camara2D.position  #toma la posicion del clickeo en pixeles
-		var posicionv2 = world_to_map((posicion)) #convierte el formato x,y en formato ubicacion grilla
-		var posicionxy = map_to_world((posicionv2)) #convierte el formato ubicacion grilla en formato x,y nuevamente
-		orquestador.click_en_grilla(posicionxy) #llama a orquestador 
 		
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D)-> Celda:
@@ -65,12 +54,12 @@ func obtener_posicion_grilla(nodo : Node2D)-> Celda:
 	var celda : Celda = Convertir.celda(world_to_map(posicion))
 	return celda
 
-#Devuelve posicion en celdas de un formato pixels (devuelve formato grilla)
+#Devuelve posicion en celdas de un formato pixels (devuelve formato Celda)
 func pixeles_a_celda(posicion : Pixel)-> Celda:
 	var celda : Celda = Convertir.celda(world_to_map(posicion.vector))
 	return celda
 
-#Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
+#Devuelve posicion de las celdas en formato pixels (devuelve un Pixel)
 func celdas_a_pixeles(posicion : Celda)-> Pixel:
 	var pixeles = map_to_world(posicion.vector)
 	return pixeles

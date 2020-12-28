@@ -39,4 +39,3 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/caminar = SubResource( 2 )
-[connection signal="input_event" from="." to="." method="_on_Tropa_input_event"]
