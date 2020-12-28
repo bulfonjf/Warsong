@@ -16,6 +16,9 @@ func agregar_unidad(unidad, posicion : Pixel):
 	nueva_unidad.add_to_group("Unidades")
 	nueva_unidad.add_to_group(self.faccion.nombre)
 	
+func get_faccion():
+	return faccion
+
 func _ready():
 	pass 
 

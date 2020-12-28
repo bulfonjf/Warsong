@@ -145,7 +145,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuBasePanel" parent="CanvasLayer" instance=ExtResource( 11 )]
+[node name="MenuBase" parent="CanvasLayer" instance=ExtResource( 11 )]
 [connection signal="hide" from="CanvasLayer/MenuLateral" to="." method="_on_MenuLateral_hide"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Mover" to="CanvasLayer/MenuLateral" method="_on_Mover_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Atacar" to="CanvasLayer/MenuLateral" method="_on_Atacar_pressed"]

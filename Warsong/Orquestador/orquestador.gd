@@ -3,6 +3,7 @@ extends Node
 # COMPONENTES
 onready var menu_lateral_mapa : Control = $CanvasLayer/UI/MargenUI/Panel/MenuLateralMapa
 onready var menu_lateral : Control = $CanvasLayer/MenuLateral
+onready var menu_base : Control = $CanvasLayer/MenuBase
 onready var grilla_principal: TileMap = $GrillaPrincipal
 onready var grilla_movimiento: TileMap = $GrillaMovimiento
 onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
@@ -32,6 +33,7 @@ func preparar_ronda():
 func preparar_facciones():
 	for faccion_data in partida.facciones:
 		var faccion_nodo = faccion.new(faccion_data)
+		faccion_nodo.name = faccion_nodo.get_faccion().nombre
 		self.add_child(faccion_nodo)
 		for unidad in faccion_data.tropas:
 			agregar_unidad(unidad, faccion_nodo)
@@ -112,3 +114,17 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 func atacar():
 	Ataque.activar_contexto()
 	Ataque.add_dispose_menu(self.menu_lateral)
+
+func crear_unidad_en_base():
+	var clase_unidad = menu_base.obtener_clase_unidad()
+	var equipamiento_defensa = menu_base.obtener_equipamiento_defensa()
+	var equipamiento_ataque = menu_base.obtener_equipamiento_ataque()
+	var posicion = Vector2(0,0)
+	var unidad = {
+		"clase": clase_unidad,
+		"equipamiento": [],
+		"posicion": posicion
+	}
+	var faccion_nodo = self.get_node(Ronda.obtener_faccion_activa())
+	self.agregar_unidad(unidad, faccion_nodo)
+

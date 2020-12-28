@@ -10,6 +10,7 @@ margin_left = 25.0
 margin_top = 25.0
 margin_right = -25.0
 margin_bottom = -25.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -155,5 +156,7 @@ margin_top = 232.0
 margin_right = 405.0
 margin_bottom = 252.0
 text = "Crear Unidad"
-script = ExtResource( 2 )
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" to="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" method="_on_CrearUnidadBtn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_FigtherTB_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2/TextureButton" to="." method="_on_CaballeroTB_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer3/TextureButton" to="." method="_on_RangoTB_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" to="." method="_on_CrearUnidadBtn_pressed"]
