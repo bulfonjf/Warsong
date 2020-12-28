@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func _on_FigtherTB_pressed():
-	self.clase_unidad = "figther"
+	self.clase_unidad = "fighter"
 
 func _on_CaballeroTB_pressed():
 	self.clase_unidad = "caballero"
