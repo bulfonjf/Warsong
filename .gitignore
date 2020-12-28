@@ -1,3 +1,16 @@
+# Godot
+.import/
+export.cfg
+export_presets.cfg
+
+# Mono specific
+.mono/
+.vs/
+
+# My custom folders
+Builds/
+# - OTHERS --------------
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
