@@ -5,7 +5,6 @@ var array_items_component = load("res://UI/Componentes/ArrayItem.tscn")
 
 func init(titulo : String, values : Array):
 	titulo_label.text = titulo
-	print("titulo del array " + titulo)
 	for value in values:
 		var item = array_items_component.instance()
 		self.add_child(item)

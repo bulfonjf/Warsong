@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Resources/Players/Sprites/jugador.png" type="Texture" id=1]
-[ext_resource path="res://UI/MenuBase/crear_unidad_btn.gd" type="Script" id=2]
+[ext_resource path="res://UI/MenuBase/menu_base.gd" type="Script" id=2]
 
 [node name="MenuBasePanel" type="Panel"]
 anchor_right = 1.0
@@ -150,9 +150,10 @@ margin_right = 405.0
 margin_bottom = 228.0
 text = "Arco y flecha"
 
-[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="CrearUnidadBtn" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 232.0
 margin_right = 405.0
 margin_bottom = 252.0
 text = "Crear Unidad"
 script = ExtResource( 2 )
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" to="MarginContainer/HBoxContainer/VBoxContainer2/CrearUnidadBtn" method="_on_CrearUnidadBtn_pressed"]
