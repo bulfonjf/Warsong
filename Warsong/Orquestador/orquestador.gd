@@ -10,6 +10,7 @@ onready var algoritmo_movimiento: Node2D = $GrillaPrincipal/AlgoritmoMovimiento
 onready var partida : Script = load("res://Partida/partida.gd")
 onready var faccion = load("res://Partida/Facciones/faccion_nodo.gd")
 onready var edificio = load("res://Partida/Edificios/Edificio.tscn")
+onready var edificio_base = load("res://Partida/Edificios/Base.tscn")
 
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
@@ -48,7 +49,11 @@ func agregar_unidad(unidad, faccion_nodo):
 
 func preparar_edificios():
 	for edificio_data in partida.edificios:
-		var nuevo_edificio = edificio.instance()
+		var nuevo_edificio
+		if edificio_data.nombre == "base":
+			nuevo_edificio = edificio_base.instance()
+		else:
+			nuevo_edificio = edificio.instance()
 		self.add_child(nuevo_edificio)
 		var pixel_centro_celda = grilla_principal.convertir_a_celda_y_obtener_centro(edificio_data.posicion)
 		nuevo_edificio.init(edificio_data, pixel_centro_celda)
@@ -82,6 +87,9 @@ func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el co
 	SeleccionTropa.set_celdas_de_movimiento(celdas_de_movimiento)
 	grilla_movimiento.resaltar_celdas(celdas_de_movimiento)
 	
+func mostrar_menu_base():
+	self.menu_base.visible = true
+
 #Grilla llama a esta funcion cuando es clickeada:
 #Llama a mover_actor_actual, la funcion de abajo
 func click_en_grilla(celda_clickeada):
