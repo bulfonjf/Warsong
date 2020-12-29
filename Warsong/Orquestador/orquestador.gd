@@ -34,7 +34,7 @@ func preparar_menu_base():
 func preparar_menu_lateral():
 	menu_lateral.connect("mostrar_movimiento_disponible_signal", self, "mostrar_movimiento_disponible")
 	menu_lateral.connect("atacar_signal", self, "atacar")
-	
+	menu_lateral.connect("borrar_signal", self, "borrar")
 func preparar_camara():
 	var limites = grilla_principal.obtener_limites()
 	var viewport_limites = get_viewport().get_size()
@@ -187,6 +187,7 @@ func obtener_nodo_en_celda(celda_vector2: Vector2) -> Node2D:
 			return nodo_id
 	return null
 
+
 func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo, demasiada conversiones de formato(pixel,celda), coordinar con la funcion de arriba
 	var click_en_pixel =Convertir.pixel(centro_celda_clickeada)
 	var click_formato_celda = grilla_principal.pixeles_a_celda(click_en_pixel)
@@ -212,3 +213,13 @@ func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo
 		self.click_en_grilla(centro_celda_clickeada)
 
 
+func borrar_nodo_en_celda(nodo) :
+	celdas_con_nodos.erase(nodo.get_instance_id()) 
+
+func borrar():
+	var actor_activo = SeleccionTropa.get_actor_activo()
+	self.borrar_nodo_en_celda(actor_activo)
+	grilla_principal.marcar_celda_como_libre(Convertir.pixel(actor_activo.position))
+	actor_activo.queue_free()
+	SeleccionTropa.dispose()
+	print(actor_activo.unidad)

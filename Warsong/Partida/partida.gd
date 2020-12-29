@@ -1,4 +1,4 @@
-extends Script
+extends Reference
 
 const posiciones_unidades = [Vector2(0,2), Vector2(0,3)]
 const posiciones_edificios = [Vector2(3,4), Vector2(4,2), Vector2(5,2), Vector2(6,2)] 

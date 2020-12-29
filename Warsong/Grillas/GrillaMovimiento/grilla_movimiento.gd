@@ -2,7 +2,6 @@ extends TileMap
 
 var tiles_resaltados
 
-
 func _ready():
 	pass 
 
@@ -11,12 +10,10 @@ func _ready():
 func resaltar_tile(ubicacion: Vector2):
 	self.set_cellv(ubicacion, 0)
 
-
 #Highlaitea una lista de tiles de movimiento disponible:
 func resaltar_celdas(lista_celdas: Array):
 	for celda in lista_celdas:
 		self.resaltar_tile(celda.vector)
-
 
 #Borra los tiles highlaiteados:
 func quitar_celdas_resaltadas():

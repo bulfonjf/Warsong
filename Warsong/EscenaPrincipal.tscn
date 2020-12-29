@@ -127,7 +127,7 @@ __meta__ = {
 }
 
 [node name="Mover" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
-margin_right = 63.0
+margin_right = 66.0
 margin_bottom = 19.0
 custom_fonts/font = ExtResource( 9 )
 text = "Mover"
@@ -137,10 +137,20 @@ __meta__ = {
 
 [node name="Atacar" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
 margin_top = 23.0
-margin_right = 63.0
+margin_right = 66.0
 margin_bottom = 42.0
 custom_fonts/font = ExtResource( 9 )
 text = "Atacar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Borrar" type="Button" parent="CanvasLayer/MenuLateral/Contenedor_H"]
+margin_top = 46.0
+margin_right = 66.0
+margin_bottom = 65.0
+custom_fonts/font = ExtResource( 9 )
+text = "borrar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -154,3 +164,4 @@ z_as_relative = false
 script = ExtResource( 14 )
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Mover" to="CanvasLayer/MenuLateral" method="_on_Mover_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Atacar" to="CanvasLayer/MenuLateral" method="_on_Atacar_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuLateral/Contenedor_H/Borrar" to="CanvasLayer/MenuLateral" method="_on_Borrar_pressed"]

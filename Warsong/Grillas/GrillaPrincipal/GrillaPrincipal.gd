@@ -1,9 +1,5 @@
 extends TileMap
 
-
-onready var data: Node = load("res://Scripts/data.gd").new()
-
-
 #Variables:
 var celdas_ocupadas : Array
 
@@ -19,15 +15,11 @@ func marcar_celda_como_libre(posicion: Pixel):
 		if celda._eq(celda_a_liberar):
 			celdas_ocupadas.erase(celda)
 		
-	
-	
 #Marcar celda como ocupada
 func marcar_celda_como_ocupada(posicion: Pixel):
 	var celda : Celda = self.pixeles_a_celda(posicion)
 	if not celda._in(celdas_ocupadas):
 		celdas_ocupadas.append(celda)
-	
-	
 	
 #Obtiene las celdas adyacentes a una celda
 func obtener_celdas_adyacentes(celda : Celda) -> Array:
@@ -46,8 +38,7 @@ func obtener_celdas_ocupadas_adyacentes(celda: Celda) -> Array:
 		if celda._in(celdas_ocupadas):
 			celdas_ocupadas_adyacentes.append(celda)
 	return celdas_ocupadas_adyacentes
-	
-		
+
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D)-> Celda:
 	var posicion = nodo.position
@@ -87,16 +78,14 @@ func obtener_centro_celda(celda : Celda)-> Vector2:
 	var esquina_superior_izquierda_pixeles = celdas_a_pixeles(celda)
 	return esquina_superior_izquierda_pixeles + self.get_cell_size() / 2
 
-
 #Devuelve la data de una celda
 func obtener_info_de_celda(ubicacion_celda: Celda):
 	var tile_id = self.get_cellv(ubicacion_celda.vector)
 	if(tile_id == -1):
-		return data.terrenos["empty"]
+		return Data.terrenos["empty"]
 	var tile_name = self.tile_set.tile_get_name(tile_id)
-	return data.terrenos[tile_name]
+	return Data.terrenos[tile_name]
 	
-
 #Devuelve el tamaño de la grilla en pixeles
 func obtener_limites():
 		var celda_size = self.get_cell_size()

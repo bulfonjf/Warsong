@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrincipal")
 
@@ -11,7 +11,6 @@ func celda_libre(celda_a_evaluar : Celda): #Evalua si celda destino esta libre
 		return false
 	else:
 		return true
-
 	
 #Devuelve las celdas donde el actor se puede mover
 func obtener_celdas_donde_se_puede_mover(actor):
@@ -41,7 +40,6 @@ func evaluar_branch(celda_origen: Celda, celda_destino: Celda, movimiento_dispon
 	var coste_de_movimiento = actor.get_unidad().get_coste_de_movimiento(tipo_de_terreno_celda_destino) #coste de mov del tile segun el "tipo" de actor
 	var movimiento_disponible_branch = movimiento_disponible #variable de movimiento disponibles interna
 
-	
 		
 	if movimiento_disponible_branch >= coste_de_movimiento and self.celda_libre(celda_destino):  #primero evalua si le quedan mov disponibles al jug para mover a la celda, y si la celda está libre
 		movimiento_disponible_branch -= coste_de_movimiento  #resta el coste de mov del tile al mov disponible del actor( la variable interna)
@@ -61,12 +59,4 @@ func evaluar_branch(celda_origen: Celda, celda_destino: Celda, movimiento_dispon
 		
 		for celda in celdas_adyacentes_celda_destino: #la funcion de llama a si misma con las celdas adyacentes a la celda evaluada
 			evaluar_branch(celda_destino, celda, movimiento_disponible_branch, actor, celdas_de_movimiento_permitido)
-			
-	
 
-	
-
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
