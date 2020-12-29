@@ -4,12 +4,28 @@ onready var grilla_principal: TileMap = get_node("/root/NodoPrincipal/GrillaPrin
 onready var grilla_principal_celda_size : Vector2 = grilla_principal.get_cell_size()
 onready var alto_celda = grilla_principal_celda_size.y
 onready var ancho_celda = grilla_principal_celda_size.x
-onready var nodo_principal : Node2D = get_node("/root/NodoPrincipal")
+
 
 #obtiene las medidas del vieport 
-onready var viewport_size = nodo_principal.get_viewport().get_size()
+var viewport_size 
 
 var limites : Vector2
+
+
+func init(limites_orquestador, viewport_limites):
+	self.set_limites(limites_orquestador)
+	self.set_viewport_size(viewport_limites)
+
+#setea los limites de la camara
+func set_limites(limites):
+	self.limit_bottom = int(limites.y)
+	self.limit_right = int(limites.x)
+	self.limit_top = 0
+	self.limit_left = 0
+	pass 
+
+func set_viewport_size(viewport_data):
+	viewport_size = viewport_data
 
 #mueve la camara con los imputs de las teclas
 #chequea que no pasen los limites
@@ -34,15 +50,9 @@ func _input(_event):
 		if arriba.y >= 0:
 			self.set_position(arriba) 
 			
-#setea los limites de la camara
-func _ready():
-	limites = grilla_principal.obtener_limites()
-	self.limit_bottom = int(limites.y)
-	self.limit_right = int(limites.x)
-	self.limit_top = 0
-	self.limit_left = 0
+
+
 	
-	pass 
 
 
 

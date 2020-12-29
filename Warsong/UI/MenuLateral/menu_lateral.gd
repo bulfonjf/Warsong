@@ -1,11 +1,13 @@
 extends Node
 
-onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
+
 onready var contenedor_horizontal : VBoxContainer = $Contenedor_H
 # Ready
 func _ready():
 	pass 
 
+signal mostrar_movimiento_disponible_signal()
+signal atacar_signal()
 #Muestra el menu del jugador
 #Llamada por orquestador.click_en_jugador(jugador)
 func mostrar(posicion, adyacentes):
@@ -21,7 +23,7 @@ func ocultar():
 
 #Funcion que se ejecuta cuando se hace click en el boton "Mover"
 func _on_Mover_pressed():
-	orquestador.mostrar_movimiento_disponible()
+	emit_signal("mostrar_movimiento_disponible_signal")
 
 func _on_Atacar_pressed():
-	orquestador.atacar()
+	emit_signal("atacar_signal")

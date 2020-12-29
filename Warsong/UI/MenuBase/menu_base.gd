@@ -1,14 +1,15 @@
 extends Control
 
-onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
+
 var clase_unidad = ""
 var equipamiento_defensa = []
 var equipamiento_ataque = []
 
+signal crear_unidad_en_base_signal(clase_unidad, equipamiento_defensa, equipamiento_ataque)
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	pass 
 	
 func _on_FigtherTB_pressed():
 	self.clase_unidad = "fighter"
@@ -20,7 +21,7 @@ func _on_RangoTB_pressed():
 	self.clase_unidad = "rango"
 
 func _on_CrearUnidadBtn_pressed():
-	orquestador.crear_unidad_en_base()
+	emit_signal("crear_unidad_en_base_signal", self.clase_unidad, self.equipamiento_defensa, self.equipamiento_ataque)
 
 func _on_CerrarBtn_pressed():
 	self.visible = false

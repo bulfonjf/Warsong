@@ -1,6 +1,6 @@
 extends TileMap
 
-onready var orquestador : Node2D = get_node("/root/NodoPrincipal")
+
 onready var data: Node = load("res://Scripts/data.gd").new()
 
 

@@ -21,10 +21,25 @@ onready var celdas_con_nodos = {}
 
 # READY
 func _ready():
+	preparar_menu_base()
+	preparar_menu_lateral()
+	preparar_camara()
 	preparar_ronda()
 	preparar_facciones()
 	preparar_edificios()
+
+func preparar_menu_base():
+	menu_base.connect("crear_unidad_en_base_signal", self, "crear_unidad_en_base")
 	
+func preparar_menu_lateral():
+	menu_lateral.connect("mostrar_movimiento_disponible_signal", self, "mostrar_movimiento_disponible")
+	menu_lateral.connect("atacar_signal", self, "atacar")
+	
+func preparar_camara():
+	var limites = grilla_principal.obtener_limites()
+	var viewport_limites = get_viewport().get_size()
+	camara2D.init(limites, viewport_limites)
+
 func preparar_ronda():
 	var facciones_nombres = []
 	for _faccion in partida.facciones: # reemplazar con list comprehension o algo asi
@@ -39,6 +54,7 @@ func preparar_facciones():
 		var faccion_nodo = faccion.new(faccion_data)
 		faccion_nodo.name = faccion_nodo.get_faccion().nombre
 		self.add_child(faccion_nodo)
+		faccion_nodo.connect("guardar_celda_signal", self, "guardar_celda_nodo")
 		for unidad in faccion_data.tropas:
 			agregar_unidad(unidad, faccion_nodo)
 
@@ -137,11 +153,8 @@ func atacar():
 	Ataque.activar_contexto()
 	Ataque.add_dispose_menu(self.menu_lateral)
 
-func crear_unidad_en_base():
-	var clase_unidad = menu_base.obtener_clase_unidad()
-	var equipamiento_defensa = menu_base.obtener_equipamiento_defensa()
-	var equipamiento_ataque = menu_base.obtener_equipamiento_ataque()
-	var posicion = Vector2(0,0)
+func crear_unidad_en_base(clase_unidad, equipamiento_defensa, equipamiento_ataque):
+	var posicion = Vector2(4,6)
 	var unidad = {
 		"clase": clase_unidad,
 		"equipamiento": [],
