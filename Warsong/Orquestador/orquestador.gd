@@ -13,7 +13,7 @@ onready var edificio = load("res://Partida/Edificios/Edificio.tscn")
 onready var edificio_base = load("res://Partida/Edificios/Base.tscn")
 onready var celda_seleccion : Node2D = $CeldaSeleccion
 onready var camara2D: Node2D = $Camera2D
-onready var panel_superior: Control = $CanvasLayer/UI/Panel_superior/Panel/HBoxPanelSuperior
+onready var panel_superiorHbox: Control = $CanvasLayer/UI/Panel_superior/Panel/HBoxPanelSuperior
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 onready var celdas_con_nodos = {}
@@ -47,7 +47,7 @@ func preparar_ronda():
 
 	Ronda.init(facciones_nombres, partida.facciones[0].nombre)
 	menu_lateral_mapa.mostrar_info_ronda()
-	panel_superior.actualizar_panel(Ronda.obtener_faccion_activa())
+	panel_superiorHbox.actualizar_panel(Ronda.obtener_faccion_activa())
 
 func preparar_facciones():
 	for faccion_data in partida.facciones:
@@ -91,12 +91,6 @@ func preparar_edificios():
 #La Unidad llama a esta funcion cuando es clickeado #Setea el contexto de seleccion de tropa
 #Muestra el MenuLateral en la posicion del tropa
 func click_en_tropa(tropa, posicion_click):
-	if Ataque.activo and SeleccionTropa.data_contexto.get("actor_activo") != tropa : #WARNING No chequea que sea un target valido 
-		SeleccionTropa.data_contexto.get("actor_activo").animar()
-		var danio = Ataque.calcular_danio(SeleccionTropa.data_contexto.get("actor_activo"), tropa)
-		tropa.actualizar_vida(danio)
-		Ataque.dispose()
-	else:
 		SeleccionTropa.dispose()	
 		SeleccionTropa.activar_contexto()
 		SeleccionTropa.set_actor_activo(tropa)
@@ -110,7 +104,8 @@ func click_en_tropa(tropa, posicion_click):
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el correcto. Si el jugador está atacando, no puede mover. 
 	SeleccionTropa.add_dispose_grilla_movimiento(grilla_movimiento)
-	SeleccionTropa.activar_movimiento()
+	SeleccionTropa.activar_accion_movimiento()
+	SeleccionTropa.add_dispose_acciones()
 	var actor_activo = SeleccionTropa.get_actor_activo()
 	var celdas_de_movimiento = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_activo)
 	SeleccionTropa.set_celdas_de_movimiento(celdas_de_movimiento)
@@ -128,9 +123,7 @@ func click_en_grilla(celda_clickeada):
 			mover_actor_activo(celda_clickeada)
 		else:
 			SeleccionTropa.dispose()
-	elif Ataque.activo:
-		if not celda._in(grilla_principal.celdas_ocupadas): #WARNING tendria que verificar celdas de ataque posibles, no solo ocupadas
-			Ataque.dispose()
+	
 
 #Mueve al actor a la celda de destino:
 #La llama "click_en_grilla"[orquestador.click_en_grilla]
@@ -148,10 +141,13 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 	actor.set_position(posicion)
 	grilla_principal.add_child(actor)
 	grilla_principal.marcar_celda_como_ocupada(Convertir.pixel(actor.position))	 
-	
+
+#La llama menu_lateral cuanndo se hace click en atacar
 func atacar():
-	Ataque.activar_contexto()
-	Ataque.add_dispose_menu(self.menu_lateral)
+	SeleccionTropa.activar_ataque()
+	SeleccionTropa.add_dispose_acciones()
+	SeleccionTropa.add_dispose_menu(self.menu_lateral)
+	
 
 func crear_unidad_en_base(clase_unidad, equipamiento_defensa, equipamiento_ataque):
 	var posicion = Vector2(4,6)
@@ -189,7 +185,7 @@ func obtener_nodo_en_celda(celda_vector2: Vector2) -> Node2D:
 
 
 func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo, demasiada conversiones de formato(pixel,celda), coordinar con la funcion de arriba
-	var click_en_pixel =Convertir.pixel(centro_celda_clickeada)
+	var click_en_pixel =Convertir.pixel(centro_celda_clickeada)				#Todo, ver como distribuir esto en distintos componentes
 	var click_formato_celda = grilla_principal.pixeles_a_celda(click_en_pixel)
 	var nodo_en_celda = self.obtener_nodo_en_celda(click_formato_celda.vector)
 	if nodo_en_celda:
@@ -204,11 +200,11 @@ func click_en_pantalla(centro_celda_clickeada : Vector2, evento_posicion):	#ToDo
 				self.click_en_tropa(nodo, evento_posicion)
 			else:
 				var actor_activo = SeleccionTropa.data_contexto.get("actor_activo")
-				if Ataque.activo and actor_activo != nodo : 
-					actor_activo.animar()
-					var danio = Ataque.calcular_danio(actor_activo, nodo)
-					nodo.actualizar_vida(danio)
-					Ataque.dispose()
+				if  "atacando" in SeleccionTropa.get_acciones():
+						actor_activo.animar()
+						var danio = Ataque.calcular_danio(actor_activo, nodo)
+						nodo.actualizar_vida(danio)
+						SeleccionTropa.dispose()
 	else:
 		self.click_en_grilla(centro_celda_clickeada)
 

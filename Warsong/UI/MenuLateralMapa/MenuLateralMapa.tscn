@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/MenuLateralMapa/menu_lateral_mapa.gd" type="Script" id=1]
-[ext_resource path="res://UI/PanelSuperior/PanelSuperior.gd" type="Script" id=2]
+[ext_resource path="res://UI/PanelSuperior/PanelSuperiorHBox.gd" type="Script" id=2]
+[ext_resource path="res://UI/PanelSuperior/PanelSuperior.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Temas/Tema_menu.tres" type="Theme" id=4]
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -55,6 +57,7 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Panel_superior"]
 margin_right = 896.0
 margin_bottom = 64.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -64,10 +67,27 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 760.0
 margin_bottom = 56.0
+alignment = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Key" type="Label" parent="Panel_superior/Panel/HBoxPanelSuperior"]
+margin_left = 646.0
+margin_top = 16.0
+margin_right = 704.0
+margin_bottom = 29.0
+theme = ExtResource( 4 )
+text = "faccion"
+
+[node name="Value" type="Label" parent="Panel_superior/Panel/HBoxPanelSuperior"]
+margin_left = 708.0
+margin_top = 16.0
+margin_right = 750.0
+margin_bottom = 29.0
+theme = ExtResource( 4 )
+text = "value"
 
 [node name="BtnPanelSuperior" type="Button" parent="Panel_superior/Panel"]
 anchor_left = 0.857
@@ -82,3 +102,4 @@ text = "Finalizar Turno"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Panel_superior/Panel/BtnPanelSuperior" to="Panel_superior/Panel" method="_on_BtnPanelSuperior_pressed"]

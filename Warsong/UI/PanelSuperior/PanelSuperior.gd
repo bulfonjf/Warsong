@@ -1,11 +1,12 @@
-extends HBoxContainer
+extends Panel
+onready var panel_superiorHbox: Control = $HBoxPanelSuperior
 
-var key_value_component = load("res://UI/Componentes/KeyValue.tscn")
+func _on_BtnPanelSuperior_pressed():
+	Ronda.terminar_turno()
+	var faccion_activa = Ronda.obtener_faccion_activa()
+	panel_superiorHbox.actualizar_panel(faccion_activa)
 
-
-func actualizar_panel(value):
-	var item_ui = key_value_component.instance()
-	self.add_child(item_ui)
-	item_ui.init("faccion", str(value))
+func _ready() -> void:
+	pass 
 
 
