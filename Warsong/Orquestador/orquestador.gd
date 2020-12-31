@@ -17,6 +17,7 @@ onready var panel_superiorHbox: Control = $CanvasLayer/UI/Panel_superior/Panel/H
 # VARIABLES
 onready var tamanio_de_celda : Vector2 = grilla_principal.get_cell_size()
 onready var celdas_con_nodos = {}
+onready var contexto_activo_acciones_unidad : String = ""
 #SEÑALES
 
 # READY
@@ -104,8 +105,8 @@ func click_en_tropa(tropa, posicion_click):
 #la llama menu_lateral cuando hacen click en mover [func _on_Mover_pressed():]
 func mostrar_movimiento_disponible(): #WARNING Validad que el contexto sea el correcto. Si el jugador está atacando, no puede mover. 
 	SeleccionTropa.add_dispose_grilla_movimiento(grilla_movimiento)
+	self.activar_contexto_acciones_unidad("movimiento")
 	SeleccionTropa.activar_accion_movimiento()
-	SeleccionTropa.add_dispose_acciones()
 	var actor_activo = SeleccionTropa.get_actor_activo()
 	var celdas_de_movimiento = algoritmo_movimiento.obtener_celdas_donde_se_puede_mover(actor_activo)
 	SeleccionTropa.set_celdas_de_movimiento(celdas_de_movimiento)
@@ -144,6 +145,7 @@ func agregar_actor(actor: Node2D, posicion: Vector2):
 
 #La llama menu_lateral cuanndo se hace click en atacar
 func atacar():
+	self.activar_contexto_acciones_unidad("ataque")
 	SeleccionTropa.activar_ataque()
 	SeleccionTropa.add_dispose_acciones()
 	SeleccionTropa.add_dispose_menu(self.menu_lateral)
@@ -219,3 +221,13 @@ func borrar():
 	actor_activo.queue_free()
 	SeleccionTropa.dispose()
 	print(actor_activo.unidad)
+
+func activar_contexto_acciones_unidad(contexto : String):
+	if self.contexto_activo_acciones_unidad == "ataque":
+		# todo llamar al dispose de ataque
+		pass
+	elif self.contexto_activo_acciones_unidad == "movimiento":
+		# todo llamar al dispose de movimiento
+		pass
+	else:
+		self.contexto_activo_acciones_unidad = contexto

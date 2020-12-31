@@ -21,9 +21,6 @@ func add_dispose_menu(menu):
 func add_dispose_grilla_movimiento(grilla):
 	self.agregar_dispose(funcref(grilla, "quitar_celdas_resaltadas"))
 
-func add_dispose_acciones():
-	self.agregar_dispose(funcref(self, "vaciar_acciones"))
-
 func activar_accion_movimiento():
 	self.acciones.clear()
 	self.acciones.append(accion_mover_tropa)
@@ -31,9 +28,6 @@ func activar_accion_movimiento():
 func activar_ataque():
 	self.acciones.clear()
 	self.acciones.append(accion_atacar)
-
-func vaciar_acciones():
-	self.acciones.clear()
 
 func set_celdas_de_movimiento(celdas):
 	self.data_contexto[celdas_movimiento] = celdas
@@ -48,3 +42,4 @@ func si_celda_resaltada(celda):
 
 func get_acciones():
 	return self.acciones
+
