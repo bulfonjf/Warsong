@@ -1,0 +1,69 @@
+Requermientos:
+
+- Selecciono una unidad y aparece el menu de unidad
+    - Mover
+        - valido si:
+            - unidad activa
+            - unidad es de la faccion activa
+            - la unidad no esta bloqueada
+            - el contexto de ataque esta desactivado
+            - el contexto de vista esta desactivado
+        - finaliza los contextos de ataque y vista
+        - mostrar celdas de mov disponible
+        - si clickeas una celda disponible
+            - finaliza
+        - finaliza
+            - mueve el jugador a esa celda
+            - se cierra el menu de unidad
+            - se desactiva la unidad
+            - descuenta del movimiento disponible de la unidad seleccionada
+    - Ataque
+        - valido si:
+            - unidad activa
+            - unidad es de la faccion activa
+            - la unidad no esta bloqueada
+            - la unidad tiene ataques disponibles
+                - las unidades de tipo 'y' pueden atacar y mover
+                - podria haber alguna unidad o bonus que te de ataque doble
+            - el contexto de movimiento esta desactivado
+            - el contexto de vista esta desactivado
+        - finaliza los contextos de movimiento y vista
+        - al seleccionar la segunda unidad
+            - si es de otra faccion
+                - se calcula el danio
+                - se muestra un menu con la info de los resultados potenciales
+                - si la unidad esta a rango de ataque
+                    - se resalta la unidad para mostrar que se puede atacar
+                    - si apreta atacar u ok
+                        - se cierra el menu de info de resultados
+                        - se resta la vida a la unidad seleccionada como objetivo
+                        - se actualiza la barra de vida de la unidad objetivo
+                        - finaliza
+                - si no esta a rango de ataque
+                    - cierra menu de atacar o cancelar si esta abierto
+                - cada click en una unidad muestra el resultado o preview de ataque
+            - si la unidad es de la misma faccion
+                - continua, no modifica nada
+        - finaliza
+            - quita el resaltado sobre las unidades a rango de ataque
+            - se cierra el menu de info de resultados
+            - se cierra el menu de unidad
+            - si unidad tipo 'x'
+                - quitar el resto del movimiento disponible
+                - mostrar la unidad como bloqueada (como en warsong que ya no podes hacer mas nada)
+            - si unidad tipo 'y'
+                - permite seguir moviendo u haciendo cosas con la unidad
+    - Vista
+
+
+    - Hover de mouse
+        - mostrar info del terreno dependiendo de la tropa seleccionada.
+        - mostrar calculo de ataque problable si hovereas una tropa enemiga.
+        - hacer un colition shape mas chico que el tamaño de la celda, para que tengas que hacer hover en el centro
+    - Finalizar seleccion
+        - escape, click en cualquier otra celda, boton cerrar
+        - cerrar el menu de unidad
+        - desactivar la unidad (no es mas actor activo)
+        - si hubiese otra situacion a medias (movimiento u ataque) que la finalice tamb
+
+- Selecciono una celda sin unidades
