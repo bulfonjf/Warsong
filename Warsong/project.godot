@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Warsong"
-run/main_scene="res://EscenaPrincipal.tscn"
+run/main_scene="res://Lobby/Lobby.tscn"
 
 [autoload]
 

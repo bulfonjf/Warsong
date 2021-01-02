@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Multijugador/Cliente.gd" type="Script" id=1]
+
+[node name="Cliente" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -768.0
+margin_bottom = 8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer"]
+margin_top = 317.0
+margin_right = 121.0
+margin_bottom = 331.0
+text = "Label cliente lobby"
+
+[node name="BtnConectar" type="Button" parent="Panel/HBoxContainer"]
+margin_left = 125.0
+margin_right = 205.0
+margin_bottom = 648.0
+rect_min_size = Vector2( 80, 32 )
+[connection signal="pressed" from="Panel/HBoxContainer/BtnConectar" to="." method="_on_BtnConectar_pressed"]
