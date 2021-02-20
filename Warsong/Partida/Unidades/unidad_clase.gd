@@ -2,28 +2,35 @@ extends Reference
 class_name Unidad
 
 var clase = {}
-var equipo 
+var faccion 
 var equipamiento = []
 var slots = {}
 var items = {}
 var vida = 0
+var movimientos = 0
+var ataque_activado : bool  
+func _init(unidad, _faccion):
+	self.set_clase(unidad)
+	#self.set_equipamiento(tropa.equipamiento)
+	self.set_faccion(_faccion)
+	self.set_vida(unidad)
+	self.set_movimientos(unidad)
 
-func _init(tropa, equipo_data):
-	self.set_clase(tropa.clase)
-	self.set_equipamiento(tropa.equipamiento)
-	self.set_equipo(equipo_data)
-	self.set_vida()
-	
+func actualizar_unidad_por_turno(_total_rondas):
+	var unidad = clase.nombre
+	self.set_movimientos(unidad)
+	pass
+
 func set_clase(clase_data):
 	self.clase = Data.clases_unidades[clase_data]
-	for slot in clase.slots:
-		self.slots[slot] = {"ocupado": false}
+	#for slot in clase.slots:
+	#	self.slots[slot] = {"ocupado": false}
 
 func get_clase():
 	return self.clase		
 
-func set_equipo(equipo_data):
-	self.equipo = equipo_data
+func set_faccion(_faccion):
+	self.faccion = _faccion
 
 func set_equipamiento(equipamiento_data):
 	for item in equipamiento_data:
@@ -63,7 +70,6 @@ func unidad_dispone_de_slots(item) -> bool:
 	return slots_disponibles
 
 func get_movimientos():
-	var movimientos = self.clase.movimientos
 	return movimientos
 
 func get_coste_de_movimiento(tipo_de_terreno):
@@ -74,11 +80,17 @@ func get_coste_de_movimiento(tipo_de_terreno):
 		coste_de_movimiento = 1000
 	return coste_de_movimiento
 
-func set_vida():
-	self.vida = self.clase.vida
-	
+func set_vida(unidad):
+	self.vida = Data.clases_unidades[unidad]["vida"]
+
+func set_movimientos(unidad):
+	self.movimientos = Data.clases_unidades[unidad]["movimientos"]
+
 func actualizar_vida(danio : int):
 	self.vida = self.vida - danio
+
+func actualizar_movimiento(coste_movimiento):
+	self.movimientos = coste_movimiento
 
 func get_ataque():
 	return self.clase.ataque
@@ -86,5 +98,29 @@ func get_ataque():
 func get_defensa():
 	return self.clase.defensa
 
+func get_modificadores():
+	return self.clase.modificadores
+
+func get_dado_modificador():
+	return self.clase.dado_modificador
+
+func get_ataque_critico():
+	return self.clase.ataque_critico
+
+func get_esquiva():
+	return self.clase.esquiva
+
+func get_ataque_activado():
+	return ataque_activado
+
+func get_tipo():
+	return self.clase.nombre
+		
 func obtener_faccion():
-	return equipo
+	return faccion
+
+func activar_ataque():	
+	ataque_activado = true
+
+func desactivar_ataque():
+	ataque_activado = false

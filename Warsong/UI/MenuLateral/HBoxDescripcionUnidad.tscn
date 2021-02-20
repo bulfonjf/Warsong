@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/MenuLateral/HBoxDescripcionUnidad.gd" type="Script" id=1]
+
+[node name="HBoxDescripcionUnidad" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 32.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBoxUnidad" type="CheckBox" parent="."]
+margin_right = 24.0
+margin_bottom = 104.0
+
+[node name="LabelNombre" type="Label" parent="."]
+margin_left = 28.0
+margin_top = 45.0
+margin_right = 125.0
+margin_bottom = 59.0
+text = "nombre unidad"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 129.0
+margin_right = 364.0
+margin_bottom = 104.0
+columns = 2
+
+[node name="LabelAtaque" type="Label" parent="GridContainer"]
+margin_right = 109.0
+margin_bottom = 14.0
+text = "Ataque:"
+
+[node name="LabelValorAtaque" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_right = 235.0
+margin_bottom = 14.0
+text = "valor ataque"
+
+[node name="LabelDefensa" type="Label" parent="GridContainer"]
+margin_top = 18.0
+margin_right = 109.0
+margin_bottom = 32.0
+text = "Defensa:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelValorDefensa" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_top = 18.0
+margin_right = 235.0
+margin_bottom = 32.0
+text = "valor defensa"
+
+[node name="LabelVida" type="Label" parent="GridContainer"]
+margin_top = 36.0
+margin_right = 109.0
+margin_bottom = 50.0
+text = "Vida:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelValorVida" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_top = 36.0
+margin_right = 235.0
+margin_bottom = 50.0
+text = "valor vida"
+
+[node name="LabelMovimiento" type="Label" parent="GridContainer"]
+margin_top = 54.0
+margin_right = 109.0
+margin_bottom = 68.0
+text = "Movimiento:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelValorMovimiento" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_top = 54.0
+margin_right = 235.0
+margin_bottom = 68.0
+text = "valor movimiento"
+
+[node name="LabelAtaqueCritico" type="Label" parent="GridContainer"]
+margin_top = 72.0
+margin_right = 109.0
+margin_bottom = 86.0
+text = "Ataque critico %:"
+
+[node name="LabelValorAtaqueCritico" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_top = 72.0
+margin_right = 235.0
+margin_bottom = 86.0
+text = "valor ataque critico"
+
+[node name="LabelEsquiva" type="Label" parent="GridContainer"]
+margin_top = 90.0
+margin_right = 109.0
+margin_bottom = 104.0
+text = "Esquiva:"
+
+[node name="LabelValorEsquiva" type="Label" parent="GridContainer"]
+margin_left = 113.0
+margin_top = 90.0
+margin_right = 235.0
+margin_bottom = 104.0
+text = "valor esquiva"
+[connection signal="toggled" from="CheckBoxUnidad" to="." method="_on_CheckBoxUnidad_toggled"]

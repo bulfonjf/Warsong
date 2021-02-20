@@ -17,9 +17,9 @@ func init(limites_orquestador, viewport_limites):
 	self.set_viewport_size(viewport_limites)
 
 #setea los limites de la camara
-func set_limites(limites):
-	self.limit_bottom = int(limites.y)
-	self.limit_right = int(limites.x)
+func set_limites(_limites):
+	self.limit_bottom = int(_limites.y)
+	self.limit_right = int(_limites.x)
 	self.limit_top = 0
 	self.limit_left = 0
 	pass 

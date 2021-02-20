@@ -23,21 +23,34 @@ func marcar_celda_como_ocupada(posicion: Pixel):
 	
 #Obtiene las celdas adyacentes a una celda
 func obtener_celdas_adyacentes(celda : Celda) -> Array:
-	var celda_derecha : Celda = Convertir.celda(celda.vector + Vector2.RIGHT)
-	var celda_izquierda : Celda = Convertir.celda(celda.vector + Vector2.LEFT)
-	var celda_superior : Celda =  Convertir.celda(celda.vector + Vector2.UP)
-	var celda_inferior : Celda = Convertir.celda(celda.vector + Vector2.DOWN)
-	var celdas_adyacentes : Array = [celda_derecha, celda_izquierda, celda_inferior, celda_superior]
-	return celdas_adyacentes
+	var vector_x = int(celda.vector.x)
+	if vector_x % 2 == 0: 
+		var celda_inferior_izquierda : Celda = Convertir.celda(celda.vector + Vector2(-1,0))
+		var celda_inferior : Celda = Convertir.celda(celda.vector + Vector2(0,1))
+		var celda_inferior_derecha : Celda = Convertir.celda(celda.vector + Vector2(1,0))
+		var celda_superior_izquierda : Celda = Convertir.celda(celda.vector + Vector2(-1,-1))
+		var celda_superior : Celda =  Convertir.celda(celda.vector + Vector2(0,-1))
+		var celda_superior_derecha : Celda = Convertir.celda(celda.vector + Vector2(1,-1))
+		var celdas_adyacentes : Array = [celda_inferior_izquierda, celda_inferior, celda_inferior_derecha, celda_superior_izquierda, celda_superior, celda_superior_derecha]
+		return celdas_adyacentes
+	else:
+		var celda_inferior_izquierda : Celda = Convertir.celda(celda.vector + Vector2(-1,1))
+		var celda_inferior : Celda = Convertir.celda(celda.vector + Vector2(0,1))
+		var celda_inferior_derecha : Celda = Convertir.celda(celda.vector + Vector2(1,1))
+		var celda_superior_izquierda : Celda = Convertir.celda(celda.vector + Vector2(-1,0))
+		var celda_superior : Celda =  Convertir.celda(celda.vector + Vector2(0,-1))
+		var celda_superior_derecha : Celda = Convertir.celda(celda.vector + Vector2(1,0))
+		var celdas_adyacentes : Array = [celda_inferior_izquierda, celda_inferior, celda_inferior_derecha, celda_superior_izquierda, celda_superior, celda_superior_derecha]
+		return celdas_adyacentes
 
 func obtener_celdas_ocupadas_adyacentes(celda: Celda) -> Array:
 	var celdas_adyacentes : Array = self.obtener_celdas_adyacentes(celda)
-	var celdas_ocupadas : Array = self.obtener_celdas_ocupadas()
-	var celdas_ocupadas_adyacentes : Array 
+	var _celdas_ocupadas : Array = self.obtener_celdas_ocupadas()
+	var _celdas_ocupadas_adyacentes : Array 
 	for celda in celdas_adyacentes:
-		if celda._in(celdas_ocupadas):
-			celdas_ocupadas_adyacentes.append(celda)
-	return celdas_ocupadas_adyacentes
+		if celda._in(_celdas_ocupadas):
+			_celdas_ocupadas_adyacentes.append(celda)
+	return _celdas_ocupadas_adyacentes
 
 #Devuelve posicion de los nodos hijos en formato grilla (te da la ubicacion de la celda en la grilla) (devuelve un Vector2)
 func obtener_posicion_grilla(nodo : Node2D)-> Celda:
@@ -57,7 +70,7 @@ func celdas_a_pixeles(posicion : Celda)-> Pixel:
 
 #Devuelve posicion de las celdas en formato pixels (devuelve un Vector2)
 func obtener_posicion_pixels(celdas: Celda)-> Array:
-	var posiciones : Array
+	var posiciones : Array = []
 	for celda in celdas:
 		posiciones.append(map_to_world(celda.vector))
 	return posiciones
@@ -81,8 +94,13 @@ func obtener_centro_celda(celda : Celda)-> Vector2:
 #Devuelve la data de una celda
 func obtener_info_de_celda(ubicacion_celda: Celda):
 	var tile_id = self.get_cellv(ubicacion_celda.vector)
-	if(tile_id == -1):
+	if tile_id == 6:
+		print("celda con tile_id 6:")
+		print(ubicacion_celda.vector)
+	
+	if tile_id == -1:
 		return Data.terrenos["empty"]
+
 	var tile_name = self.tile_set.tile_get_name(tile_id)
 	return Data.terrenos[tile_name]
 	

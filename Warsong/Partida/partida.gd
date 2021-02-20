@@ -29,22 +29,21 @@ const edificios = [
 const facciones = [
 	{
 		"nombre" : "orcos",
-		"tropas": [
-			{
-				"posicion" : posiciones_unidades[0],
-				"clase" : "fighter",
-				"equipamiento" : ["pechera de cuero", "espada", "armadura de caballo"], #// ojo, usar los mismos nombres que items
-			}
-		]
+		"tropas": ["fighter", "caballero", "arquero"],
+		"modificadores": {
+						"ataque" : 1,
+						"critico" : 5,
+						}
 	},
 	{
 		"nombre" : "elfos",
-		"tropas": [
-			{
-				"posicion" : posiciones_unidades[1],
-				"clase" : "caballero",
-				"equipamiento" : ["pechera de cuero", "espada","armadura de caballo"], #// ojo, usar los mismos nombres que items
-			}
-		]
+		"tropas": ["fighter", "caballero", "arquero"],
+		"modificadores": {
+						"defensa" : 1,
+						"esquiva" : 5,
+						}
 	}
  ]
+
+static func obtener_facciones():
+	return facciones

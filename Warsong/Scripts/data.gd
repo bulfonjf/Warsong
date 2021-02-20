@@ -41,11 +41,11 @@ export var edificios = {
 	}
 }
 export var terrenos = {
-	'pasto': {
-		'tipo': 'tierra'
+	"pasto": {
+		"tipo": "tierra"
 	},
-	'ruta': {
-		'tipo': 'camino'
+	"ruta": {
+		"tipo": "camino"
 	},
 	"bosque":{
 		"tipo" : "bosque"
@@ -96,15 +96,26 @@ export var items : Dictionary = {
 
 export var clases_unidades : Dictionary = {
 	"fighter" : {
-		"nombre": "figther",
+		"nombre": "fighter",
 		"coste_movimiento" : {
 			"tierra" : 3,
 			"camino" : 2,
+			"bosque" : 3,
 			},
+		"ataque" : {
+			"dados" : 1,
+			"caras"	: 10,
+			},
+		"modificadores": 0,
+		"dado_modificador": {
+			"dados" : 0,
+			"caras"	: 0,
+			}, 
+		"defensa" : 3,
+		"vida" : 10,
 		"movimientos" : 7,
-		"ataque" : 11,
-		"defensa" : 1,
-		"vida" : 50,
+		"ataque_critico" : 10,
+		"esquiva" : 5,
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots.slice(0,2)
 	},
@@ -114,11 +125,48 @@ export var clases_unidades : Dictionary = {
 			"tierra" : 2,
 			"camino" : 1,
 			},
+		"ataque" : {
+			"dados" : 1,
+			"caras"	: 10,
+			},
+		"modificadores": 0,
+		"dado_modificador": {
+			"dados" : 0,
+			"caras"	: 0,
+			},
+		"defensa" : 2,
+		"vida" : 10,
 		"movimientos" : 8,
-		"ataque" : 15,
+		"ataque_critico" : 10,
+		"esquiva" : 5,
+		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
+		"slots" : slots
+	},
+	"arquero" : {
+		"nombre": "arquero",
+		"coste_movimiento" : {
+			"tierra" : 3,
+			"camino" : 2,
+			"bosque" : 3,
+			},
+		"ataque" : {
+			"dados" : 1,
+			"caras"	: 6,
+			},
+		"modificadores": 0,
+		"dado_modificador": {
+			"dados" : 0,
+			"caras"	: 0,
+			},
 		"defensa" : 1,
-		"vida" : 60,
+		"vida" : 10,
+		"movimientos" : 8,
+		"ataque_critico" : 10,
+		"esquiva" : 5,
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots
 	}
 }
+
+func obtener_unidades():
+	return clases_unidades

@@ -3,9 +3,10 @@ extends "contexto_singleton.gd"
 
 var actor_activo = "actor_activo"
 var celdas_movimiento = "celdas_movimiento"
+var celdas_agregar_unidad = "celdas_agregar_unidad"
 var accion_mover_tropa = "mover_tropa"
 var accion_atacar = "atacando"
-
+var accion_agregar_unidad = "agregando_unidad"
 func get_actor_activo():
 	return self.data_contexto[actor_activo]
 	
@@ -32,19 +33,37 @@ func activar_ataque():
 	self.acciones.clear()
 	self.acciones.append(accion_atacar)
 
+func activar_agregar_unidad():
+	self.acciones.clear()
+	self.acciones.append(accion_agregar_unidad)
+
 func vaciar_acciones():
 	self.acciones.clear()
 
 func set_celdas_de_movimiento(celdas):
 	self.data_contexto[celdas_movimiento] = celdas
 
+func set_celdas_agregar_unidad(celdas):
+	self.data_contexto[celdas_agregar_unidad] = celdas
+
 func si_movimiento_activado():
 	return self.activo and accion_mover_tropa in self.acciones
-		
+
+func si_agregar_unidad_activado():
+	return self.activo and accion_agregar_unidad in self.acciones
+
+func get_coste_de_moviento_celda(celda):
+	for key in self.data_contexto[celdas_movimiento].keys():
+		if celda.vector == key:
+			return self.data_contexto[celdas_movimiento][key]
+
 func si_celda_resaltada(celda):
-	for key in self.data_contexto[celdas_movimiento]:
+	for key in self.data_contexto[celdas_movimiento].keys():
+		if celda.vector == key:
+			return true
+func si_celda_resaltada_agregar_unidad(celda):
+	for key in self.data_contexto[celdas_agregar_unidad]:
 		if celda._eq(key):
 			return true
-
 func get_acciones():
 	return self.acciones

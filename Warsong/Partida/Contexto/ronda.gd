@@ -3,7 +3,10 @@ extends Node #TODO cambiar por Reference
 
 var total_rondas = 1
 var facciones = []
-var faccion_activa : String = ""
+var faccion_activa : String = "faccion"
+
+signal turno_iniciado(total_rondas, _faccion_activa)
+
 
 func init(facciones_param : Array, faccion_activa_param : String):
 	self.facciones = facciones_param 
@@ -12,8 +15,8 @@ func init(facciones_param : Array, faccion_activa_param : String):
 func iniciar_turno(faccion_param : String):
 	if faccion_param in self.facciones:
 		self.faccion_activa = faccion_param
-
-func terminar_turno():
+	emit_signal("turno_iniciado", total_rondas, faccion_activa)
+remotesync func terminar_turno():
 	var proxima_faccion = self.obtener_proxima_faccion()
 	self.incrementar_ronda_si_corresponde()
 	var faccion_proximo_turno = self.facciones[proxima_faccion]
