@@ -6,11 +6,11 @@ func init_unidad(unidad : Unidad):
 	var dic = {
 		"faccion": unidad.obtener_faccion(),
 		"vida": unidad.vida,
-		"ataque": str(str(unidad.get_ataque()["dados"])+ "d" +str(unidad.get_ataque()["caras"])),
+		#"ataque": str(str(unidad.get_ataque()["dados"])+ "d" +str(unidad.get_ataque()["caras"])),
 		"defensa": unidad.get_defensa(),
-		"critico" : unidad.get_ataque_critico(),
-		"esquiva": unidad.get_esquiva(),
-		"items": "",
+		#"critico" : unidad.get_ataque_critico(),
+		#"esquiva": unidad.get_esquiva(),
+		#"items": "",
 		"mov": unidad.get_movimientos()
 
 	}

@@ -29,7 +29,7 @@ const edificios = [
 const facciones = [
 	{
 		"nombre" : "orcos",
-		"tropas": ["fighter", "caballero", "arquero"],
+		"tropas": ["fighter", "caballero", "arquero", "lancero"],
 		"modificadores": {
 						"ataque" : 1,
 						"critico" : 5,
@@ -37,7 +37,7 @@ const facciones = [
 	},
 	{
 		"nombre" : "elfos",
-		"tropas": ["fighter", "caballero", "arquero"],
+		"tropas": ["fighter", "caballero", "arquero", "lancero"],
 		"modificadores": {
 						"defensa" : 1,
 						"esquiva" : 5,

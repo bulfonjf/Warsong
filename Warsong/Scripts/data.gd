@@ -103,19 +103,26 @@ export var clases_unidades : Dictionary = {
 			"bosque" : 3,
 			},
 		"ataque" : {
-			"dados" : 1,
-			"caras"	: 10,
+			"minimo" : 3,
+			"medio"	: 5,
+			"maximo": 7,
 			},
-		"modificadores": 0,
-		"dado_modificador": {
-			"dados" : 0,
-			"caras"	: 0,
+		"modificador_ataque":{
+			"fighter" : 0,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 2,
+			}, 
+		"modificador_defensa": {
+			"fighter" : 0,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 2,
 			}, 
 		"defensa" : 3,
-		"vida" : 10,
+		"vida" : 6,
 		"movimientos" : 7,
-		"ataque_critico" : 10,
-		"esquiva" : 5,
+
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots.slice(0,2)
 	},
@@ -126,19 +133,26 @@ export var clases_unidades : Dictionary = {
 			"camino" : 1,
 			},
 		"ataque" : {
-			"dados" : 1,
-			"caras"	: 10,
+			"minimo" : 3,
+			"medio"	: 5,
+			"maximo": 7,
 			},
-		"modificadores": 0,
-		"dado_modificador": {
-			"dados" : 0,
-			"caras"	: 0,
-			},
+		"modificador_ataque":{
+			"fighter" : 2,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 0,
+			}, 
+		"modificador_defensa": {
+			"fighter" : 2,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 0,
+			}, 
 		"defensa" : 2,
-		"vida" : 10,
+		"vida" : 6,
 		"movimientos" : 8,
-		"ataque_critico" : 10,
-		"esquiva" : 5,
+
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots
 	},
@@ -150,22 +164,56 @@ export var clases_unidades : Dictionary = {
 			"bosque" : 3,
 			},
 		"ataque" : {
-			"dados" : 1,
-			"caras"	: 6,
+			"minimo" : 3,
+			"medio"	: 4,
+			"maximo": 5,
 			},
-		"modificadores": 0,
-		"dado_modificador": {
-			"dados" : 0,
-			"caras"	: 0,
-			},
+		"modificador_ataque":{
+			"fighter" : 0,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 0,
+			}, 
+		"modificador_defensa": {
+			"fighter" : 0,
+			"caballero"	: 0,
+			"arquero": 0,
+			"lancero": 0,
+			}, 
 		"defensa" : 1,
-		"vida" : 10,
+		"vida" : 6,
 		"movimientos" : 8,
-		"ataque_critico" : 10,
-		"esquiva" : 5,
 		"puede_equipar" : clase_item, #// ahora puede equipar todo, restringir despues
 		"slots" : slots
-	}
+	},
+	"lancero" : {
+		"nombre": "lancero",
+		"coste_movimiento" : {
+			"tierra" : 3,
+			"camino" : 2,
+			"bosque" : 3,
+			},
+		"ataque" : {
+			"minimo" : 2,
+			"medio"	: 3,
+			"maximo": 4,
+			},
+		"modificador_ataque":{
+			"fighter" : 0,
+			"caballero"	: 2,
+			"arquero": 0,
+			"lancero": 2,
+			}, 
+		"modificador_defensa": {
+			"fighter" : 0,
+			"caballero"	: 2,
+			"arquero": 0,
+			"lancero": 0,
+			}, 
+		"defensa" : 4,
+		"vida" : 7,
+		"movimientos" : 8,
+	},
 }
 
 func obtener_unidades():

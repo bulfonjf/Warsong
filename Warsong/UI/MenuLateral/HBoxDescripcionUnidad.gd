@@ -19,12 +19,12 @@ var checkbox_activado: bool = false
 func init(unidad):
 	nombre_unidad = unidad["nombre"]
 	nombre.text = unidad["nombre"]
-	ataque.text = str(unidad.ataque)
+	#ataque.text = str(unidad.ataque)
 	defensa.text = str(unidad.defensa)
 	vida.text = str(unidad.vida)
 	movimiento.text = str(unidad.movimientos)
-	critico.text = str(unidad.ataque_critico)
-	esquiva.text = str(unidad.esquiva)
+	#critico.text = str(unidad.ataque_critico)
+	#esquiva.text = str(unidad.esquiva)
 	pass
 
 func _ready() -> void:

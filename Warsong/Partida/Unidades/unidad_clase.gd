@@ -101,8 +101,11 @@ func get_defensa():
 func get_modificadores():
 	return self.clase.modificadores
 
-func get_dado_modificador():
-	return self.clase.dado_modificador
+func get_modificador_defensa():
+	return self.clase.modificador_defensa
+
+func get_modificador_ataque():
+	return self.clase.modificador_ataque
 
 func get_ataque_critico():
 	return self.clase.ataque_critico
